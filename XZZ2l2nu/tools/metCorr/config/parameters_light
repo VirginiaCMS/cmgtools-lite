@@ -41,7 +41,7 @@ n_interval: 1000000
 
 # tree branch config
 useLightTree: true
-storeErr: false
+storeErr: true
 removeHLTFlag: true
 removeMETFlag: true
 doMTUnc: true

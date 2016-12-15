@@ -38,9 +38,9 @@ njob="0"
 #for infile in $inputdir/SingleEMU_Run2016B2G_ReReco_27fbinv/vvTreeProducer/tree.root ; 
 #for infile in $inputdir/DYJetsToLL_M50_BIG_JEC/vvTreeProducer/tree.root ; 
 #for infile in $inputdir/SingleEMU_Run2016B2H_ReReco_36p1fbinv/vvTreeProducer/tree.root ; 
-#for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep -v Single | grep -v DYJets ); 
 #for infile in $inputdir/SingleEMU_Run2016B2H_ReReco_36p22fbinv/vvTreeProducer/tree.root ; 
-for infile in $inputdir/DYJetsToLL_M50_BIG/vvTreeProducer/tree.root ; 
+#for infile in $inputdir/DYJetsToLL_M50_BIG/vvTreeProducer/tree.root ; 
+for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep -v Single | grep -v DYJets ); 
 do
   echo "+++ skimming $infile +++"
   outfile="${outputdir}/${infile/$inputdir\//}"
@@ -51,8 +51,8 @@ do
   #outfile="${outfile/\/vvTreeProducer\/tree/_ResBosRefit_Rc36p46}"
   #outfile="${outfile/\/vvTreeProducer\/tree/_Rc36p46DtReCalib}"
   #outfile="${outfile/\/vvTreeProducer\/tree/_DtReCalib}"
-  #outfile="${outfile/\/vvTreeProducer\/tree/}"
-  outfile="${outfile/\/vvTreeProducer\/tree/_test}"
+  outfile="${outfile/\/vvTreeProducer\/tree/}"
+  #outfile="${outfile/\/vvTreeProducer\/tree/_test}"
 
   inSkimFile=${infile/vvTreeProducer\/tree.root/skimAnalyzerCount\/SkimReport.txt}
 
