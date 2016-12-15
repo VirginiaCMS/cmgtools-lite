@@ -2,6 +2,7 @@
 #include "TTree.h"
 #include "TBranch.h"
 #include "TH1D.h"
+#include "TProfile.h"
 #include "TH2D.h"
 #include "TH3D.h"
 #include "TCanvas.h"
@@ -26,11 +27,16 @@
 int main(int argc, char** argv) {
 
 
-  //TFile* file1 = TFile::Open("/home/heli/XZZ/80X_20161029_light_Skim/DYJetsToLL_M50_BIG_NoRecoil.root");
-  TFile* file1 = TFile::Open("/home/heli/XZZ/80X_20161029_light_Skim/DYJetsToLL_M50_BIG_ResBos_NoRecoil.root");
-  TFile* file2 = TFile::Open("/home/heli/XZZ/80X_20161029_GJets_light_Skim/SinglePhoton_Run2016B2H_ReReco_36p22fbinv_NoRecoil.root");
+  //TFile* file1 = TFile::Open("/home/heli/XZZ/80X_20161029_light_Skim/DYJetsToLL_M50_BIG_ResBos_NoRecoil.root");
+  //TFile* file1 = TFile::Open("/home/heli/XZZ/80X_20161029_light_Skim/DYJetsToLL_M50_BIG_ResBosRefit_NoRecoil.root");
+  //TFile* file2 = TFile::Open("/home/heli/XZZ/80X_20161029_GJets_light_Skim/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil.root");
+  //TFile* file1 = TFile::Open("/home/heli/XZZ/80X_20161029_light_Skim/DYJetsToLL_M50_BIG_ResBosRefit_Rc36p46.root");
+  TFile* file1 = TFile::Open("/home/heli/XZZ/80X_20161029_light_Skim/DYJetsToLL_M50_BIG_NoRecoil.root");
+  TFile* file2 = TFile::Open("/home/heli/XZZ/80X_20161029_GJets_light_Skim/SinglePhoton_Run2016B2H_ReReco_36p46_ResBosRefit_Rc36p46ReCalib.root");
 
-  std::string outtag="study_gjets_data_b2h36p22fbinv_v5resbos_norm";
+  //std::string outtag="study_gjets_data_36p46_resbos_norm_npucut";
+  //std::string outtag="study_gjets_data_36p46_resbosrefit_norm_npucut";
+  std::string outtag="study_gjets_data_36p46_norm_npucut";
 
   // yields:
 
@@ -93,11 +99,14 @@ int main(int argc, char** argv) {
   std::string cuts_lepaccept_lowlpt="((abs(llnunu_l1_l1_pdgId)==13&&abs(llnunu_l1_l2_pdgId)==13&&llnunu_l1_l1_pt>20&&abs(llnunu_l1_l1_eta)<2.4&&llnunu_l1_l2_pt>20&&abs(llnunu_l1_l2_eta)<2.4&&(llnunu_l1_l1_highPtID==1||llnunu_l1_l2_highPtID==1))";
   cuts_lepaccept_lowlpt+="||(abs(llnunu_l1_l1_pdgId)==11&&abs(llnunu_l1_l2_pdgId)==11&&llnunu_l1_l1_pt>20&&abs(llnunu_l1_l1_eta)<2.5&&llnunu_l1_l2_pt>20&&abs(llnunu_l1_l2_eta)<2.5))";
   std::string cuts_zmass="(llnunu_l1_mass>70&&llnunu_l1_mass<110)";
+  std::string cuts_npu="(nTrueInt<36)";
   // metfilter applied in preskim already
   //std::string cuts_loose_z="("+metfilter+"&&"+cuts_lepaccept+"&&"+cuts_zmass+")";
   //std::string cuts_loose_z_lowlpt="("+metfilter+"&&"+cuts_lepaccept_lowlpt+"&&"+cuts_zmass+")";
-  std::string cuts_loose_z="("+cuts_lepaccept+"&&"+cuts_zmass+")";
-  std::string cuts_loose_z_lowlpt="("+cuts_lepaccept_lowlpt+"&&"+cuts_zmass+")";
+  //std::string cuts_loose_z="("+cuts_lepaccept+"&&"+cuts_zmass+")";
+  //std::string cuts_loose_z_lowlpt="("+cuts_lepaccept_lowlpt+"&&"+cuts_zmass+")";
+  std::string cuts_loose_z="("+cuts_lepaccept+"&&"+cuts_zmass+"&&"+cuts_npu+")";
+  std::string cuts_loose_z_lowlpt="("+cuts_lepaccept_lowlpt+"&&"+cuts_zmass+"&&"+cuts_npu+")";
 
 
   std::string base_selec =  cuts_loose_z;
@@ -184,16 +193,27 @@ int main(int argc, char** argv) {
   double gnorm = hzptbb2->Integral();
   hzptbb2->Scale(1./gnorm, "width");
 
-  std::cout << "Total_Photon_Integral: " << std::setprecision(20) << gnorm << std::endl;
+  std::cout << "gdataYield = " << std::setprecision(20) << gnorm << std::endl;
+
+  // photon pt profile
+  TProfile* pr_zpt_2 = new TProfile("pr_zpt_2", "pr_zpt_2", NZPtBins, ZPtBins);
+  tree2->Draw("l1_pt:l1_pt>>pr_zpt_2", gjet_selec.c_str());
 
 
   // all
   TH1D* hzptbb1 = new TH1D("hzptbb1", "hzptbb1", NZPtBins, ZPtBins);
   hzptbb1->Sumw2();
   tree1->Draw("llnunu_l1_pt>>hzptbb1", zjet_selec.c_str());
+
+  // profile
+  TProfile* pr_zpt_1 = new TProfile("pr_zpt_1", "pr_zpt_1", NZPtBins, ZPtBins);
+  tree1->Draw("llnunu_l1_pt:llnunu_l1_pt>>pr_zpt_1",zjet_selec.c_str());
+
   double znorm = hzptbb1->Integral();
   hzptbb1->Scale(1./znorm, "width");
-  std::cout << "ZJets_Integral: " << std::setprecision(20) << znorm << std::endl;
+  std::cout << "zjetsFidXsecAll = " << std::setprecision(20) << znorm << std::endl;
+
+
 
   hzptbb1->SetMarkerColor(2);
   hzptbb2->SetMarkerColor(4);
@@ -225,12 +245,16 @@ int main(int argc, char** argv) {
   plots->Clear();
 
   // el
+  // profile
+  TProfile* pr_zpt_1_el = new TProfile("pr_zpt_1_el", "pr_zpt_1_el", NZPtBins, ZPtBins);
+  tree1->Draw("llnunu_l1_pt:llnunu_l1_pt>>pr_zpt_1_el",zjet_selec_el.c_str());
+
   TH1D* hzptbb1_el = new TH1D("hzptbb1_el", "hzptbb1_el", NZPtBins, ZPtBins);
   hzptbb1_el->Sumw2();
   tree1->Draw("llnunu_l1_pt>>hzptbb1_el", zjet_selec_el.c_str());
   double znorm_el = hzptbb1_el->Integral();
   hzptbb1_el->Scale(1./znorm_el, "width");
-  std::cout << "ZJets_Integral_el: " << std::setprecision(20) << znorm_el << std::endl;
+  std::cout << "zjetsFidXsecEl =  " << std::setprecision(20) << znorm_el << std::endl;
 
   hzptbb1_el->SetMarkerColor(2);
   hzptbb1_el->SetLineColor(2);
@@ -261,12 +285,16 @@ int main(int argc, char** argv) {
 
 
   // mu
+  // profile
+  TProfile* pr_zpt_1_mu = new TProfile("pr_zpt_1_mu", "pr_zpt_1_mu", NZPtBins, ZPtBins);
+  tree1->Draw("llnunu_l1_pt:llnunu_l1_pt>>pr_zpt_1_mu",zjet_selec_mu.c_str());
+
   TH1D* hzptbb1_mu = new TH1D("hzptbb1_mu", "hzptbb1_mu", NZPtBins, ZPtBins);
   hzptbb1_mu->Sumw2();
   tree1->Draw("llnunu_l1_pt>>hzptbb1_mu", zjet_selec_mu.c_str());
   double znorm_mu = hzptbb1_mu->Integral();
   hzptbb1_mu->Scale(1./znorm_mu, "width");
-  std::cout << "ZJets_Integral_mu: " << std::setprecision(20) << znorm_mu << std::endl;
+  std::cout << "zjetsFidXsecMu =  " << std::setprecision(20) << znorm_mu << std::endl;
 
 
   hzptbb1_mu->SetMarkerColor(2);
@@ -298,79 +326,102 @@ int main(int argc, char** argv) {
 
 
   // all up
+  // profile
+  TProfile* pr_zpt_1_up = new TProfile("pr_zpt_1_up", "pr_zpt_1_up", NZPtBins, ZPtBins);
+  tree1->Draw("llnunu_l1_pt:llnunu_l1_pt>>pr_zpt_1_up",zjet_selec_up.c_str());
+
   TH1D* hzptbb1_up = new TH1D("hzptbb1_up", "hzptbb1_up", NZPtBins, ZPtBins);
   tree1->Draw("llnunu_l1_pt>>hzptbb1_up", zjet_selec_up.c_str());
   double znorm_up = hzptbb1_up->Integral();
   hzptbb1_up->Scale(1./znorm_up, "width");
-  std::cout << "ZJets_Integral_up: " << std::setprecision(20) << znorm_up << std::endl;
+  std::cout << "zjetsFidXsecAll_up = " << std::setprecision(20) << znorm_up << std::endl;
 
   TH1D* hzptbbr12_up = (TH1D*)hzptbb1_up->Clone("hzptbbr12_up");
   hzptbbr12_up->Divide(hzptbb2);
   hzptbbr12_up->Scale(Norm_All);
 
   // all dn
+  // profile
+  TProfile* pr_zpt_1_dn = new TProfile("pr_zpt_1_dn", "pr_zpt_1_dn", NZPtBins, ZPtBins);
+  tree1->Draw("llnunu_l1_pt:llnunu_l1_pt>>pr_zpt_1_dn",zjet_selec_dn.c_str());
   TH1D* hzptbb1_dn = new TH1D("hzptbb1_dn", "hzptbb1_dn", NZPtBins, ZPtBins);
   tree1->Draw("llnunu_l1_pt>>hzptbb1_dn", zjet_selec_dn.c_str());
   double znorm_dn = hzptbb1_dn->Integral();
   hzptbb1_dn->Scale(1./znorm_dn, "width");
-  std::cout << "ZJets_Integral_dn: " << std::setprecision(20) << znorm_dn << std::endl;
+  std::cout << "zjetsFidXsecAll_dn = " << std::setprecision(20) << znorm_dn << std::endl;
   TH1D* hzptbbr12_dn = (TH1D*)hzptbb1_dn->Clone("hzptbbr12_dn");
   hzptbbr12_dn->Divide(hzptbb2);
   hzptbbr12_dn->Scale(Norm_All);
 
   // el up
+  // profile
+  TProfile* pr_zpt_1_el_up = new TProfile("pr_zpt_1_el_up", "pr_zpt_1_el_up", NZPtBins, ZPtBins);
+  tree1->Draw("llnunu_l1_pt:llnunu_l1_pt>>pr_zpt_1_el_up",zjet_selec_el_up.c_str());
   TH1D* hzptbb1_el_up = new TH1D("hzptbb1_el_up", "hzptbb1_el_up", NZPtBins, ZPtBins);
   hzptbb1_el_up->Sumw2();
   tree1->Draw("llnunu_l1_pt>>hzptbb1_el_up", zjet_selec_el_up.c_str());
   double znorm_el_up = hzptbb1_el_up->Integral();
   hzptbb1_el_up->Scale(1./znorm_el_up, "width");
-  std::cout << "ZJets_Integral_el_up: " << std::setprecision(20) << znorm_el_up << std::endl;
+  std::cout << "zjetsFidXsecEl_up = " << std::setprecision(20) << znorm_el_up << std::endl;
   TH1D* hzptbbr12_el_up = (TH1D*)hzptbb1_el_up->Clone("hzptbbr12_el_up");
   hzptbbr12_el_up->Divide(hzptbb2);
   hzptbbr12_el_up->Scale(Norm_El);
 
   // el dn
+  // profile
+  TProfile* pr_zpt_1_el_dn = new TProfile("pr_zpt_1_el_dn", "pr_zpt_1_el_dn", NZPtBins, ZPtBins);
+  tree1->Draw("llnunu_l1_pt:llnunu_l1_pt>>pr_zpt_1_el_dn",zjet_selec_el_dn.c_str());
   TH1D* hzptbb1_el_dn = new TH1D("hzptbb1_el_dn", "hzptbb1_el_dn", NZPtBins, ZPtBins);
   hzptbb1_el_dn->Sumw2();
   tree1->Draw("llnunu_l1_pt>>hzptbb1_el_dn", zjet_selec_el_dn.c_str());
   double znorm_el_dn = hzptbb1_el_dn->Integral();
   hzptbb1_el_dn->Scale(1./znorm_el_dn, "width");
-  std::cout << "ZJets_Integral_el_dn: " << std::setprecision(20) << znorm_el_dn << std::endl;
+  std::cout << "zjetsFidXsecEl_dn = " << std::setprecision(20) << znorm_el_dn << std::endl;
   TH1D* hzptbbr12_el_dn = (TH1D*)hzptbb1_el_dn->Clone("hzptbbr12_el_dn");
   hzptbbr12_el_dn->Divide(hzptbb2);
   hzptbbr12_el_dn->Scale(Norm_El);
 
   // mu up
+  // profile
+  TProfile* pr_zpt_1_mu_up = new TProfile("pr_zpt_1_mu_up", "pr_zpt_1_mu_up", NZPtBins, ZPtBins);
+  tree1->Draw("llnunu_l1_pt:llnunu_l1_pt>>pr_zpt_1_mu_up",zjet_selec_mu_up.c_str());
   TH1D* hzptbb1_mu_up = new TH1D("hzptbb1_mu_up", "hzptbb1_mu_up", NZPtBins, ZPtBins);
   hzptbb1_mu_up->Sumw2();
   tree1->Draw("llnunu_l1_pt>>hzptbb1_mu_up", zjet_selec_mu_up.c_str());
   double znorm_mu_up = hzptbb1_mu_up->Integral();
   hzptbb1_mu_up->Scale(1./znorm_mu_up, "width");
-  std::cout << "ZJets_Integral_mu_up: " << std::setprecision(20) << znorm_mu_up << std::endl;
+  std::cout << "zjetsFidXsecMu_up = " << std::setprecision(20) << znorm_mu_up << std::endl;
   hzptbb1_mu_up->Scale(1./hzptbb1_mu_up->Integral(), "width");
   TH1D* hzptbbr12_mu_up = (TH1D*)hzptbb1_mu_up->Clone("hzptbbr12_mu_up");
   hzptbbr12_mu_up->Divide(hzptbb2);
   hzptbbr12_mu_up->Scale(Norm_El);
 
   // mu dn
+  // profile
+  TProfile* pr_zpt_1_mu_dn = new TProfile("pr_zpt_1_mu_dn", "pr_zpt_1_mu_dn", NZPtBins, ZPtBins);
+  tree1->Draw("llnunu_l1_pt:llnunu_l1_pt>>pr_zpt_1_mu_dn",zjet_selec_mu_dn.c_str());
   TH1D* hzptbb1_mu_dn = new TH1D("hzptbb1_mu_dn", "hzptbb1_mu_dn", NZPtBins, ZPtBins);
   hzptbb1_mu_dn->Sumw2();
   tree1->Draw("llnunu_l1_pt>>hzptbb1_mu_dn", zjet_selec_mu_dn.c_str());
   double znorm_mu_dn = hzptbb1_mu_dn->Integral();
   hzptbb1_mu_dn->Scale(1./znorm_mu_dn, "width");
-  std::cout << "ZJets_Integral_mu_dn: " << std::setprecision(20) << znorm_mu_dn << std::endl;
+  std::cout << "zjetsFidXsecMu_dn = " << std::setprecision(20) << znorm_mu_dn << std::endl;
   TH1D* hzptbbr12_mu_dn = (TH1D*)hzptbb1_mu_dn->Clone("hzptbbr12_mu_dn");
   hzptbbr12_mu_dn->Divide(hzptbb2);
   hzptbbr12_mu_dn->Scale(Norm_Mu);
 
 
   // zpt lowlpt all
+  // profile
+  TProfile* pr_zpt_1_lowlpt = new TProfile("pr_zpt_1_lowlpt", "pr_zpt_1_lowlpt", NZPtBins, ZPtBins);
+  tree1->Draw("llnunu_l1_pt:llnunu_l1_pt>>pr_zpt_1_lowlpt",zjet_selec_lowlpt.c_str());
+
   TH1D* hzptbb1_lowlpt = new TH1D("hzptbb1_lowlpt", "hzptbb1_lowlpt", NZPtBins, ZPtBins);
   hzptbb1_lowlpt->Sumw2();
   tree1->Draw("llnunu_l1_pt>>hzptbb1_lowlpt", zjet_selec_lowlpt.c_str());
   double znorm_lowlpt = hzptbb1_lowlpt->Integral();
   hzptbb1_lowlpt->Scale(1./znorm_lowlpt, "width");
-  std::cout << "ZJets_Integral_lowlpt: " << std::setprecision(20) << znorm_lowlpt << std::endl;
+  std::cout << "zjetsFidXsecLowLptAll = " << std::setprecision(20) << znorm_lowlpt << std::endl;
 
   hzptbb1_lowlpt->SetMarkerColor(2);
   hzptbb1_lowlpt->SetLineColor(2);
@@ -400,12 +451,15 @@ int main(int argc, char** argv) {
   plots->Clear();
 
   // lowlpt el
+  // profile
+  TProfile* pr_zpt_1_lowlpt_el = new TProfile("pr_zpt_1_lowlpt_el", "pr_zpt_1_lowlpt_el", NZPtBins, ZPtBins);
+  tree1->Draw("llnunu_l1_pt:llnunu_l1_pt>>pr_zpt_1_lowlpt_el",zjet_selec_lowlpt_el.c_str());
   TH1D* hzptbb1_lowlpt_el = new TH1D("hzptbb1_lowlpt_el", "hzptbb1_lowlpt_el", NZPtBins, ZPtBins);
   hzptbb1_lowlpt_el->Sumw2();
   tree1->Draw("llnunu_l1_pt>>hzptbb1_lowlpt_el", zjet_selec_lowlpt_el.c_str());
   double znorm_lowlpt_el = hzptbb1_lowlpt_el->Integral();
   hzptbb1_lowlpt_el->Scale(1./znorm_lowlpt_el, "width");
-  std::cout << "ZJets_Integral_lowlpt_el: " << std::setprecision(20) << znorm_lowlpt_el << std::endl;
+  std::cout << "zjetsFidXsecLowLptEl = " << std::setprecision(20) << znorm_lowlpt_el << std::endl;
 
   hzptbb1_lowlpt_el->SetMarkerColor(2);
   hzptbb1_lowlpt_el->SetLineColor(2);
@@ -436,12 +490,15 @@ int main(int argc, char** argv) {
 
 
   // lowlpt  mu
+  // profile
+  TProfile* pr_zpt_1_lowlpt_mu = new TProfile("pr_zpt_1_lowlpt_mu", "pr_zpt_1_lowlpt_mu", NZPtBins, ZPtBins);
+  tree1->Draw("llnunu_l1_pt:llnunu_l1_pt>>pr_zpt_1_lowlpt_mu",zjet_selec_lowlpt_mu.c_str());
   TH1D* hzptbb1_lowlpt_mu = new TH1D("hzptbb1_lowlpt_mu", "hzptbb1_lowlpt_mu", NZPtBins, ZPtBins);
   hzptbb1_lowlpt_mu->Sumw2();
   tree1->Draw("llnunu_l1_pt>>hzptbb1_lowlpt_mu", zjet_selec_lowlpt_mu.c_str());
   double znorm_lowlpt_mu = hzptbb1_lowlpt_mu->Integral();
   hzptbb1_lowlpt_mu->Scale(1./znorm_lowlpt_mu, "width");
-  std::cout << "ZJets_Integral_lowlpt_mu: " << std::setprecision(20) << znorm_lowlpt_mu << std::endl;
+  std::cout << "zjetsFidXsecLowLptMu = " << std::setprecision(20) << znorm_lowlpt_mu << std::endl;
 
   hzptbb1_lowlpt_mu->SetMarkerColor(2);
   hzptbb1_lowlpt_mu->SetLineColor(2);
@@ -471,6 +528,86 @@ int main(int argc, char** argv) {
   plots->Clear();
 
 
+
+
+  // fine bin zpt hists
+  TH1D* hzptsb2 = new TH1D("hzptsb2", "hzptsb2", 500, 0, 1000);
+  TH1D* hzptsb1 = new TH1D("hzptsb1", "hzptsb1", 500, 0, 1000);
+  TH1D* hzptsb1_el = new TH1D("hzptsb1_el", "hzptsb1_el", 500, 0, 1000);
+  TH1D* hzptsb1_mu = new TH1D("hzptsb1_mu", "hzptsb1_mu", 500, 0, 1000);
+
+  hzptsb2->Sumw2();
+  hzptsb1->Sumw2();
+  hzptsb1_el->Sumw2();
+  hzptsb1_mu->Sumw2();
+
+  tree2->Draw("l1_pt>>hzptsb2", gjet_selec.c_str());
+  tree1->Draw("llnunu_l1_pt>>hzptsb1", zjet_selec.c_str());
+  tree1->Draw("llnunu_l1_pt>>hzptsb1_el", zjet_selec_el.c_str());
+  tree1->Draw("llnunu_l1_pt>>hzptsb1_mu", zjet_selec_mu.c_str());
+
+  hzptsb2->Scale(1./hzptsb2->Integral(), "width");
+  hzptsb1->Scale(1./hzptsb1->Integral(), "width");
+  hzptsb1_el->Scale(1./hzptsb1_el->Integral(), "width");
+  hzptsb1_mu->Scale(1./hzptsb1_mu->Integral(), "width");
+
+  TH1D* hzptsbr12 = (TH1D*)hzptsb1->Clone("hzptsbr12");
+  TH1D* hzptsbr12_el = (TH1D*)hzptsb1_el->Clone("hzptsbr12_el");
+  TH1D* hzptsbr12_mu = (TH1D*)hzptsb1_mu->Clone("hzptsbr12_mu");
+
+  hzptsbr12->Divide(hzptsb2);
+  hzptsbr12_el->Divide(hzptsb2);
+  hzptsbr12_mu->Divide(hzptsb2);
+
+
+
+  // use TGraph with mean pt value to model
+  TGraphErrors* gr_zpt_ratio = new TGraphErrors(pr_zpt_2->GetNbinsX());
+  TGraphErrors* gr_zpt_ratio_el = new TGraphErrors(pr_zpt_2->GetNbinsX());
+  TGraphErrors* gr_zpt_ratio_mu = new TGraphErrors(pr_zpt_2->GetNbinsX());
+  TGraphErrors* gr_zpt_ratio_up = new TGraphErrors(pr_zpt_2->GetNbinsX());
+  TGraphErrors* gr_zpt_ratio_dn = new TGraphErrors(pr_zpt_2->GetNbinsX());
+  TGraphErrors* gr_zpt_ratio_el_up = new TGraphErrors(pr_zpt_2->GetNbinsX());
+  TGraphErrors* gr_zpt_ratio_el_dn = new TGraphErrors(pr_zpt_2->GetNbinsX());
+  TGraphErrors* gr_zpt_ratio_mu_up = new TGraphErrors(pr_zpt_2->GetNbinsX());
+  TGraphErrors* gr_zpt_ratio_mu_dn = new TGraphErrors(pr_zpt_2->GetNbinsX());
+  TGraphErrors* gr_zpt_lowlpt_ratio = new TGraphErrors(pr_zpt_2->GetNbinsX());
+  TGraphErrors* gr_zpt_lowlpt_ratio_el = new TGraphErrors(pr_zpt_2->GetNbinsX());
+  TGraphErrors* gr_zpt_lowlpt_ratio_mu = new TGraphErrors(pr_zpt_2->GetNbinsX());
+
+
+
+  for (int i=0; i<pr_zpt_2->GetNbinsX(); i++){
+    gr_zpt_ratio->SetPoint(i, pr_zpt_1->GetBinContent(i+1), hzptbbr12->GetBinContent(i+1));
+    gr_zpt_ratio_el->SetPoint(i, pr_zpt_1_el->GetBinContent(i+1), hzptbbr12_el->GetBinContent(i+1));
+    gr_zpt_ratio_mu->SetPoint(i, pr_zpt_1_mu->GetBinContent(i+1), hzptbbr12_mu->GetBinContent(i+1));
+    gr_zpt_ratio_up->SetPoint(i, pr_zpt_1_up->GetBinContent(i+1), hzptbbr12_up->GetBinContent(i+1));
+    gr_zpt_ratio_dn->SetPoint(i, pr_zpt_1_dn->GetBinContent(i+1), hzptbbr12_dn->GetBinContent(i+1));
+    gr_zpt_ratio_el_up->SetPoint(i, pr_zpt_1_el_up->GetBinContent(i+1), hzptbbr12_el_up->GetBinContent(i+1));
+    gr_zpt_ratio_el_dn->SetPoint(i, pr_zpt_1_el_dn->GetBinContent(i+1), hzptbbr12_el_dn->GetBinContent(i+1));
+    gr_zpt_ratio_mu_up->SetPoint(i, pr_zpt_1_mu_up->GetBinContent(i+1), hzptbbr12_mu_up->GetBinContent(i+1));
+    gr_zpt_ratio_mu_dn->SetPoint(i, pr_zpt_1_mu_dn->GetBinContent(i+1), hzptbbr12_mu_dn->GetBinContent(i+1));
+    gr_zpt_lowlpt_ratio->SetPoint(i, pr_zpt_1_lowlpt->GetBinContent(i+1), hzptbbr12_lowlpt->GetBinContent(i+1));
+    gr_zpt_lowlpt_ratio_el->SetPoint(i, pr_zpt_1_lowlpt_el->GetBinContent(i+1), hzptbbr12_lowlpt_el->GetBinContent(i+1));
+    gr_zpt_lowlpt_ratio_mu->SetPoint(i, pr_zpt_1_lowlpt_mu->GetBinContent(i+1), hzptbbr12_lowlpt_mu->GetBinContent(i+1));
+
+    gr_zpt_ratio->SetPointError(i, pr_zpt_1->GetBinError(i+1), hzptbbr12->GetBinError(i+1));
+    gr_zpt_ratio_el->SetPointError(i, pr_zpt_1_el->GetBinError(i+1), hzptbbr12_el->GetBinError(i+1));
+    gr_zpt_ratio_mu->SetPointError(i, pr_zpt_1_mu->GetBinError(i+1), hzptbbr12_mu->GetBinError(i+1));
+    gr_zpt_ratio_up->SetPointError(i, pr_zpt_1_up->GetBinError(i+1), hzptbbr12_up->GetBinError(i+1));
+    gr_zpt_ratio_dn->SetPointError(i, pr_zpt_1_dn->GetBinError(i+1), hzptbbr12_dn->GetBinError(i+1));
+    gr_zpt_ratio_el_up->SetPointError(i, pr_zpt_1_el_up->GetBinError(i+1), hzptbbr12_el_up->GetBinError(i+1));
+    gr_zpt_ratio_el_dn->SetPointError(i, pr_zpt_1_el_dn->GetBinError(i+1), hzptbbr12_el_dn->GetBinError(i+1));
+    gr_zpt_ratio_mu_up->SetPointError(i, pr_zpt_1_mu_up->GetBinError(i+1), hzptbbr12_mu_up->GetBinError(i+1));
+    gr_zpt_ratio_mu_dn->SetPointError(i, pr_zpt_1_mu_dn->GetBinError(i+1), hzptbbr12_mu_dn->GetBinError(i+1));
+    gr_zpt_lowlpt_ratio->SetPointError(i, pr_zpt_1_lowlpt->GetBinError(i+1), hzptbbr12_lowlpt->GetBinError(i+1));
+    gr_zpt_lowlpt_ratio_el->SetPointError(i, pr_zpt_1_lowlpt_el->GetBinError(i+1), hzptbbr12_lowlpt_el->GetBinError(i+1));
+    gr_zpt_lowlpt_ratio_mu->SetPointError(i, pr_zpt_1_lowlpt_mu->GetBinError(i+1), hzptbbr12_lowlpt_mu->GetBinError(i+1));
+  }
+
+
+
+/*
   // 3D ZMass
 
   TH3D* hzmass_zpt_zrap = new TH3D("hzmass_zpt_zrap", "hzmass_zpt_zrap", NZMassBins, ZMassBins, NZPtBins,ZPtBins,NZRapBins,ZRapBins);
@@ -491,7 +628,7 @@ int main(int argc, char** argv) {
   tree1->Draw("llnunu_l1_rapidity:llnunu_l1_pt:llnunu_l1_mass>>hzmass_zpt_zrap_lowlpt", zjet_selec_lowlpt.c_str());
   tree1->Draw("llnunu_l1_rapidity:llnunu_l1_pt:llnunu_l1_mass>>hzmass_zpt_zrap_lowlpt_el", zjet_selec_lowlpt_el.c_str());
   tree1->Draw("llnunu_l1_rapidity:llnunu_l1_pt:llnunu_l1_mass>>hzmass_zpt_zrap_lowlpt_mu", zjet_selec_lowlpt_mu.c_str());
-
+*/
   // 2D ZMass
   TH2D* hzmass_zpt = new TH2D("hzmass_zpt", "hzmass_zpt", NZMassBins, ZMassBins, NZPtBins,ZPtBins);
   TH2D* hzmass_zpt_el = new TH2D("hzmass_zpt_el", "hzmass_zpt_el", NZMassBins, ZMassBins, NZPtBins,ZPtBins);
@@ -512,7 +649,7 @@ int main(int argc, char** argv) {
   tree1->Draw("llnunu_l1_pt:llnunu_l1_mass>>hzmass_zpt_lowlpt_el", zjet_selec_lowlpt_el.c_str());
   tree1->Draw("llnunu_l1_pt:llnunu_l1_mass>>hzmass_zpt_lowlpt_mu", zjet_selec_lowlpt_mu.c_str());
 
-
+/*
   // 2D zpt zrap
 
   // photon
@@ -808,7 +945,7 @@ int main(int argc, char** argv) {
   sprintf(name, "%s.pdf", outtag.c_str());
   plots->Print(name);
   plots->Clear();
-
+*/
 
 
   //
@@ -853,13 +990,51 @@ int main(int argc, char** argv) {
   hzptbb1_lowlpt_mu->Write("h_zpt_lowlpt_1_mu");
   hzptbbr12_lowlpt_mu->Write("h_zpt_lowlpt_ratio_mu");
 
+  pr_zpt_2->Write("pr_zpt_2");
+  pr_zpt_1->Write("pr_zpt_1");
+  pr_zpt_1_el->Write("pr_zpt_1_el");
+  pr_zpt_1_mu->Write("pr_zpt_1_mu");
+  pr_zpt_1_el_up->Write("pr_zpt_1_el_up");
+  pr_zpt_1_mu_up->Write("pr_zpt_1_mu_up");
+  pr_zpt_1_el_dn->Write("pr_zpt_1_el_dn");
+  pr_zpt_1_mu_dn->Write("pr_zpt_1_mu_dn");
+
+  pr_zpt_1_lowlpt->Write("pr_zpt_1_lowlpt");
+  pr_zpt_1_lowlpt_el->Write("pr_zpt_1_lowlpt_el");
+  pr_zpt_1_lowlpt_mu->Write("pr_zpt_1_lowlpt_mu");
+
+
+  hzptsb2->Write("h_zpt_2_sb");
+  hzptsb1->Write("h_zpt_1_sb");
+  hzptsb1_el->Write("h_zpt_1_el_sb");
+  hzptsb1_mu->Write("h_zpt_1_mu_sb");
+
+  hzptsbr12->Write("h_zpt_ratio_sb");
+  hzptsbr12_el->Write("h_zpt_ratio_el_sb");
+  hzptsbr12_mu->Write("h_zpt_ratio_mu_sb");
+
+  gr_zpt_ratio->Write("gr_zpt_ratio");
+  gr_zpt_ratio_el->Write("gr_zpt_ratio_el");
+  gr_zpt_ratio_mu->Write("gr_zpt_ratio_mu");
+  gr_zpt_ratio_up->Write("gr_zpt_ratio_up");
+  gr_zpt_ratio_dn->Write("gr_zpt_ratio_dn");
+  gr_zpt_ratio_el_up->Write("gr_zpt_ratio_el_up");
+  gr_zpt_ratio_el_dn->Write("gr_zpt_ratio_el_dn");
+  gr_zpt_ratio_mu_up->Write("gr_zpt_ratio_mu_up");
+  gr_zpt_ratio_mu_dn->Write("gr_zpt_ratio_mu_dn");
+  gr_zpt_lowlpt_ratio->Write("gr_zpt_lowlpt_ratio");
+  gr_zpt_lowlpt_ratio_el->Write("gr_zpt_lowlpt_ratio_el");
+  gr_zpt_lowlpt_ratio_mu->Write("gr_zpt_lowlpt_ratio_mu");
+
+
+/*
   hzmass_zpt_zrap->Write("h_zmass_zpt_zrap");
   hzmass_zpt_zrap_el->Write("h_zmass_zpt_zrap_el");
   hzmass_zpt_zrap_mu->Write("h_zmass_zpt_zrap_mu");
   hzmass_zpt_zrap_lowlpt->Write("h_zmass_zpt_zrap_lowlpt");
   hzmass_zpt_zrap_lowlpt_el->Write("h_zmass_zpt_zrap_lowlpt_el");
   hzmass_zpt_zrap_lowlpt_mu->Write("h_zmass_zpt_zrap_lowlpt_mu");
-
+*/
 
   hzmass_zpt->Write("h_zmass_zpt");
   hzmass_zpt_el->Write("h_zmass_zpt_el");
@@ -868,6 +1043,7 @@ int main(int argc, char** argv) {
   hzmass_zpt_lowlpt_el->Write("h_zmass_zpt_lowlpt_el");
   hzmass_zpt_lowlpt_mu->Write("h_zmass_zpt_lowlpt_mu");
 
+/*
   hzpt_zrap1->Write("h_zpt_zrap_1");
   hzpt_zrap2->Write("h_zpt_zrap_2");
   hzpt_zrap_r12->Write("h_zpt_zrap_ratio");
@@ -902,6 +1078,7 @@ int main(int argc, char** argv) {
   hzpt_zrap1_lowlpt_mu->Write("h_zpt_zrap_lowlpt_1_mu");
   hzpt_zrap_lowlpt_r12_mu->Write("h_zpt_zrap_lowlpt_ratio_mu");
 
+*/
   fout->Close();
 
   sprintf(name, "%s.pdf]", outtag.c_str());

@@ -5,12 +5,13 @@
 # compile
 g++ preskim_gjets.cc -o preskim_gjets.exe `root-config --cflags` `root-config --libs`
 
-samples="SinglePhoton_Run2016B_23Sep2016_v2_resub"
+#samples="SinglePhoton_Run2016B_23Sep2016_v2_resub"
 #samples="SinglePhoton_Run2016H_PromptReco_new"
 #samples="SinglePhoton_Run2016B2H_ReReco_36p1fbinv"
 #samples="DYJets*"
+#samples="WGToLNuG"
 #samples="ZJetsToNuNu_HT*_BIG"
-#samples="W*"
+samples="W*"
 #samples="GJet_Pt*"
 #samples="GJets_HT*"
 #samples="GJets_HT40to100"
@@ -21,7 +22,9 @@ samples="SinglePhoton_Run2016B_23Sep2016_v2_resub"
 #samples="ZNuNuGJets*"
 #samples="WJetsToLNu_HT*_BIG"
 indir=/data2/XZZ2/80X_20161029_GJets
-outdir=/home/heli/XZZ/80X_20161029_GJets_light
+#outdir=/home/heli/XZZ/80X_20161029_GJets_light
+outdir=/home/heli/XZZ2/80X_20161029_GJets_light
+#outdir=/datac/heli/XZZ2/80X_20161029_GJets_light
 
 mkdir -p $outdir
 

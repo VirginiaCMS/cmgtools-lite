@@ -40,8 +40,8 @@ n_interval: 1000000
 # tree branch config
 useLightTree: true
 storeErr: false
-removeHLTFlag: false
-removeMETFlag: false
+removeHLTFlag: true
+removeMETFlag: true
 
 # tree selection string
 selection: (1)
@@ -59,6 +59,7 @@ storeOldBranches: false
 #====================================================================
 addPUWeights: false
 
+PUWeightProtectionCut: 10
 
 #====================================================================
 #  ╔═╗ ╦╔═╗╔╦╗╔═╗  ╔═╗╦╔═╦╔╦╗
@@ -66,7 +67,7 @@ addPUWeights: false
 #  ╚═╝╚╝╚═╝ ╩ ╚═╝  ╚═╝╩ ╩╩╩ ╩
 #====================================================================
 doGJetsSkim: false
-
+doGJetsSkimAddPhiWeight: false
 
 #====================================================================
 #  ╔╦╗╦ ╦  ╔═╗╔╦╗  ╦═╗╔═╗╔═╗╔═╗╦  ╦╔╗ 
@@ -77,6 +78,11 @@ doMuonPtRecalib: false
 MuonPtRecalibInputForData: data/kalman/DATA_80X_13TeV.root
 MuonPtRecalibInputForMC: data/kalman/MC_80X_13TeV.root
 
+doElecPtRecalibSimpleData: true
+ElecPtRecalibSimpleDataScale: 1.00971
+ 
+doMuonPtRecalibSimpleData: false
+MuonPtRecalibSimpleDataScale: 0.999744
 
 #====================================================================
 #  ╔═╗╔╦╗  ╔═╗╔═╗  ╔═╗╔═╗╦═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔
@@ -195,9 +201,11 @@ EffScaleInputFileName_IdIso_El: data/eff/egammaEffi.txt_SF2D.root
 EffScaleInputFileName_Trk_El: data/eff/egammatracking.root
 EffScaleInputFileName_IdIso_Mu: data/eff/muon80x12p9.root
 EffScaleInputFileName_Trk_Mu: data/eff/muontrackingsf.root
-EffScaleInputFileName_Trg_El: data/eff/trigereff_el_b2h33fbinv.root
-EffScaleInputFileName_Trg_Mu: data/eff/trigeff_mu_datab2h33fbinv.root
-
+#EffScaleInputFileName_Trg_El: data/eff/trigereff_el_b2h33fbinv.root
+EffScaleInputFileName_Trg_El: data/eff/eff_out_ell1pteta_36p46recalib.root
+#EffScaleInputFileName_Trg_Mu: data/eff/trigeff_mu_datab2h33fbinv.root
+#EffScaleInputFileName_Trg_Mu: data/eff/trigeff_mu_36p46recalib.root
+EffScaleInputFileName_Trg_Mu: data/eff/trigeff_mu_36p46.root
 
 
 

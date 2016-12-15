@@ -1,5 +1,6 @@
 {
-  TFile* fout = new TFile("dyjets_zpt_weight_lo_nlo_genAcc.root", "recreate");
+  //TFile* fout = new TFile("dyjets_zpt_weight_lo_nlo_genAcc.root", "recreate");
+  TFile* fout = new TFile("dyjets_zpt_weight_lo_nlo_genAccV2.root", "recreate");
 
   gROOT->ProcessLine(".x tdrstyle.C");
   
@@ -208,6 +209,14 @@
   );
   std::cout << name << std::endl;
 
+
+  // refit resbos to data
+  TF1* fczpt1_refit = (TF1*)fczpt1->Clone("fcdyzpt_dtmc_ratio_resbos_refit");
+  fczpt1_refit->SetLineColor(8);
+
+  hdyzpt_dtmc_ratio->Fit(fczpt1_refit);
+  
+
   fout->cd();
   hdyzptdt->Write();
   hdyzptmc->Write();
@@ -216,6 +225,7 @@
   gdyzpt_dtmc_ratio->Write(); 
   fczpt1->Write("fcdyzpt_dtmc_ratio_resbos"); 
   fczpt2->Write("fcdyzpt_dtmc_ratio"); 
+  fczpt1_refit->Write("fcdyzpt_dtmc_ratio_resbos_refit"); 
  
   hzptnlo->Write();
   hzptlo->Write();

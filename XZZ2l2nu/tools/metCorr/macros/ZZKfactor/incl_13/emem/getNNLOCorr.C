@@ -58,6 +58,8 @@
   hr_ct->GetXaxis()->SetTitle("Gen. M(ZZ) (GeV)");
   hr_ct->GetYaxis()->SetTitle("NNLO QCD / NLO QCD ");
   hr_ct->GetYaxis()->SetTitleOffset(1.5);
+
+  hr_ct->GetYaxis()->SetRangeUser(0.7, 1.5);
  
   hr_ct->Draw("c hist");
   hr_up->Draw("same c hist");

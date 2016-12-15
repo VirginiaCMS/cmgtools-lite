@@ -2,10 +2,17 @@
 
 {
 
+// ichep dataset
 double Ntrg_l1pl2f = 1.93963e+06; 
 double Ntrg_l1pl2p = 225816; 
 double Ntrg_l1fl2p = 35582; 
 double Ntrg_tot = 2.4746e+06;
+
+// fulldataset
+Ntrg_l1pl2f = 5.74942e+06; 
+Ntrg_l1pl2p = 552588; 
+Ntrg_l1fl2p = 82113; 
+Ntrg_tot = 7.21807e+06;
 
 double Ntrg_not_l1pl2f = Ntrg_tot - Ntrg_l1pl2f;
 double Ntrg_not_l1pl2p = Ntrg_tot - Ntrg_l1pl2p;

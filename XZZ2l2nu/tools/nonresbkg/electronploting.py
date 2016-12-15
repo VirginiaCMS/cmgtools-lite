@@ -32,7 +32,7 @@ outdir='plots'
 
 indir='/home/heli/XZZ/80X_20161029_light_Skim'
 
-lumi=36.1
+lumi=36.4592
 sepSig=True
 doRatio=True
 FakeData=False
@@ -77,8 +77,7 @@ cuts_met200="(llnunu_l2_pt>200)"
 #cuts_loose_zll_met200="("+cuts_lepaccept+"&&"+cuts_zmass+"&&"+cuts_zpt100+"&&"+cuts_met200+")"
 cuts=''
 if "metzpt30" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>30)&&(llnunu_l2_pt>30)'
-elif "metzpt50" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>50)&&(llnunu_l2_pt>50)'
-elif "metzpt60" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>60)&&(llnunu_l2_pt>60)'
+elif "metzptCR" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>70)&&(llnunu_l2_pt>70)'
 elif "metzpt100" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>100)&&(llnunu_l2_pt>100)'
 elif "zveto" in tag:cuts=cuts_zmass
 elif "full" in tag:cuts=cuts_zmassin
@@ -91,7 +90,7 @@ if channel=='el': cuts = cuts+'&&'+elChannel
 elif channel=='mu': cuts = cuts+'&&'+muChannel
 else: cuts = cuts+'&&({0}||{1})'.format(elChannel,muChannel)
 if UseMETFilter:
-    cuts = '('+cuts+'&&'+metfilter+')'
+    cuts = '('+cuts+')'
 
 ROOT.gROOT.ProcessLine('.x tdrstyle.C') 
 
@@ -121,7 +120,7 @@ nonresSamples = ['muonegtrgsf']
 for sample in nonresSamples:
     nonresPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))
     nonresPlotters[-1].addCorrectionFactor('etrgsf', 'etrgsf')
-    nonresPlotters[-1].addCorrectionFactor('0.364097979853', 'norm')
+    nonresPlotters[-1].addCorrectionFactor('0.377075586068', 'norm')
     nonresPlotters[-1].addCorrectionFactor('1./({0}*1000)'.format(lumi), 'lumi')
     allPlotters[sample] = nonresPlotters[-1]
 NONRES = MergedPlotter(nonresPlotters)
@@ -129,11 +128,11 @@ NONRES.setFillProperties(1001,ROOT.kOrange)
 
 
 zjetsPlotters=[]
-zjetsSamples = ['DYJetsToLL_M50_BIG_RcDataB2H36p1fbinvRhoWt']
+zjetsSamples = ['DYJetsToLL_M50_BIG_ResBos_Rc36p22']
 for sample in zjetsSamples:
     zjetsPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))
     zjetsPlotters[-1].addCorrectionFactor('1./SumWeights','norm')
-    zjetsPlotters[-1].addCorrectionFactor('(1.09989)','norm')
+    zjetsPlotters[-1].addCorrectionFactor('(1.1056)','norm')
     if ZJetsZPtWeight: zjetsPlotters[-1].addCorrectionFactor('ZPtWeight','ZPtWeight')
     #zjetsPlotters[-1].addCorrectionFactor('PhiStarWeight','PhiStarWeight')
     #zjetsPlotters[-1].addCorrectionFactor('xsec','xsec')
@@ -149,7 +148,7 @@ ZJets.setFillProperties(1001,ROOT.kGreen+2)
 
 dataPlotters=[]
 dataSamples = [
-'SingleEMU_Run2016B2H_ReReco_36p1fbinv',
+'SingleEMU_Run2016B2H_ReReco_36p46',
 ]
 for sample in dataSamples:
     dataPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))

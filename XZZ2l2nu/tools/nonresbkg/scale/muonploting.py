@@ -7,7 +7,6 @@ from CMGTools.XZZ2l2nu.plotting.MergedPlotter import MergedPlotter
 from CMGTools.XZZ2l2nu.plotting.StackPlotter import StackPlotter
 
 ROOT.gROOT.SetBatch()
-#tag="test_met40_"
 tag="test_"
 channel='mu'
 LogY=False
@@ -28,7 +27,7 @@ outdir='plots'
 
 indir='/home/heli/XZZ/80X_20161029_light_Skim'
 
-lumi=36.1
+lumi=36.4592
 sepSig=True
 doRatio=True
 Blind=True
@@ -80,7 +79,8 @@ if channel=='el': cuts = cuts+'&&'+elChannel
 elif channel=='mu': cuts = cuts+'&&'+muChannel
 else: cuts = cuts+'&&({0}||{1})'.format(elChannel,muChannel)
 if UseMETFilter:
-    cuts = '('+cuts+'&&'+metfilter+')'
+#    cuts = '('+cuts+'&&'+metfilter+')'
+    cuts = '('+cuts+')'
 
 ROOT.gROOT.ProcessLine('.x tdrstyle.C') 
 
@@ -120,11 +120,11 @@ NONRES.setFillProperties(1001,ROOT.kOrange)
 
 zjetsPlotters=[]
 #zjetsSamples = ['DYJetsToLL_M50_RecoilNoSmooth','DYJetsToLL_M50_MGMLM_Ext1_RecoilNoSmooth']
-zjetsSamples = ['DYJetsToLL_M50_BIG_RcDataB2H36p1fbinvRhoWt']
+zjetsSamples = ['DYJetsToLL_M50_BIG_ResBos_Rc36p22']
 for sample in zjetsSamples:
     zjetsPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))
     zjetsPlotters[-1].addCorrectionFactor('1./SumWeights','norm')
-    zjetsPlotters[-1].addCorrectionFactor('(1.13519)','norm')
+    zjetsPlotters[-1].addCorrectionFactor('(1.16158)','norm')
     if ZJetsZPtWeight: zjetsPlotters[-1].addCorrectionFactor('ZPtWeight','ZPtWeight')
     #zjetsPlotters[-1].addCorrectionFactor('PhiStarWeight','PhiStarWeight')
     #zjetsPlotters[-1].addCorrectionFactor('xsec','xsec')
@@ -140,7 +140,7 @@ ZJets.setFillProperties(1001,ROOT.kGreen+2)
 
 dataPlotters=[]
 dataSamples = [
-'SingleEMU_Run2016B2H_ReReco_36p1fbinv', 
+'SingleEMU_Run2016B2H_ReReco_36p46',
 ]
 for sample in dataSamples:
     dataPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))

@@ -48,7 +48,7 @@ if __name__=='__main__':
     gStyle.SetOptStat(000000)
     gStyle.SetLegendBorderSize(0)
     t1=TFile(sys.argv[1])
-    fo=TFile('output.root','update')
+    fo=TFile('eff_out_'+sys.argv[1],'recreate')
     hs1=t1.Get('hnp')
     hs2=t1.Get('hnm')
     ez1=geteff(hs1,hs2,nm=sys.argv[2])
@@ -57,7 +57,9 @@ if __name__=='__main__':
     c=TCanvas()
     if 'TH2' in str(type(ez1)):ez1.Draw('colz')
     else:ez1.Draw()
-    c.Print('plots/'+sys.argv[2]+'.pdf')
+    c.Print('plots/eff_out_'+sys.argv[1]+'.pdf')
     fo.Close()
     t1.Close()
+
+
 

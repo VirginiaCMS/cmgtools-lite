@@ -27,21 +27,25 @@
 
 # debug
 debug: false
+#debug: true
 
 # starting entry number 
 n_start: 0
 
 # number of entries to be run, -1 means all entries
 n_test: -1
+#n_test: 100
 
 # n entries interval between which print once entry number
 n_interval: 1000000
 
 # tree branch config
 useLightTree: true
-storeErr: false
+storeErr: true
 removeHLTFlag: true
 removeMETFlag: true
+doMTUnc: true
+doMTUncDummy: false
 
 # tree selection string
 selection: (1)
@@ -84,7 +88,11 @@ doGJetsSkim: true
 doGJetsSkimAddPhiWeight: false
 #GJetsSkimInputFileName: data/gjets/study_gjets_data_b2h36p22fbinv.root
 #GJetsSkimInputFileName: data/gjets/study_gjets_data_b2h36p22fbinv_v5resbos_norm.root
-GJetsSkimInputFileName: data/gjets/study_gjets_data_b2h36p22fbinv_v5resbos_norm_modify.root
+#GJetsSkimInputFileName: data/gjets/study_gjets_data_b2h36p22fbinv_v5resbos_norm_modify.root
+#GJetsSkimInputFileName: data/gjets/study_gjets_data_36p46_resbos_norm_npucut.root
+#GJetsSkimInputFileName: data/gjets/study_gjets_data_36p46_resbosrefit_norm_npucut.root
+#GJetsSkimInputFileName: data/gjets/study_gjets_data_36p46_norm_npucut.root
+GJetsSkimInputFileName: data/gjets/study_gjets_data_36p46_norm_npucut_modify.root
 
 GJetsSkimPhiWeightInputFileName: data/gjets/gjet_photon_phi_weight.root
 GJetsSkimRhoWeightInputFileName: data/gjets/get_rho_weight_36p22_psWt.root
@@ -100,6 +108,11 @@ doMuonPtRecalib: false
 MuonPtRecalibInputForData: data/kalman/DATA_80X_13TeV.root
 MuonPtRecalibInputForMC: data/kalman/MC_80X_13TeV.root
 
+doElecPtRecalibSimpleData: false
+ElecPtRecalibSimpleDataScale: 1.00971
+
+doMuonPtRecalibSimpleData: false
+MuonPtRecalibSimpleDataScale: 0.999744
 
 #====================================================================
 #  ╔═╗╔╦╗  ╔═╗╔═╗  ╔═╗╔═╗╦═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔
@@ -151,6 +164,10 @@ addDyZPtWeightUseFunction: true
 # for NLO MC use Resummation function from Resbos instead of from data.
 addDyZPtWeightUseResummationFunction: false
 
+# for NLO MC use Resummation function from Resbos BUT refitted to data.
+addDyZPtWeightUseResummationRefitFunction: false
+
+
 # for LO MC to NLO, also use function  
 addDyZPtWeightLOUseFunction: true
 
@@ -160,8 +177,8 @@ addDyNewGenWeight: true
 
 # input root file
 #DyZPtWeightInputFileName: data/zptweight/dyjets_zpt_weight_lo_nlo_sel.root
-DyZPtWeightInputFileName: data/zptweight/dyjets_zpt_weight_lo_nlo_genAcc.root
-
+#DyZPtWeightInputFileName: data/zptweight/dyjets_zpt_weight_lo_nlo_genAcc.root
+DyZPtWeightInputFileName: data/zptweight/dyjets_zpt_weight_lo_nlo_genAccV2.root
 
 
 #====================================================================
@@ -183,12 +200,19 @@ doRecoilUseSmooth: true
 doRecoilUseSmoothGraph: true
 
 # Input files
-RecoilInputFileNameData_all: data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_dtHLT.root
-RecoilInputFileNameData_mu:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_dtHLT_mu.root
-RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_dtHLT_el.root
-#RecoilInputFileNameData_all: data/recoil/SingleEMU_Run2016B2H_ReReco_36p22fbinv_met_para_study_ZSelecLowLPt.root
-#RecoilInputFileNameData_mu:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p22fbinv_met_para_study_ZSelecLowLPt_mu.root
-#RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p22fbinv_met_para_study_ZSelecLowLPt_el.root
+#RecoilInputFileNameData_all: data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_dtHLT.root
+#RecoilInputFileNameData_mu:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_dtHLT_mu.root
+#RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_dtHLT_el.root
+RecoilInputFileNameData_all: data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_ZSelecLowLPt.root
+RecoilInputFileNameData_mu:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_ZSelecLowLPt_mu.root
+RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_ZSelecLowLPt_el.root
+#RecoilInputFileNameData_all: data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_dtHLT.root
+#RecoilInputFileNameData_mu:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_dtHLT_mu.root
+#RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_dtHLT_el.root
+#RecoilInputFileNameData_all: data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_ZSelecLowLPt.root
+#RecoilInputFileNameData_mu:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_ZSelecLowLPt_mu.root
+#RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_ZSelecLowLPt_el.root
+
 
 # 2015 data
 #RecoilInputFileNameMC_all: data/recoil/DYJetsToLL_M50_BIG_NoRecoil_RhoWt_met_para_study_ZSelecLowLPt.root
@@ -196,24 +220,27 @@ RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016B2H_ReReco_36p46_met_p
 #RecoilInputFileNameMC_el:  data/recoil/DYJetsToLL_M50_BIG_NoRecoil_RhoWt_met_para_study_ZSelecLowLPt_el.root
 
 # resbos
-RecoilInputFileNameMC_all: data/recoil/DYJetsToLL_M50_BIG_ResBos_NoRecoil_met_para_study_NPUCut_effSf_trgSf.root
-RecoilInputFileNameMC_mu:  data/recoil/DYJetsToLL_M50_BIG_ResBos_NoRecoil_met_para_study_NPUCut_effSf_trgSf_mu.root
-RecoilInputFileNameMC_el:  data/recoil/DYJetsToLL_M50_BIG_ResBos_NoRecoil_met_para_study_NPUCut_effSf_trgSf_el.root
+#RecoilInputFileNameMC_all: data/recoil/DYJetsToLL_M50_BIG_ResBos_NoRecoil_met_para_study_NPUCut_effSf_trgSf.root
+#RecoilInputFileNameMC_mu:  data/recoil/DYJetsToLL_M50_BIG_ResBos_NoRecoil_met_para_study_NPUCut_effSf_trgSf_mu.root
+#RecoilInputFileNameMC_el:  data/recoil/DYJetsToLL_M50_BIG_ResBos_NoRecoil_met_para_study_NPUCut_effSf_trgSf_el.root
 
-#RecoilInputFileNameMC_all: data/recoil/DYJetsToLL_M50_BIG_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_NPUCut.root
-#RecoilInputFileNameMC_mu:  data/recoil/DYJetsToLL_M50_BIG_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_NPUCut_mu.root
-#RecoilInputFileNameMC_el:  data/recoil/DYJetsToLL_M50_BIG_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_NPUCut_el.root
+RecoilInputFileNameMC_all: data/recoil/DYJetsToLL_M50_BIG_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_NPUCut.root
+RecoilInputFileNameMC_mu:  data/recoil/DYJetsToLL_M50_BIG_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_NPUCut_mu.root
+RecoilInputFileNameMC_el:  data/recoil/DYJetsToLL_M50_BIG_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_NPUCut_el.root
 
 RecoilInputFileNameMCLO_all: data/recoil/DYJetsToLL_M50_MGMLM_Ext1_NoRecoil_NoRhoWt_met_para_study_ZSelecLowLPt.root
 RecoilInputFileNameMCLO_mu:  data/recoil/DYJetsToLL_M50_MGMLM_Ext1_NoRecoil_NoRhoWt_met_para_study_ZSelecLowLPt_mu.root
 RecoilInputFileNameMCLO_el:  data/recoil/DYJetsToLL_M50_MGMLM_Ext1_NoRecoil_NoRhoWt_met_para_study_ZSelecLowLPt_el.root
 
-RecoilInputFileNameGJets_all: data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study.root 
-RecoilInputFileNameGJets_mu:  data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_mu.root
-RecoilInputFileNameGJets_el:  data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_el.root
-#RecoilInputFileNameGJets_all: data/recoil/SinglePhoton_Run2016B2H_ReReco_36p22fbinv_ResBos_NoRecoil_met_para_study_ZSelecLowLPt.root 
-#RecoilInputFileNameGJets_mu:  data/recoil/SinglePhoton_Run2016B2H_ReReco_36p22fbinv_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_mu.root
-#RecoilInputFileNameGJets_el:  data/recoil/SinglePhoton_Run2016B2H_ReReco_36p22fbinv_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_el.root
+#RecoilInputFileNameGJets_all: data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study.root
+#RecoilInputFileNameGJets_mu:  data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_mu.root
+#RecoilInputFileNameGJets_el:  data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_el.root
+#RecoilInputFileNameGJets_all: data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_ZSelecLowLPt.root
+#RecoilInputFileNameGJets_mu:  data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_mu.root
+#RecoilInputFileNameGJets_el:  data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_el.root
+RecoilInputFileNameGJets_all: data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_NoRecoil_met_para_study_ZSelecLowLPt.root
+RecoilInputFileNameGJets_mu:  data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_NoRecoil_met_para_study_ZSelecLowLPt_mu.root
+RecoilInputFileNameGJets_el:  data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_NoRecoil_met_para_study_ZSelecLowLPt_el.root
 
 
 

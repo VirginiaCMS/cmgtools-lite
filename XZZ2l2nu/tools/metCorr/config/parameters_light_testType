@@ -42,6 +42,8 @@ useLightTree: true
 storeErr: false
 removeHLTFlag: false
 removeMETFlag: false
+doMTUnc: true
+doMTUncDummy: false
 
 # tree selection string
 selection: (1)
@@ -214,7 +216,6 @@ EffScaleInputFileName_Trk_Mu: data/eff/muontrackingsf.root
 EffScaleInputFileName_Trg_El: data/eff/trigereff_el_b2h33fbinv.root
 EffScaleInputFileName_Trg_Mu: data/eff/trigeff_mu_datab2h33fbinv.root
 
-doMTUnc: true
 #==========================================================================================
 #
 #                             . ...

@@ -228,34 +228,43 @@ class StackPlotter(object):
         dataG=None
         error=ROOT.Double(0.0)
 
+        bkgYields = {}
+        datYields = {}
+        sigYields = {}
+
         cutL="("+self.defaultCut+")*("+cut+")"
 
         for (plotter,typeP,label,name) in zip(self.plotters,self.types,self.labels,self.names):
             if (typeP =="background") or (not separateSignal and typeP == "signal"):
                 hist = plotter.drawTH1(output+'_'+name,var,cutL,lumi,bins,mini,maxi,titlex,units)
-                #hist.SetName(output+'_'+name)
                 stack.Add(hist)
                 hists.append(hist)
-                print label+" : %f\n" % hist.Integral()
+
+                yields=hist.IntegralAndError(1,hist.GetNbinsX(),error)
+                bkgYields[name] = [yields, error]
+
+                #print name+" : %f\n" % hist.Integral()
  
                 if typeP == "signal" :
-                    signal+=hist.Integral()
+                    signal+=yields
                 if typeP == "background" :
-                    background+=hist.IntegralAndError(1,hist.GetNbinsX(),error)
+                    background+=yields
                     backgroundErr+=error*error
 
             if separateSignal and typeP == "signal":
                 hist = plotter.drawTH1(output+'_'+name,var,cutL,lumi,bins,mini,maxi,titlex,units)
-                #hist.SetName(output+'_'+name)
                 hists.append(hist)
                 signalHs.append(hist)
-                signals.append(hist.Integral())
+
+                yields=hist.IntegralAndError(1,hist.GetNbinsX(),error)
+                sigYields[name] = [yields, error]
+
+                signals.append(yields)
                 signalLabels.append(label)
-                print label+" : %f\n" % hist.Integral()
+                #print name+" : %f\n" % hist.Integral()
 
             if typeP =="data":
                 hist = plotter.drawTH1(output+'_'+typeP,var,cutL,"1",bins,mini,maxi,titlex,units)
-                #hist.SetName(output+'_'+typeP)
                 hist.SetMarkerStyle(20)
                 hist.SetLineWidth(1)
                 hist.SetMarkerSize(1.)
@@ -266,9 +275,41 @@ class StackPlotter(object):
                 dataG=convertToPoisson(hist,blinding,blindingCut)
                 dataG.SetName(output+'_'+'dataG')
                 dataG.SetLineWidth(1)
-                print label+" : %f\n" % hist.Integral()
+                yields=hist.IntegralAndError(1,hist.GetNbinsX(),error)
+                datYields[name] = [yields, error]
+                #print name+" : %f\n" % hist.Integral()
                 
- 
+        # print some numbers
+
+        # data:
+        for name in datYields.keys():
+            print name," : ", datYields[name][0], "+-", datYields[name][1]
+
+        # background:
+        for name in bkgYields.keys():
+            print name," : ", bkgYields[name][0], "+-", bkgYields[name][1]
+
+        # signal:
+        for name in sigYields.keys():
+            print name," : ", sigYields[name][0], "+-", sigYields[name][1]
+
+        # (data - other_bkgs)/this_bkg
+        for dtname in datYields.keys():
+            for bkname1 in bkgYields.keys():
+                yd2 = datYields[dtname][0]
+                er2 = datYields[dtname][1]*datYields[dtname][1]
+                yd1 = bkgYields[bkname1][0]
+                er1 = bkgYields[bkname1][1]*bkgYields[bkname1][1]
+                for bkname2 in bkgYields.keys():
+                    if bkname1!=bkname2:
+                        yd2 -= bkgYields[bkname2][0]
+                        er2 += bkgYields[bkname2][1]*bkgYields[bkname2][1]
+                rt21 = yd2/yd1
+                er21 = math.sqrt((yd1**2*er2+yd2**2*er1)/(yd1**4))
+                print bkname1+": (data-others)/"+bkname1+" = "+str(rt21)+" +- "+str(er21) 
+
+
+
         #if data not found plot stack only
 
         if dataH != None:                  

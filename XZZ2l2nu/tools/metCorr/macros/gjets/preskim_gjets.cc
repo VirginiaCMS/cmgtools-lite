@@ -82,6 +82,7 @@ int main(int argc, char** argv) {
   //tree->SetBranchStatus("gjet_l2_metSig",0);
 
   tree->SetBranchStatus("gjet_l2_t1*",0);
+  tree->SetBranchStatus("gjet_l2_t1P*",1);
 //  tree->SetBranchStatus("gjet_l2_*smear*", 0);
 //  tree->SetBranchStatus("gjet_l2_*JER*",0);
 //  tree->SetBranchStatus("gjet_l2_*Smear*",0);

@@ -1,7 +1,8 @@
 #! /bin/bash
 runtag(){
-#tags='zveto full_log_blind metzpt30 metzpt50 metzpt100 sigall_log_blind sigzpt100_log_blind sigpt100_log_blind'
-tags='metzpt60'
+tags='zveto full_log_blind metzptCR metzpt100 sigall_log_blind sigzpt100_log_blind sigpt100_log_blind'
+#tags=zveto
+
 
 for itag in $tags
 do

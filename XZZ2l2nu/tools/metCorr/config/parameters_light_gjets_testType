@@ -42,6 +42,9 @@ useLightTree: true
 storeErr: false
 removeHLTFlag: true
 removeMETFlag: true
+doMTUnc: true
+doMTUncDummy: false
+
 
 # tree selection string
 selection: (1)
@@ -97,6 +100,13 @@ GJetsSkimRhoWeightInputFileName: data/gjets/get_rho_weight_36p22_psWt.root
 doMuonPtRecalib: false
 MuonPtRecalibInputForData: data/kalman/DATA_80X_13TeV.root
 MuonPtRecalibInputForMC: data/kalman/MC_80X_13TeV.root
+
+
+doElecPtRecalibSimpleData: false
+ElecPtRecalibSimpleDataScale: 1.00971
+
+doMuonPtRecalibSimpleData: false
+MuonPtRecalibSimpleDataScale: 0.999744
 
 
 #====================================================================
@@ -216,10 +226,6 @@ EffScaleInputFileName_Trk_Mu: data/eff/muontrackingsf.root
 EffScaleInputFileName_Trg_El: data/eff/trigereff_el_b2h33fbinv.root
 EffScaleInputFileName_Trg_Mu: data/eff/trigeff_mu_datab2h33fbinv.root
 
-
-############
-
-doMTUnc: true
 
 
 

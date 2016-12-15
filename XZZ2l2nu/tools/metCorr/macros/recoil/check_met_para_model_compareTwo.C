@@ -1,21 +1,22 @@
 {
 
-std::string indir="recoil_out2";
+std::string indir="recoil_out7";
 
 std::string  name1 =
-"SingleEMU_Run2016BCD_PromptReco_met_para_study_ZSelecLowLPt_mu"
-//"SingleEMU_Run2016BCD_PromptReco_smbin_met_para_study_ZSelecLowLPt_mu"
+//"SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_dtHLT_el"
+//"SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_dtHLT_mu"
+//"SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_el"
+//"SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_mu"
+//"SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_dtHLT_el"
+//"SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_ZSelecLowLPt_el"
+"SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_ZSelecLowLPt_mu"
 ;
 std::string  name2 =
-//"SinglePhoton_Run2016BCD_PromptReco_HLT_DtScale_hlt_met_para_study_ZSelecLowLPt_mu"
-//"SinglePhoton_Run2016BCD_PromptReco_HLT_DtScale_RcSmBin_smbin_hlt_met_para_study_ZSelecLowLPt_mu"
-//"SinglePhoton_Run2016BCD_PromptReco_HLT_DtScale_RcSmBin_hlt_met_para_study_ZSelecLowLPt_mu"
-//"SinglePhoton_Run2016BCD_PromptReco_HLT_DtScale_RcSmBin_hlt_id2_met_para_study_ZSelecLowLPt_mu"
-//"SinglePhoton_Run2016BCD_PromptReco_HLT_DtScale_RcSmBin_hlt_id3_met_para_study_ZSelecLowLPt_mu"
-//"SinglePhoton_Run2016BCD_PromptReco_HLTNo90_DtScale_hltno90_met_para_study_ZSelecLowLPt_mu"
-//"SinglePhoton_Run2016BCD_PromptReco_HLTNo90_DtScale_hltno75_met_para_study_ZSelecLowLPt_mu"
-//"SinglePhoton_Run2016BCD_PromptReco_HLTNo90_DtScale_hlt_phvto_met_para_study_ZSelecLowLPt_mu"
-"SinglePhoton_Run2016BCD_PromptReco_HLT_DtScale_Flag2_hlt_flag2_met_para_study_ZSelecLowLPt_mu"
+"SinglePhoton_Run2016B2H_ReReco_36p46_NoRecoil_met_para_study_ZSelecLowLPt_mu"
+//"SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_ZSelecLowLPt_el"
+//"SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_ZSelecLowLPt_mu"
+//"SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_el"
+//"SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_mu"
 ;
 
 std::string name_file1 = indir+"/"+name1+".root";
@@ -36,6 +37,9 @@ TFile* _file_mc_sigma[10];
 TH1D* _h_dt_met_para_shift[10];
 TH1D* _h_mc_met_para_shift[10];
 TH1D* _h_met_para_shift_dtmc[10];
+TH1D* _h_dt_met_perp_shift[10];
+TH1D* _h_mc_met_perp_shift[10];
+TH1D* _h_met_perp_shift_dtmc[10];
 TH1D* _h_dt_met_para_sigma[10];
 TH1D* _h_dt_met_perp_sigma[10];
 TH1D* _h_mc_met_para_sigma[10];
@@ -49,71 +53,192 @@ TGraphErrors* _gr_ratio_met_para_sigma_dtmc[10];
 TGraphErrors* _gr_ratio_met_perp_sigma_dtmc[10];
 TLegend* lg[1000];
 
-    _file_dt_sigma[0] = new TFile(name_file1.c_str());
-    _file_mc_sigma[0] = new TFile(name_file2.c_str());
-    _h_dt_met_para_shift[0] = (TH1D*)_file_dt_sigma[0]->Get("h_met_para_vs_zpt_mean");
-    _h_mc_met_para_shift[0] = (TH1D*)_file_mc_sigma[0]->Get("h_met_para_vs_zpt_mean");
-    _h_met_para_shift_dtmc[0] = (TH1D*)_h_dt_met_para_shift[0]->Clone("h_met_para_shift_dtmc_all");
-    _h_met_para_shift_dtmc[0]->Add(_h_mc_met_para_shift[0], -1);
-
-    _h_dt_met_para_sigma[0] = (TH1D*)_file_dt_sigma[0]->Get("h_met_para_vs_zpt_sigma");
-    _h_dt_met_perp_sigma[0] = (TH1D*)_file_dt_sigma[0]->Get("h_met_perp_vs_zpt_sigma");
-    _h_mc_met_para_sigma[0] = (TH1D*)_file_mc_sigma[0]->Get("h_met_para_vs_zpt_sigma");
-    _h_mc_met_perp_sigma[0] = (TH1D*)_file_mc_sigma[0]->Get("h_met_perp_vs_zpt_sigma");
-
-    _h_ratio_met_para_sigma_dtmc[0] = (TH1D*)_h_dt_met_para_sigma[0]->Clone("h_ratio_met_para_sigma_dtmc_all");
-    _h_ratio_met_perp_sigma_dtmc[0] = (TH1D*)_h_dt_met_perp_sigma[0]->Clone("h_ratio_met_perp_sigma_dtmc_all");
-    _h_ratio_met_para_sigma_dtmc[0]->Divide(_h_mc_met_para_sigma[0]);
-    _h_ratio_met_perp_sigma_dtmc[0]->Divide(_h_mc_met_perp_sigma[0]);
-
-    // smooth functions
-    _h_dt_met_para_shift[0]->SetName("h_dt_met_para_shift_all");
-    _h_mc_met_para_shift[0]->SetName("h_mc_met_para_shift_all");
-    _h_dt_met_para_shift[3] = (TH1D*)_h_dt_met_para_shift[0]->Clone("h_dt_met_para_shift_all_smooth");
-    _h_mc_met_para_shift[3] = (TH1D*)_h_mc_met_para_shift[0]->Clone("h_mc_met_para_shift_all_smooth");
-    _h_dt_met_para_shift[3]->Smooth();
-    _h_mc_met_para_shift[3]->Smooth();
-
-    _gr_dt_met_para_shift[3] = new TGraphErrors(_h_dt_met_para_shift[3]);
-    _gr_mc_met_para_shift[3] = new TGraphErrors(_h_mc_met_para_shift[3]);
-
-    _h_met_para_shift_dtmc[3] = (TH1D*)_h_met_para_shift_dtmc[0]->Clone("h_met_para_shift_dtmc_all_smooth");
-    _h_met_para_shift_dtmc[3]->Smooth();
-
-    _gr_met_para_shift_dtmc[3] = new TGraphErrors(_h_met_para_shift_dtmc[3]);
-
-    _h_ratio_met_para_sigma_dtmc[3] = (TH1D*)_h_ratio_met_para_sigma_dtmc[0]->Clone("h_ratio_met_para_sigma_dtmc_all_smooth");
-    _h_ratio_met_para_sigma_dtmc[3]->Smooth();
-
-    _h_ratio_met_perp_sigma_dtmc[3] = (TH1D*)_h_ratio_met_perp_sigma_dtmc[0]->Clone("h_ratio_met_perp_sigma_dtmc_all_smooth");
-    _h_ratio_met_perp_sigma_dtmc[3]->Smooth();
-
-    _gr_ratio_met_para_sigma_dtmc[3] = new TGraphErrors(_h_ratio_met_para_sigma_dtmc[3]);
-    _gr_ratio_met_perp_sigma_dtmc[3] = new TGraphErrors(_h_ratio_met_perp_sigma_dtmc[3]);
+_file_dt_sigma[0] = new TFile(name_file1.c_str());
+_file_mc_sigma[0] = new TFile(name_file2.c_str());
+_h_dt_met_para_shift[0] = (TH1D*)_file_dt_sigma[0]->Get("h_met_para_vs_zpt_mean");
+_h_mc_met_para_shift[0] = (TH1D*)_file_mc_sigma[0]->Get("h_met_para_vs_zpt_mean");
+_h_met_para_shift_dtmc[0] = (TH1D*)_h_dt_met_para_shift[0]->Clone("h_met_para_shift_dtmc_all");
+_h_met_para_shift_dtmc[0]->Add(_h_mc_met_para_shift[0], -1);
+_h_met_para_shift_dtmc[0]->GetYaxis()->SetTitle("MET para mean diff. (GeV)");
+_h_met_para_shift_dtmc[0]->GetYaxis()->SetRangeUser(-1,1);
 
 
-_h_ratio_met_para_sigma_dtmc[0]->GetYaxis()->SetTitle("Sigma Ratio");
+_h_dt_met_para_shift[0]->SetLineColor(2);
+_h_dt_met_para_shift[0]->SetMarkerColor(2);
+_h_mc_met_para_shift[0]->SetLineColor(4);
+_h_mc_met_para_shift[0]->SetMarkerColor(4);
+
+_h_dt_met_para_shift[0]->GetXaxis()->SetRangeUser(2,3000);
+_h_mc_met_para_shift[0]->GetXaxis()->SetRangeUser(2,3000);
+
+double ymax;
+double ymin;
+ymax = _h_met_para_shift_dtmc[0]->GetBinContent(_h_met_para_shift_dtmc[0]->GetMaximumBin());
+ymin = _h_met_para_shift_dtmc[0]->GetBinContent(_h_met_para_shift_dtmc[0]->GetMinimumBin());
+_h_met_para_shift_dtmc[0]->GetYaxis()->SetRangeUser(ymin, ymax);
+
+
+plots->Clear();
+_h_dt_met_para_shift[0]->Draw();
+_h_mc_met_para_shift[0]->Draw("same");
+plots->SetLogx(1);
+sprintf(name, "%s.pdf", plots_file.c_str());
+plots->Print(name);
+plots->SetLogx(0);
+plots->Clear();
+
+plots->Clear();
+_h_met_para_shift_dtmc[0]->Draw();
+plots->SetLogx(1);
+sprintf(name, "%s.pdf", plots_file.c_str());
+plots->Print(name);
+plots->SetLogx(0);
+plots->Clear();
+
+
+_h_dt_met_perp_shift[0] = (TH1D*)_file_dt_sigma[0]->Get("h_met_perp_vs_zpt_mean");
+_h_mc_met_perp_shift[0] = (TH1D*)_file_mc_sigma[0]->Get("h_met_perp_vs_zpt_mean");
+_h_met_perp_shift_dtmc[0] = (TH1D*)_h_dt_met_perp_shift[0]->Clone("h_met_perp_shift_dtmc_all");
+_h_met_perp_shift_dtmc[0]->Add(_h_mc_met_perp_shift[0], -1);
+_h_met_perp_shift_dtmc[0]->GetYaxis()->SetTitle("MET perp, mean diff. (GeV)");
+_h_met_perp_shift_dtmc[0]->GetYaxis()->SetRangeUser(-1,1);
+
+
+_h_dt_met_perp_shift[0]->SetLineColor(2);
+_h_dt_met_perp_shift[0]->SetMarkerColor(2);
+_h_mc_met_perp_shift[0]->SetLineColor(4);
+_h_mc_met_perp_shift[0]->SetMarkerColor(4);
+
+_h_dt_met_perp_shift[0]->GetXaxis()->SetRangeUser(2,3000);
+_h_mc_met_perp_shift[0]->GetXaxis()->SetRangeUser(2,3000);
+
+ymax = _h_met_perp_shift_dtmc[0]->GetBinContent(_h_met_perp_shift_dtmc[0]->GetMaximumBin());
+ymin = _h_met_perp_shift_dtmc[0]->GetBinContent(_h_met_perp_shift_dtmc[0]->GetMinimumBin());
+_h_met_perp_shift_dtmc[0]->GetYaxis()->SetRangeUser(ymin, ymax);
+
+
+plots->Clear();
+_h_dt_met_perp_shift[0]->Draw();
+_h_mc_met_perp_shift[0]->Draw("same");
+plots->SetLogx(1);
+sprintf(name, "%s.pdf", plots_file.c_str());
+plots->Print(name);
+plots->SetLogx(0);
+plots->Clear();
+
+plots->Clear();
+_h_met_perp_shift_dtmc[0]->Draw();
+plots->SetLogx(1);
+sprintf(name, "%s.pdf", plots_file.c_str());
+plots->Print(name);
+plots->SetLogx(0);
+plots->Clear();
+
+_h_dt_met_para_sigma[0] = (TH1D*)_file_dt_sigma[0]->Get("h_met_para_vs_zpt_sigma");
+_h_dt_met_perp_sigma[0] = (TH1D*)_file_dt_sigma[0]->Get("h_met_perp_vs_zpt_sigma");
+_h_mc_met_para_sigma[0] = (TH1D*)_file_mc_sigma[0]->Get("h_met_para_vs_zpt_sigma");
+_h_mc_met_perp_sigma[0] = (TH1D*)_file_mc_sigma[0]->Get("h_met_perp_vs_zpt_sigma");
+
+_h_ratio_met_para_sigma_dtmc[0] = (TH1D*)_h_dt_met_para_sigma[0]->Clone("h_ratio_met_para_sigma_dtmc_all");
+_h_ratio_met_perp_sigma_dtmc[0] = (TH1D*)_h_dt_met_perp_sigma[0]->Clone("h_ratio_met_perp_sigma_dtmc_all");
+_h_ratio_met_para_sigma_dtmc[0]->Divide(_h_mc_met_para_sigma[0]);
+_h_ratio_met_perp_sigma_dtmc[0]->Divide(_h_mc_met_perp_sigma[0]);
+_h_ratio_met_para_sigma_dtmc[0]->GetYaxis()->SetTitle("MET para Sigma Ratio");
+_h_ratio_met_perp_sigma_dtmc[0]->GetYaxis()->SetTitle("MET perp Sigma Ratio");
+_h_ratio_met_para_sigma_dtmc[0]->GetYaxis()->SetRangeUser(0.5,1.5);
+_h_ratio_met_perp_sigma_dtmc[0]->GetYaxis()->SetRangeUser(0.5,1.5);
+
+_h_dt_met_para_sigma[0]->SetLineColor(2);
+_h_dt_met_para_sigma[0]->SetMarkerColor(2);
+_h_mc_met_para_sigma[0]->SetLineColor(4);
+_h_mc_met_para_sigma[0]->SetMarkerColor(4);
+
+_h_dt_met_para_sigma[0]->GetXaxis()->SetRangeUser(2,3000);
+_h_mc_met_para_sigma[0]->GetXaxis()->SetRangeUser(2,3000);
+
+plots->Clear();
+_h_dt_met_para_sigma[0]->Draw();
+_h_mc_met_para_sigma[0]->Draw("same");
+plots->SetLogx(1);
+sprintf(name, "%s.pdf", plots_file.c_str());
+plots->Print(name);
+plots->SetLogx(0);
+plots->Clear();
+
+plots->Clear();
 _h_ratio_met_para_sigma_dtmc[0]->Draw();
+plots->SetLogx(1);
+sprintf(name, "%s.pdf", plots_file.c_str());
+plots->Print(name);
+plots->SetLogx(0);
+plots->Clear();
+
+_h_dt_met_perp_sigma[0]->SetLineColor(2);
+_h_dt_met_perp_sigma[0]->SetMarkerColor(2);
+_h_mc_met_perp_sigma[0]->SetLineColor(4);
+_h_mc_met_perp_sigma[0]->SetMarkerColor(4);
+
+_h_dt_met_perp_sigma[0]->GetXaxis()->SetRangeUser(2,3000);
+_h_mc_met_perp_sigma[0]->GetXaxis()->SetRangeUser(2,3000);
+  
+plots->Clear();
+_h_dt_met_perp_sigma[0]->Draw();
+_h_mc_met_perp_sigma[0]->Draw("same");
+plots->SetLogx(1);
+sprintf(name, "%s.pdf", plots_file.c_str());
+plots->Print(name);
+plots->SetLogx(0);
+plots->Clear();
+
+plots->Clear();
+_h_ratio_met_perp_sigma_dtmc[0]->Draw();
+plots->SetLogx(1);
+sprintf(name, "%s.pdf", plots_file.c_str());
+plots->Print(name);
+plots->SetLogx(0);
+plots->Clear();
 
 
-  TH2D* h_dt_met_para_vs_zpt = (TH2D*)_file_dt_sigma[0]->Get("h_met_para_vs_zpt");
-  TH2D* h_mc_met_para_vs_zpt = (TH2D*)_file_mc_sigma[0]->Get("h_met_para_vs_zpt");
 
-  TH1D* h_dt_zpt = (TH1D*)h_dt_met_para_vs_zpt->ProjectionX("h_dt_zpt");
-  TH1D* h_mc_zpt = (TH1D*)h_mc_met_para_vs_zpt->ProjectionX("h_mc_zpt");
 
-  h_dt_zpt->Scale(1./h_dt_zpt->Integral("width"));
-  h_mc_zpt->Scale(1./h_mc_zpt->Integral("width"));
 
-  h_dt_zpt->SetLineColor(2);
-  h_dt_zpt->SetMarkerColor(2);
-  h_mc_zpt->SetLineColor(4);
-  h_mc_zpt->SetMarkerColor(4);
 
-  TH1D* h_zpt_dtmc = (TH1D*)h_dt_zpt->Clone("h_zpt_dtmc");
-  h_zpt_dtmc->Divide(h_mc_zpt);
+TH2D* h_dt_met_para_vs_zpt = (TH2D*)_file_dt_sigma[0]->Get("h_met_para_vs_zpt");
+TH2D* h_mc_met_para_vs_zpt = (TH2D*)_file_mc_sigma[0]->Get("h_met_para_vs_zpt");
 
-//  h_zpt_dtmc->Draw();
+TH1D* h_dt_zpt = (TH1D*)h_dt_met_para_vs_zpt->ProjectionX("h_dt_zpt");
+TH1D* h_mc_zpt = (TH1D*)h_mc_met_para_vs_zpt->ProjectionX("h_mc_zpt");
+
+h_dt_zpt->Scale(1./h_dt_zpt->Integral(), "width");
+h_mc_zpt->Scale(1./h_mc_zpt->Integral(), "width");
+
+h_dt_zpt->SetLineColor(2);
+h_dt_zpt->SetMarkerColor(2);
+h_mc_zpt->SetLineColor(4);
+h_mc_zpt->SetMarkerColor(4);
+
+TH1D* h_zpt_dtmc = (TH1D*)h_dt_zpt->Clone("h_zpt_dtmc");
+h_zpt_dtmc->Divide(h_mc_zpt);
+
+
+plots->Clear();
+h_dt_zpt->Draw();
+h_mc_zpt->Draw("same");
+plots->SetLogx(1);
+sprintf(name, "%s.pdf", plots_file.c_str());
+plots->Print(name);
+plots->SetLogx(0);
+plots->Clear();
+
+plots->Clear();
+h_zpt_dtmc->Draw();
+plots->SetLogx(1);
+sprintf(name, "%s.pdf", plots_file.c_str());
+plots->Print(name);
+plots->SetLogx(0);
+plots->Clear();
+
+
 
 
 std::cout << "come here" << std::endl;

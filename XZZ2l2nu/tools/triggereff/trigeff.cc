@@ -25,7 +25,10 @@ int main(){
   //TFile* fin= new TFile("/data2/XZZ2/80X_20161006/MET_Run2016B2G_PromptReco/vvTreeProducer/tree.root");
   //TFile* fin= new TFile("/data2/XZZ2/80X_20161006/MET_Run2016B2G_PromptReco/vvTreeProducer/tree.root");
   //TFile* fin= new TFile("/home/heli/XZZ/80X_20161018_light/SingleEMU_Run2016B2H29fbinv_PromptReco/vvTreeProducer/tree.root");
-  TFile* fin= new TFile("/home/heli/XZZ/80X_20161029_light/SingleEMU_Run2016B2H_ReReco_33fbinv/vvTreeProducer/tree.root");
+  //TFile* fin= new TFile("/home/heli/XZZ/80X_20161029_light/SingleEMU_Run2016B2H_ReReco_33fbinv/vvTreeProducer/tree.root");
+  //TFile* fin= new TFile("/home/heli/XZZ/80X_20161029_light/SingleEMU_Run2016B2H_ReReco_36p46/vvTreeProducer/tree.root");
+  //TFile* fin= new TFile("/home/heli/XZZ/80X_20161029_light_Skim/SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib.root");
+  TFile* fin= new TFile("/home/heli/XZZ/80X_20161029_light_Skim/SingleEMU_Run2016B2H_ReReco_36p46.root");
 
   //TFile* fout = new TFile("trigeff_mu_datab2g.root", "recreate");
   //char outputplot[] = "trigeff_mu_datab2g.pdf";
@@ -33,8 +36,12 @@ int main(){
   //char outputplot[] = "trigeff_mu_datametb2g.pdf";
   //TFile* fout = new TFile("trigeff_mu_datab2h29fbinv.root", "recreate");
   //char outputplot[] = "trigeff_mu_datab2h29fbinv.pdf";
-  TFile* fout = new TFile("trigeff_mu_datab2h33fbinv.root", "recreate");
-  char outputplot[] = "trigeff_mu_datab2h33fbinv.pdf";
+  //TFile* fout = new TFile("trigeff_mu_datab2h33fbinv.root", "recreate");
+  //char outputplot[] = "trigeff_mu_datab2h33fbinv.pdf";
+  //TFile* fout = new TFile("trigeff_mu_36p46recalib.root", "recreate");
+  //char outputplot[] = "trigeff_mu_36p46recalib.pdf";
+  TFile* fout = new TFile("trigeff_mu_36p46.root", "recreate");
+  char outputplot[] = "trigeff_mu_36p46.pdf";
   TCanvas* plots = new TCanvas("plots", "plots");
   char name[10000];
   sprintf(name, "%s[", outputplot);
@@ -61,7 +68,7 @@ int main(){
 
   TTree* tree= (TTree*)fin->Get("tree");
 
-  std::string  lumiTag = "CMS 13 TeV 2016 L=33.59 fb^{-1}";
+  std::string  lumiTag = "CMS 13 TeV 2016 L=36.46 fb^{-1}";
   //std::string  lumiTag = "CMS 13 TeV 2016 L=29.53 fb^{-1}";
   //std::string  lumiTag = "CMS 13 TeV 2016 L=27.22 fb^{-1}";
   //std::string  lumiTag = "CMS 13 TeV 2016 L=12.9 fb^{-1}";

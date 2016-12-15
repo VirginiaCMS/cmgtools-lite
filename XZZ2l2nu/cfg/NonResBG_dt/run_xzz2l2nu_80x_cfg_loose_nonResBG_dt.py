@@ -79,7 +79,7 @@ if test==1:
     #selectedComponents = SingleMuon+SingleElectron
     #selectedComponents = SingleMuon[:4]
     #selectedComponents = MuonEG[4:]
-    selectedComponents = MuonEG23Sep2016
+    selectedComponents = MuonEG23Sep2016+[MuonEG_Run2016H_PromptReco_v1,MuonEG_Run2016H_PromptReco_v2,MuonEG_Run2016H_PromptReco_v3]
     #selectedComponents = [MuonEG_Run2016H_PromptReco_v1,MuonEG_Run2016H_PromptReco_v2,MuonEG_Run2016H_PromptReco_v3]
     #selectedComponents = [SingleMuon_Run2016D_PromptReco_v2,SingleElectron_Run2016D_PromptReco_v2] 
     #selectedComponents = [MuonEG_Run2015D_16Dec] #MuEG
