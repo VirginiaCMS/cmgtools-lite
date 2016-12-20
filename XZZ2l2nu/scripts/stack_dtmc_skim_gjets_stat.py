@@ -53,15 +53,14 @@ mc_scale='(1)'
 zjets_scale='(1)'
 
 if channel=='mu': 
-    #mc_scale='(1.16067370494)'
-    zjets_scale='(1.16067370494)'
+    mc_scale='(1.14905419293)'
+    zjets_scale='(0.984186528847)'
 elif channel=='el': 
-    #mc_scale='(1.13306470197)'
-    zjets_scale='(1.13306470197)'
+    mc_scale='(1.13338415211)'
+    zjets_scale='(1.0)'
 else: 
-    #mc_scale='(1.16033036369)'
-    zjets_scale='(1.16033036369)'
-
+    mc_scale='(1.1484406619)'
+    zjets_scale='(1)'
 
 # non reso alpha
 # zpt>70
@@ -71,11 +70,8 @@ else:
 #nonreso_alpha_el=0.353808
 #nonreso_alpha_mu=0.613999
 # zpt>50 met<100
-nonreso_alpha_el=0.332814
-nonreso_alpha_mu=0.615156
-#
-#nonreso_alpha_el=1.0
-#nonreso_alpha_mu=1.0
+nonreso_alpha_el=0.332060243754
+nonreso_alpha_mu=0.629043099213 
 
 #
 if doRhoScale:
@@ -94,8 +90,9 @@ if doGMCPhPtScale:
 
 outdir='plots'
 
-indir='/datab/tocheng/XZZ/80X_20161029_light_Skim/'
-indirGJets='/home/heli/XZZ/80X_20161029_GJets_light_Skim/'
+indir='/home/heli/XZZ/80X_20161029_light_Skim/'
+indirGJets='/home/heli/XZZ/80X_20161029_light_Skim/'
+
 lumi=36.4592
 sepSig=True
 doRatio=True
@@ -196,7 +193,6 @@ else:
     emuscale="(etrgsf*"+str(nonreso_alpha_el)+"+mtrgsf*"+str(nonreso_alpha_mu)+")"
 
 nonresSamples = [
-#'muonegtrgsf'
 'muonegtree_light_skim'
 ]
 nonresCRPlotters=[]
@@ -266,9 +262,7 @@ WJets.setFillProperties(1001,ROOT.kBlue-6)
 ################################
 # ZJets
 
-
 # parameters for GJets
-
 
 gdataLumi=36.46*1000
 gdataYield=3451449849.011390686 
@@ -292,17 +286,17 @@ zjetsFidXsecLowLptMu = 577.65006197098625762
 
 phymetPlotters=[]
 phymetSamples = [
-'DYJetsToLL_M50_reHLT',
-'ZJetsToNuNu_HT100to200_BIG',
-'ZJetsToNuNu_HT200to400_BIG',
-'ZJetsToNuNu_HT400to600_BIG',
-'ZJetsToNuNu_HT600to800_BIG',
-'ZJetsToNuNu_HT800t1200_BIG',
-'ZJetsToNuNu_HT1200to2500_BIG',
-'ZJetsToNuNu_HT2500toInf_BIG',
-'ZNuNuGJetsGt40Lt130',
-'ZNuNuGJetsGt130',
-'WGToLNuG',
+'G_DYJetsToLL_M50_reHLT',
+'G_ZJetsToNuNu_HT100to200_BIG',
+'G_ZJetsToNuNu_HT200to400_BIG',
+'G_ZJetsToNuNu_HT400to600_BIG',
+'G_ZJetsToNuNu_HT600to800_BIG',
+'G_ZJetsToNuNu_HT800t1200_BIG',
+'G_ZJetsToNuNu_HT1200to2500_BIG',
+'G_ZJetsToNuNu_HT2500toInf_BIG',
+'G_ZNuNuGJetsGt40Lt130',
+'G_ZNuNuGJetsGt130',
+'G_WGToLNuG',
 #'G_WJetsToLNu_HT100to200_BIG',
 #'G_WJetsToLNu_HT1200to2500_BIG',
 #'G_WJetsToLNu_HT200to400_BIG',
@@ -310,12 +304,12 @@ phymetSamples = [
 #'G_WJetsToLNu_HT400to600_BIG',
 #'G_WJetsToLNu_HT600to800_BIG',
 #'G_WJetsToLNu_HT800to1200_BIG',
-'TToLeptons_tch_powheg',
-'TBarToLeptons_tch_powheg',
-'T_tWch',
-'TBar_tWch',
-'TGJets_BIG',
-'TTGJets',
+'G_TToLeptons_tch_powheg',
+'G_TBarToLeptons_tch_powheg',
+'G_T_tWch',
+'G_TBar_tWch',
+'G_TGJets_BIG',
+'G_TTGJets',
 ]
 
 # all the factors below together normalized each process to the fraction of the process in the gjets data
@@ -350,10 +344,7 @@ for sample in phymetSamples:
 
 gdataPlotters=[]
 gdataSamples = [
-#'SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_Rc36p46ReCalib',
-#'SinglePhoton_Run2016B2H_ReReco_36p46_ResBosRefit_Rc36p46ReCalib',
 'SinglePhoton_Run2016B2H_ReReco_36p46_Rc36p46ReCalib',
-
 ]
 
 for sample in gdataSamples:
@@ -381,20 +372,9 @@ gjetsPlotters = gdataPlotters+phymetPlotters
 ZJets = MergedPlotter(gjetsPlotters)
 ZJets.setFillProperties(1001,ROOT.kGreen+2)
 
-for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster'] :
-    if channel=='el' :
-       ZJets.setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt_el_'+syst+'Up')
-       ZJets.setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt_el_'+syst+'Dn')
-    if channel=='mu' :
-       ZJets.setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt_mu_'+syst+'Up')
-       ZJets.setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt_mu_'+syst+'Dn')
-
 ### MC ZJets
 mczjetsPlotters=[]
 mczjetsSamples = [
-#'DYJetsToLL_M50_BIG_ResBos_NoRecoil',
-#'DYJetsToLL_M50_BIG_ResBos_Rc36p46',
-#'DYJetsToLL_M50_BIG_ResBosRefit_Rc36p46',
 'DYJetsToLL_M50_BIG_Rc36p46DtReCalib',
 ]
 
@@ -431,10 +411,6 @@ for sample in mczjetsSamples:
 
 MCZJets = MergedPlotter(mczjetsPlotters)
 MCZJets.setFillProperties(1001,ROOT.kGreen+2)
-
-for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster'] :
-    MCZJets.setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt')
-    MCZJets.setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt')
 
 ##
 # choose GJets or ZJets MC
@@ -550,6 +526,8 @@ for sample in sigSamples:
     for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster'] :
         sigPlotters[-1].setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt_'+syst+'Up')
         sigPlotters[-1].setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt_'+syst+'Dn')
+    sigPlotters[-1].setAlias('llnunu_mT_RecoilUp', 'llnunu_mt')
+    sigPlotters[-1].setAlias('llnunu_mT_RecoilDn', 'llnunu_mt')
 
 dataPlotters=[]
 dataSamples = [
@@ -571,7 +549,7 @@ Data.setAlias('llnunu_l2_phi_to_plot', 'llnunu_l2_phi')
 Data.setAlias('llnunu_mt_to_plot', 'llnunu_mt')
 Data.setAlias('llnunu_mT', 'llnunu_mt')
 
-for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster'] :
+for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster','Recoil'] :
     Data.setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt')
     Data.setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt')
 
@@ -584,15 +562,17 @@ WW.setAlias('llnunu_mT', 'llnunu_mt')
 for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster'] : 
     WW.setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt_'+syst+'Up')
     WW.setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt_'+syst+'Dn')
+WW.setAlias('llnunu_mT_RecoilUp', 'llnunu_mt')
+WW.setAlias('llnunu_mT_RecoilDn', 'llnunu_mt')
 
 TT.setAlias('llnunu_l1_mass_to_plot', 'llnunu_l1_mass')
 TT.setAlias('llnunu_l2_pt_to_plot', 'llnunu_l2_pt')
 TT.setAlias('llnunu_l2_phi_to_plot', 'llnunu_l2_phi')
 TT.setAlias('llnunu_mt_to_plot', 'llnunu_mt')
 TT.setAlias('llnunu_mT', 'llnunu_mt')
-for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster'] : 
-    TT.setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt_'+syst+'Up')
-    TT.setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt_'+syst+'Dn')
+for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster','Recoil'] : 
+    TT.setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt')
+    TT.setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt')
 
 VV.setAlias('llnunu_l1_mass_to_plot', 'llnunu_l1_mass')
 VV.setAlias('llnunu_l2_pt_to_plot', 'llnunu_l2_pt')
@@ -602,13 +582,15 @@ VV.setAlias('llnunu_mT', 'llnunu_mt')
 for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster'] :
     VV.setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt_'+syst+'Up')
     VV.setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt_'+syst+'Dn')
+VV.setAlias('llnunu_mT_RecoilUp', 'llnunu_mt')
+VV.setAlias('llnunu_mT_RecoilDn', 'llnunu_mt')
 
 NONRES.setAlias('llnunu_l1_mass_to_plot', 'llnunu_l1_mass')
 NONRES.setAlias('llnunu_l2_pt_to_plot', 'llnunu_l2_pt')
 NONRES.setAlias('llnunu_l2_phi_to_plot', 'llnunu_l2_phi')
 NONRES.setAlias('llnunu_mt_to_plot', 'llnunu_mt')
 NONRES.setAlias('llnunu_mT', 'llnunu_mt')
-for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster'] : 
+for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster','Recoil'] : 
     NONRES.setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt')
     NONRES.setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt')
 
@@ -618,9 +600,9 @@ if dyGJets and channel=='el':
     ZJets.setAlias('llnunu_l2_phi_to_plot', 'llnunu_l2_phi_el')
     ZJets.setAlias('llnunu_mt_to_plot', 'llnunu_mt_el')
     ZJets.setAlias('llnunu_mT', 'llnunu_mt_el')
-    for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster'] :
-        phymetPlotters[-1].setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt_el_'+syst+'Up')
-        phymetPlotters[-1].setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt_el_'+syst+'Dn')
+    for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster','Recoil'] :
+        ZJets.setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt_el_'+syst+'Up')
+        ZJets.setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt_el_'+syst+'Dn')
 
 elif dyGJets and channel=='mu':
     ZJets.setAlias('llnunu_l1_mass_to_plot', 'llnunu_l1_mass_mu')
@@ -628,9 +610,9 @@ elif dyGJets and channel=='mu':
     ZJets.setAlias('llnunu_l2_phi_to_plot', 'llnunu_l2_phi_mu')
     ZJets.setAlias('llnunu_mt_to_plot', 'llnunu_mt_mu')
     ZJets.setAlias('llnunu_mT', 'llnunu_mt_mu')
-    for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster'] :
-        ZJets[-1].setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt_mu_'+syst+'Up')
-        ZJets[-1].setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt_mu_'+syst+'Dn')
+    for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster','Recoil'] :
+        ZJets.setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt_mu_'+syst+'Up')
+        ZJets.setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt_mu_'+syst+'Dn')
 
 else:
     ZJets.setAlias('llnunu_l1_mass_to_plot', 'llnunu_l1_mass')
@@ -638,9 +620,9 @@ else:
     ZJets.setAlias('llnunu_l2_phi_to_plot', 'llnunu_l2_phi')
     ZJets.setAlias('llnunu_mt_to_plot', 'llnunu_mt')
     ZJets.setAlias('llnunu_mT', 'llnunu_mt')
-    for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster'] :
-        ZJets[-1].setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt_'+syst+'Up')
-        ZJets[-1].setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt_'+syst+'Dn')
+    for syst in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster','Recoil'] :
+        ZJets.setAlias('llnunu_mT_'+syst+'Up', 'llnunu_mt')
+        ZJets.setAlias('llnunu_mT_'+syst+'Dn', 'llnunu_mt')
 
 Stack = StackPlotter(outTag=tag, outDir=outdir)
 Stack.setPaveText(paveText)
@@ -667,16 +649,44 @@ Stack.doRatio(doRatio)
 
 tag+='_'
 
+#########
+
+Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{T}", units = "GeV",output=tag+'mT',outDir=outdir,separateSignal=sepSig, blinding=Blind,blindingCut=300)
+
+## zjetsFidXsec
+postfix = 'El'
+fidXsec = zjetsFidXsecEl
+fidXsecUp = zjetsFidXsecEl_up
+fidXsecDn = zjetsFidXsecEl_dn
+if ( channel=='mu' ) :
+   postfix = "Mu"
+   fidXsec = zjetsFidXsecMu
+   fidXsecUp = zjetsFidXsecMu_up
+   fidXsecDn = zjetsFidXsecMu_dn
+if ( dyGJets ) :
+   for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
+       if ( typeP != "data" and name == "ZJets" ):
+          plotter.changeCorrectionFactor(str(fidXsecUp),"zjetsFidXsec"+postfix)
+   Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{TfidXsecUp}", units = "GeV",output=tag+'mT_fidXsecUp',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
+
+   for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
+       if ( typeP != "data" and name == "ZJets"  ):
+          plotter.changeCorrectionFactor(str(fidXsecDn),"zjetsFidXsec"+postfix)
+   Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{TfidXsecDn}", units = "GeV",output=tag+'mT_fidXsecDn',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
+
 
 if(not doSys) :
 
-   Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{T}", units = "GeV",output=tag+'mT',outDir=outdir,separateSignal=sepSig, blinding=Blind,blindingCut=300)
-
+   for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
+       if ( typeP != "data" and name == "ZJets"  ):
+          plotter.changeCorrectionFactor(str(fidXsec),"zjetsFidXsec"+postfix)
    Stack.drawStack('llnunu_l2_pt_to_plot', cuts, str(lumi*1000), 50, 0, 500, titlex = "MET", units = "GeV",output=tag+'met',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=200)
 
 else:
 
-   Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{T}", units = "GeV",output=tag+'mT',outDir=outdir,separateSignal=sepSig, blinding=Blind,blindingCut=300)
+   for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
+       if ( typeP != "data" and name == "ZJets"  ):
+          plotter.changeCorrectionFactor(str(fidXsec),"zjetsFidXsec"+postfix)
 
    ## trg
    for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
@@ -699,7 +709,6 @@ else:
        if ( typeP != "data" and name != "NonReso" and name!="ZJets"):
           plotter.changeCorrectionFactor("trgsf*idisotrksf_dn","lepsf")
    Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{T}", units = "GeV",output=tag+'mT_idDn',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
-
 
    ## EWK and QCD
    for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
@@ -728,51 +737,49 @@ else:
           plotter.changeCorrectionFactor("(ZZEwkCorrWeight*ZZQcdCorrWeight_dn)*xsec","nnlo")   
    Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{T}", units = "GeV",output=tag+'mT_qcdDn',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
 
-   ## zjetsFidXsecEl
+   ## GJetsZPtWeight
    if ( channel=='el' and dyGJets ) :
        for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
-           if ( typeP != "data" and  name == "VVZReso"):
-              plotter.changeCorrectionFactor("(ZZEwkCorrWeight*ZZQcdCorrWeight)*xsec","nnlo")
            if ( typeP != "data" and name == "ZJets" ):
-              plotter.changeCorrectionFactor(str(zjetsFidXsecEl_up),"zjetsFidXsecEl")
-       Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{T}up", units = "GeV",output=tag+'mT_fidXsecUp',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
+              plotter.changeCorrectionFactor(str(zjetsFidXsecEl),"zjetsFidXsecEl")
+              plotter.changeCorrectionFactor("GJetsZPtWeightEl_up","GJetsZPtWeight")
+       Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{T}up", units = "GeV",output=tag+'mT_zptUp',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
 
        for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
-           if ( typeP != "data" and name == "VVZReso"):
-              plotter.changeCorrectionFactor("(ZZEwkCorrWeight*ZZQcdCorrWeight)*xsec","nnlo")
            if ( typeP != "data" and name == "ZJets"  ):
-              plotter.changeCorrectionFactor(str(zjetsFidXsecEl_dn),"zjetsFidXsecEl")
-       Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{T}dn", units = "GeV",output=tag+'mT_fidXsecDn',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
+              plotter.changeCorrectionFactor(str(zjetsFidXsecEl),"zjetsFidXsecEl")
+              plotter.changeCorrectionFactor("GJetsZPtWeightEl_dn","GJetsZPtWeight")
+       Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{T}dn", units = "GeV",output=tag+'mT_zptDn',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
 
-   ## zjetsFidXsecMu
    if ( channel=='mu' and dyGJets ) :
-      for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
-          if ( typeP != "data" and name == "VVZReso"):
-              plotter.changeCorrectionFactor("(ZZEwkCorrWeight*ZZQcdCorrWeight)*xsec","nnlo")
-          if ( typeP != 'data' and name == 'ZJets' ):
-             plotter.changeCorrectionFactor(str(zjetsFidXsecMu_up),"zjetsFidXsecMu")
-      Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 300.0, titlex = "M_{T}up", units = "GeV",output=tag+'mT_fidXsecUp',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
+       for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
+           if ( typeP != "data" and name == "ZJets" ):
+              plotter.changeCorrectionFactor(str(zjetsFidXsecMu),"zjetsFidXsecMu")
+              plotter.changeCorrectionFactor("GJetsZPtWeightMu_up","GJetsZPtWeight")
+       Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{T}up", units = "GeV",output=tag+'mT_zptUp',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
 
-      for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
-          if ( typeP != "data" and name == 'ZJets' ):
-             plotter.changeCorrectionFactor(str(zjetsFidXsecMu_dn),"zjetsFidXsecMu")
-      Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 300.0, titlex = "M_{T}dn", units = "GeV",output=tag+'mT_fidXsecDn',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
-
-   ## GJetsZPtWeight
+       for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
+           if ( typeP != "data" and name == "ZJets"  ):
+              plotter.changeCorrectionFactor(str(zjetsFidXsecMu),"zjetsFidXsecMu")
+              plotter.changeCorrectionFactor("GJetsZPtWeightMu_dn","GJetsZPtWeight")
+       Stack.drawStack('llnunu_mT', cuts, str(lumi*1000), 100, 0.0, 3000.0, titlex = "M_{T}dn", units = "GeV",output=tag+'mT_zptDn',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
 
    ######## MT Unc
    for (plotter,typeP,label,name) in zip(Stack.plotters,Stack.types,Stack.labels,Stack.names):
        if ( typeP != "data" and name == 'ZJets' ):
            if ( channel=='mu' ):
+              plotter.changeCorrectionFactor("GJetsZPtWeightMu","GJetsZPtWeight")
               plotter.changeCorrectionFactor(str(zjetsFidXsecMu),"zjetsFidXsecMu")
            if ( channel=='el' ):
+              plotter.changeCorrectionFactor("GJetsZPtWeightEl","GJetsZPtWeight")
               plotter.changeCorrectionFactor(str(zjetsFidXsecEl),"zjetsFidXsecEl")
 
-   for systs in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster'] :
+   for systs in ['JetEn','JetRes','MuonEn','ElectronEn','TauEn','PhotonEn','Uncluster','Recoil'] :
 
       print systs
       Stack.drawStack('llnunu_mT_'+systs+'Up', cuts, str(lumi*1000), 60, 0.0, 3000.0, titlex = "M_{T}", units = "GeV",output=tag+'mT_'+systs+'Up',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
       Stack.drawStack('llnunu_mT_'+systs+'Dn', cuts, str(lumi*1000), 60, 0.0, 3000.0, titlex = "M_{T}", units = "GeV",output=tag+'mT_'+systs+'Dn',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
+
 
 Stack.closePSFile()
 Stack.closeROOTFile()
