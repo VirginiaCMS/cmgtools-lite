@@ -90,13 +90,13 @@ void setTDRStyle()
         tdrStyle->SetStatY(0.86);
 
 	// Margins:
-	tdrStyle->SetPadTopMargin(0.05);
+	tdrStyle->SetPadTopMargin(0.15);
 	tdrStyle->SetPadBottomMargin(0.18);
 	tdrStyle->SetPadLeftMargin(0.18);
-	tdrStyle->SetPadRightMargin(0.05);
+	tdrStyle->SetPadRightMargin(0.15);
 
 	// For the Global title:
-	tdrStyle->SetOptTitle(1);
+	tdrStyle->SetOptTitle(0);
 	tdrStyle->SetTitleFont(42);
 	tdrStyle->SetTitleColor(1);
 	tdrStyle->SetTitleTextColor(1);
@@ -112,18 +112,18 @@ void setTDRStyle()
 	// For the axis titles:
 	tdrStyle->SetTitleColor(1, "XYZ");
 	tdrStyle->SetTitleFont(42, "XYZ");
-	tdrStyle->SetTitleSize(0.06, "XYZ");
+	tdrStyle->SetTitleSize(0.04, "XYZ");
 // tdrStyle->SetTitleXSize(Float_t size = 0.02); // Another way to set the size?
 // tdrStyle->SetTitleYSize(Float_t size = 0.02);
-	tdrStyle->SetTitleXOffset(1);
-	tdrStyle->SetTitleYOffset(1.2);
+	tdrStyle->SetTitleXOffset(1.1);
+	tdrStyle->SetTitleYOffset(1.1);
 // tdrStyle->SetTitleOffset(1.1, "Y"); // Another way to set the Offset
 
 	// For the axis labels:
 	tdrStyle->SetLabelColor(1, "XYZ");
 	tdrStyle->SetLabelFont(42, "XYZ");
 	tdrStyle->SetLabelOffset(0.007, "XYZ");
-	tdrStyle->SetLabelSize(0.05, "XYZ");
+	tdrStyle->SetLabelSize(0.03, "XYZ");
 
 	// For the axis:
 	tdrStyle->SetAxisColor(1, "XYZ");

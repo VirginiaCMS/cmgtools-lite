@@ -546,6 +546,18 @@ Float_t _llnunu_l2_pt_TauEnDn, _llnunu_l2_phi_TauEnDn;
 Float_t _llnunu_l2_pt_UnclusterUp, _llnunu_l2_phi_UnclusterUp;
 Float_t _llnunu_l2_pt_UnclusterDn, _llnunu_l2_phi_UnclusterDn;
 ///////////////////
+//  Recoil uncertainties
+Float_t _llnunu_l2_pt_RecoilUp, _llnunu_l2_pt_RecoilDn;
+Float_t _llnunu_l2_phi_RecoilUp, _llnunu_l2_phi_RecoilDn;
+Float_t _llnunu_mt_RecoilUp, _llnunu_mt_RecoilDn;
+Float_t _llnunu_l2_pt_el_RecoilUp, _llnunu_l2_pt_el_RecoilDn;
+Float_t _llnunu_l2_phi_el_RecoilUp, _llnunu_l2_phi_el_RecoilDn;
+Float_t _llnunu_mt_el_RecoilUp, _llnunu_mt_el_RecoilDn;
+Float_t _llnunu_l2_pt_mu_RecoilUp, _llnunu_l2_pt_mu_RecoilDn;
+Float_t _llnunu_l2_phi_mu_RecoilUp, _llnunu_l2_phi_mu_RecoilDn;
+Float_t _llnunu_mt_mu_RecoilUp, _llnunu_mt_mu_RecoilDn;
+
+/////////////////////////
 Float_t _llnunu_l2_sumEt, _llnunu_l2_rawPt, _llnunu_l2_rawPhi, _llnunu_l2_rawSumEt;
 Float_t _llnunu_l2_genPhi, _llnunu_l2_genEta;
 Float_t _llnunu_l1_l1_pt, _llnunu_l1_l1_eta, _llnunu_l1_l1_phi;

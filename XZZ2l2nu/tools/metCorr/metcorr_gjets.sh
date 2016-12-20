@@ -33,10 +33,10 @@ njob="0"
 #for infile in $inputdir/GJets_HT*/vvTreeProducer/tree.root ; 
 #for infile in $inputdir/QCD_*/vvTreeProducer/tree.root ; 
 #for infile in $inputdir/SinglePhoton_Run2016B2H_ReReco_36p22fbinv/vvTreeProducer/tree.root ; 
-#for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep -v SinglePhoton ); 
-#for infile in $inputdir/SinglePhoton_Run2016B2H_ReReco_36p46/vvTreeProducer/tree.root ; 
 #for infile in $inputdir/WGToLNuG/vvTreeProducer/tree.root ; 
-for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep -v "/GJet" | grep -v "/QCD" | grep -v "/SinglePhoton" ); 
+#for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep -v "/GJet" | grep -v "/QCD" | grep -v "/SinglePhoton" ); 
+#for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep -v SinglePhoton ); 
+for infile in $inputdir/SinglePhoton_Run2016B2H_ReReco_36p46/vvTreeProducer/tree.root ; 
 do
   echo "+++ skimming $infile +++"
   outfile="${outputdir}/${infile/$inputdir\//}"
@@ -44,8 +44,8 @@ do
   # options for outputs
   #outfile="${outfile/\/vvTreeProducer\/tree/_ResBos_Rc36p46ReCalibwHLT}"
   #outfile="${outfile/\/vvTreeProducer\/tree/_ResBos_Rc36p46wHLT}"
-  #outfile="${outfile/\/vvTreeProducer\/tree/_Rc36p46ReCalibErr}"
-  outfile="${outfile/\/vvTreeProducer\/tree/}"
+  outfile="${outfile/\/vvTreeProducer\/tree/_Rc36p46ReCalib}"
+  #outfile="${outfile/\/vvTreeProducer\/tree/}"
   #outfile="${outfile/\/vvTreeProducer\/tree/_NoRecoil}"
   #outfile="${outfile/\/vvTreeProducer\/tree/_test}"
 

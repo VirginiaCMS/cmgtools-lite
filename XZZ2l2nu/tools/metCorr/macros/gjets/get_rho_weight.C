@@ -1,14 +1,25 @@
 {
 
-  TFile* file1 = TFile::Open("/home/heli/XZZ/80X_20161029_light_Skim/SingleEMU_Run2016B2H_ReReco_36p22fbinv.root");
-  //TFile* file2 = TFile::Open("/home/heli/XZZ/80X_20161029_GJets_light/SinglePhoton_Run2016B2H_ReReco_36p22fbinv/vvTreeProducer/tree.root");
-  TFile* file2 = TFile::Open("/home/heli/XZZ/80X_20161029_GJets_light_Skim/SinglePhoton_Run2016B2H_ReReco_36p22fbinv_NoRecoil.root");
-  TFile* fout = TFile::Open("get_rho_weight_36p22_psWt.root", "recreate");
-  //TFile* fout = TFile::Open("get_rho_weight_36p22.root", "recreate");
-  //TFile* fout = TFile::Open("get_rho_weight_36p22_el.root", "recreate");
-  //TFile* fout = TFile::Open("get_rho_weight_36p22_mu.root", "recreate");
+  gROOT->ProcessLine(".x tdrstyle.C");
+
+  std::string outtag="get_rho_weight_36p46_psW";
+  TFile* file1 = TFile::Open("/home/heli/XZZ/80X_20161029_light_Skim/SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib.root");
+  TFile* file2 = TFile::Open("/home/heli/XZZ/80X_20161029_GJets_light_Skim/SinglePhoton_Run2016B2H_ReReco_36p46_Rc36p46ReCalib.root");
+
+
+  
+  char name[1000];
+  sprintf(name, "%s.root", outtag.c_str());
+  TFile* fout = TFile::Open(name, "recreate");
   TTree* tree1 = (TTree*)file1->Get("tree");
   TTree* tree2 = (TTree*)file2->Get("tree");
+
+
+
+  TCanvas* plots = new TCanvas("plots", "plots");
+
+  sprintf(name, "%s.pdf[", outtag.c_str());
+  plots->Print(name);
 
   
   Double_t ZPtBins[] = {0,30,36,50,75,90,120,165,3000};
@@ -61,6 +72,71 @@
   h_rho_zpt_weight = (TH2D*)h_rho_zpt_1_zptnorm->Clone("h_rho_zpt_weight");
   h_rho_zpt_weight->Divide(h_rho_zpt_2_zptnorm);
   h_rho_zpt_weight->SetTitle("h_rho_zpt_weight");
+
+
+  // plotting
+
+  TH1D* h_zpt_sb_nops = new TH1D("h_zpt_sb_nops", "h_zpt_sb_nops", 500, 0, 1000);
+  TH1D* h_zpt_sb_wps  = new TH1D("h_zpt_sb_wps",  "h_zpt_sb_wps",  500, 0, 1000);
+
+  h_zpt_sb_nops->Sumw2();
+  h_zpt_sb_wps->Sumw2();
+
+  tree2->Draw("llnunu_l1_pt>>h_zpt_sb_nops");
+  tree2->Draw("llnunu_l1_pt>>h_zpt_sb_wps", "(1)*(GJetsPreScaleWeight)");
+
+  h_zpt_sb_nops->SetLineColor(2);
+  h_zpt_sb_nops->SetMarkerColor(2);
+  h_zpt_sb_wps->SetLineColor(4);
+  h_zpt_sb_wps->SetMarkerColor(4);
+ 
+  h_zpt_sb_nops->GetXaxis()->SetTitle("photon p_{T} (GeV)"); 
+  h_zpt_sb_wps->GetXaxis()->SetTitle("photon p_{T} (GeV)"); 
+  
+  TLegend* lg_zpt_ps = new TLegend(0.6,0.7, 0.8,0.8);
+  lg_zpt_ps->AddEntry(h_zpt_sb_nops, "no HLT prescale");
+  lg_zpt_ps->AddEntry(h_zpt_sb_wps, "with HLT prescale");
+
+  plots->Clear();
+  h_zpt_sb_wps->Draw();
+  h_zpt_sb_nops->Draw("same");
+  lg_zpt_ps->Draw();
+  plots->SetLogy(1);
+  sprintf(name, "%s.pdf", outtag.c_str());
+  plots->Print(name);
+  plots->SetLogy(0);
+  plots->Clear();
+
+
+  std::vector<std::string> hlt_lab={"HLT 22", "HLT 30", "HLT 36", "HLT 50", "HLT 75", "HLT 90", "HLT 120", "HLT 165"};
+
+  for (int i=0; i<h_rho_zpt_1_zptnorm->GetNbinsX(); i++){
+    sprintf(name, "tmp_h1_%i", i);
+    TH1D* h1 = (TH1D*)h_rho_zpt_1_zptnorm->ProjectionY(name, i+1,i+1);
+    sprintf(name, "tmp_h2_%i", i);
+    TH1D* h2 = (TH1D*)h_rho_zpt_2_zptnorm->ProjectionY(name, i+1,i+1);
+    h1->SetLineColor(2);
+    h1->SetMarkerColor(2);
+    h2->SetLineColor(4);
+    h2->SetMarkerColor(4);
+    TLegend* lg1 = new TLegend(0.6,0.7, 0.8,0.8);
+    sprintf(name, "tmp_lg1_%i", i);
+    lg1->AddEntry(h1, "di-lepton data", "apl");
+    lg1->AddEntry(h2, "photon data" , "apl");
+    lg1->AddEntry(h2, hlt_lab.at(i).c_str() , "");
+
+    plots->Clear();
+    h1->Draw();
+    h2->Draw("same");
+    sprintf(name, "%s.pdf", outtag.c_str());
+    plots->Print(name);
+    plots->Clear();
+
+  }
+
+  sprintf(name, "%s.pdf]", outtag.c_str());
+  plots->Print(name);
+  // save
 
   fout->cd();
 

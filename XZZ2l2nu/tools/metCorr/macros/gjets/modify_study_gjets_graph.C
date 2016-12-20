@@ -30,7 +30,7 @@
   hzpt_el_up->SetPoint(i, x, y);
   hzpt_el_dn->SetPoint(i, x, y);
   
-  i=60; s=0.97;
+  i=60; s=1.1;
   hzpt_el->GetPoint(i,x,y);
   hzpt_el->SetPoint(i,x,s*y);
   hzpt_el_up->GetPoint(i,x,y);
@@ -104,7 +104,7 @@
   hzpt_mu_dn->GetPoint(i,x,y);
   hzpt_mu_dn->SetPoint(i,x,s*y);
 
-  i=58; s=1.05;
+  i=58; s=1.036;
   hzpt_mu->GetPoint(i,x,y);
   hzpt_mu->SetPoint(i,x,s*y);
   hzpt_mu_up->GetPoint(i,x,y);
@@ -112,7 +112,7 @@
   hzpt_mu_dn->GetPoint(i,x,y);
   hzpt_mu_dn->SetPoint(i,x,s*y);
 
-  i=59; s=1.12;
+  i=59; s=1.115;
   hzpt_mu->GetPoint(i,x,y);
   hzpt_mu->SetPoint(i,x,s*y);
   hzpt_mu_up->GetPoint(i,x,y);
@@ -120,7 +120,7 @@
   hzpt_mu_dn->GetPoint(i,x,y);
   hzpt_mu_dn->SetPoint(i,x,s*y);
 
-  i=60; s=1.36;
+  i=60; s=1.35;
   hzpt_mu->GetPoint(i,x,y);
   hzpt_mu->SetPoint(i,x,s*y);
   hzpt_mu_up->GetPoint(i,x,y);
@@ -130,7 +130,7 @@
 
 
 
-  //hzpt_mu->Draw("apl");
+  hzpt_mu->Draw("apl");
   //hzpt_mu->Print();
 
 
@@ -197,6 +197,6 @@
   hzpt_lowlpt_mu->Write("gr_zpt_lowlpt_ratio_mu");
 
   
-  file->Close();  
+//  file->Close();  
 
 }

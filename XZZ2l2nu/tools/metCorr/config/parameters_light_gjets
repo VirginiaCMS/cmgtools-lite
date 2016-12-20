@@ -45,7 +45,7 @@ storeErr: true
 removeHLTFlag: true
 removeMETFlag: true
 doMTUnc: true
-doMTUncDummy: false
+doMTUncDummy: true # true for data, no met uncert for data.
 
 # tree selection string
 selection: (1)

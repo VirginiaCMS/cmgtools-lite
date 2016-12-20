@@ -1,9 +1,9 @@
 {
 
-  bool doMu=true;
+  bool doMu=false;
 
-  TFile* file1 = TFile::Open("/home/heli/XZZ/80X_20161029_light_Skim/SingleEMU_Run2016B2H_ReReco_36p46.root");
-  TFile* file2 = TFile::Open("/home/heli/XZZ/80X_20161029_light_Skim/DYJetsToLL_M50_BIG_ResBos_NoRecoil.root");
+  TFile* file1 = TFile::Open("/data2/XZZ2/80X_20161029_light_Skim/SingleEMU_Run2016B2H_ReReco_36p46.root");
+  TFile* file2 = TFile::Open("/home/heli/XZZ/80X_20161029_light_Skim/DYJetsToLL_M50_BIG_NoRecoil.root");
 
   TTree* tree1 = (TTree*)file1->Get("tree");
   TTree* tree2 = (TTree*)file2->Get("tree");
