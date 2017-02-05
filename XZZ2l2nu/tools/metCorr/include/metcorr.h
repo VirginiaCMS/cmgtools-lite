@@ -354,7 +354,9 @@ std::string _EffScaleInputFileName_Trg_El = "data/eff/trigereff12p9.root";
 // - mu trigger eff
 std::string _EffScaleInputFileName_Trg_Mu = "data/eff/trigeff_mu.root";
 
-
+std::string _EffScaleInputFileName_muoneg_scale = "data/eff/meratiopt.root";
+TFile* _file_sf_muoneg;
+TH1F* _h_sf_muoneg;
 // not from config file
 // electron sf
 TFile* _file_idiso_el;
@@ -647,7 +649,7 @@ Float_t _ZZEwkCorrWeight, _ZZEwkCorrWeight_up, _ZZEwkCorrWeight_dn;
 Float_t _ZZQcdCorrWeight, _ZZQcdCorrWeight_up, _ZZQcdCorrWeight_dn;
 
 // efficiency scale factors
-Float_t _trgsf, _isosf, _idsf, _trksf, _idisotrksf,_etrgsf,_mtrgsf;
+Float_t _trgsf, _isosf, _idsf, _trksf, _idisotrksf,_etrgsf,_mtrgsf,_escale,_mscale;
 Float_t _trgsf_err, _isosf_err, _idsf_err, _trksf_err,_etrgsf_err,_mtrgsf_err;
 Float_t _trgsf_up, _trgsf_dn, _idisotrksf_up, _idisotrksf_dn,_etrgsf_up, _etrgsf_dn,_mtrgsf_up, _mtrgsf_dn;
 
