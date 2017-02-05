@@ -2817,22 +2817,12 @@ void prepareEmuTrgsf()
   _h_sf_trg_el_l1=(TH2D*)_file_trg_el->Get("scalefactor");
   _file_trg_mu = TFile::Open(_EffScaleInputFileName_Trg_Mu.c_str());
   _h_sf_muoneg = (TH1F*)_file_sf_muoneg->Get("meratio");
-  _h_eff_trg_mu50_dt_1 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50_dt_1");
-  _h_eff_trg_mu50_dt_2 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50_dt_2");
-  _h_eff_trg_mu50_dt_3 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50_dt_3");
-  _h_eff_trg_mu50_dt_4 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50_dt_4");
-  _h_eff_trg_mu50_mc_1 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50_mc_1");
-  _h_eff_trg_mu50_mc_2 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50_mc_2");
-  _h_eff_trg_mu50_mc_3 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50_mc_3");
-  _h_eff_trg_mu50_mc_4 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50_mc_4");
   _h_eff_trg_mu50tkmu50_dt_1 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_dt_1");
   _h_eff_trg_mu50tkmu50_dt_2 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_dt_2");
+  _h_eff_trg_mu50tkmu50_dt_1->Scale(.01);
+  _h_eff_trg_mu50tkmu50_dt_2->Scale(.01);
   _h_eff_trg_mu50tkmu50_dt_3 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_dt_3");
   _h_eff_trg_mu50tkmu50_dt_4 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_dt_4");
-  _h_eff_trg_mu50tkmu50_mc_1 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_mc_1");
-  _h_eff_trg_mu50tkmu50_mc_2 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_mc_2");
-  _h_eff_trg_mu50tkmu50_mc_3 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_mc_3");
-  _h_eff_trg_mu50tkmu50_mc_4 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_mc_4");
   
 }
 
@@ -2867,53 +2857,29 @@ void addEmuTrgsf()
   }
   if (rnd<=0.5/(0.5+17.0+3.0+16.0)) {
     // for 2016 period1 0.5/fb, run B, including starkup problems, up to run 274094
-    h_effa_dt = (TH2*)_h_eff_trg_mu50_dt_1;
-    h_effa_mc = (TH2*)_h_eff_trg_mu50_mc_1;
     h_effb_dt = (TH2*)_h_eff_trg_mu50tkmu50_dt_1;
-    h_effb_mc = (TH2*)_h_eff_trg_mu50tkmu50_mc_1;
   }
   else if (rnd>0.5/(0.5+17.0+3.0+16.0)&&rnd<=(0.5+17.0)/(0.5+17.0+3.0+16.0)) {
         // for 2016 period2 17.0/fb, run BCDEF, until L1 EMTF fixed
-    h_effa_dt = (TH2*)_h_eff_trg_mu50_dt_2;
-    h_effa_mc = (TH2*)_h_eff_trg_mu50_mc_2;
     h_effb_dt = (TH2*)_h_eff_trg_mu50tkmu50_dt_2;
-    h_effb_mc = (TH2*)_h_eff_trg_mu50tkmu50_mc_2;
   }
   else if (rnd>(0.5+17.0)/(0.5+17.0+3.0+16.0)&&rnd<=(0.5+17.0+3.0)/(0.5+17.0+3.0+16.0)) {
         // for 2016 period3 3.0/fb, run F post L1 EMFT fix from Run 278167
-    h_effa_dt = (TH2*)_h_eff_trg_mu50_dt_3;
-    h_effa_mc = (TH2*)_h_eff_trg_mu50_mc_3;
     h_effb_dt = (TH2*)_h_eff_trg_mu50tkmu50_dt_3;
-    h_effb_mc = (TH2*)_h_eff_trg_mu50tkmu50_mc_3;
   } 
   else {
     // for 2016 period4 16.0/fb, run GH, post HIP fix
-    h_effa_dt = (TH2*)_h_eff_trg_mu50_dt_4;
-    h_effa_mc = (TH2*)_h_eff_trg_mu50_mc_4;
     h_effb_dt = (TH2*)_h_eff_trg_mu50tkmu50_dt_4;
-    h_effb_mc = (TH2*)_h_eff_trg_mu50tkmu50_mc_4;
   }    
 
   // protection
-  if (eta1a<h_effa_dt->GetXaxis()->GetXmin()) eta1a =  0.1+h_effa_dt->GetXaxis()->GetXmin();
-  if (eta1a>h_effa_dt->GetXaxis()->GetXmax()) eta1a = -0.1+h_effa_dt->GetXaxis()->GetXmax();
-  if (pt1a<h_effa_dt->GetYaxis()->GetXmin()) pt1a =  0.1+h_effa_dt->GetYaxis()->GetXmin();
-  if (pt1a>h_effa_dt->GetYaxis()->GetXmax()) pt1a = -0.1+h_effa_dt->GetYaxis()->GetXmax();
   if (eta1b<h_effb_dt->GetXaxis()->GetXmin()) eta1b =  0.1+h_effb_dt->GetXaxis()->GetXmin();
   if (eta1b>h_effb_dt->GetXaxis()->GetXmax()) eta1b = -0.1+h_effb_dt->GetXaxis()->GetXmax();
   if (pt1b<h_effb_dt->GetYaxis()->GetXmin()) pt1b =  0.1+h_effb_dt->GetYaxis()->GetXmin();
   if (pt1b>h_effb_dt->GetYaxis()->GetXmax()) pt1b = -0.1+h_effb_dt->GetYaxis()->GetXmax();
 
-      // get eff
-  eff1a_dt = h_effa_dt->GetBinContent(h_effa_dt->FindBin(eta1a,pt1a));
-  eff1a_mc = h_effa_mc->GetBinContent(h_effa_mc->FindBin(eta1a,pt1a));
-  err1a_dt = h_effa_dt->GetBinError(h_effa_dt->FindBin(eta1a,pt1a));
-  err1a_mc = h_effa_mc->GetBinError(h_effa_mc->FindBin(eta1a,pt1a));
-
   eff1b_dt = h_effb_dt->GetBinContent(h_effb_dt->FindBin(eta1b,pt1b));
-  eff1b_mc = h_effb_mc->GetBinContent(h_effb_mc->FindBin(eta1b,pt1b));
   err1b_dt = h_effb_dt->GetBinError(h_effb_dt->FindBin(eta1b,pt1b));
-  err1b_mc = h_effb_mc->GetBinError(h_effb_mc->FindBin(eta1b,pt1b));
 
 
       // if use mu50||tkmu50
