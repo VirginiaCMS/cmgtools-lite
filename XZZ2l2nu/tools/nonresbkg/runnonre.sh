@@ -1,6 +1,7 @@
 #! /bin/bash
 runtag(){
-tags='metzptCR_log'
+#tags='full sigall sigzpt100 sigpt100'
+tags='sigzpt50_log sigpt100_log'
 #tags=zveto
 
 
