@@ -85,8 +85,8 @@ nonreso_alpha_mu=1.0
 #nonreso_alpha_el=0.353651462281
 #nonreso_alpha_mu=0.614219922129
 # zpt>50 met<100
-nonreso_alpha_el=0.332060243754
-nonreso_alpha_mu=0.629043099213 
+nonreso_alpha_el=0.355340419554
+nonreso_alpha_mu=0.672679894023
 
 #
 
@@ -269,15 +269,15 @@ VV.setAlias('llnunu_mt_to_plot', 'llnunu_mt')
 if muoneg: 
 
     if channel=="el": 
-        emuscale="(etrgsf*"+str(nonreso_alpha_el)+")"
+        emuscale="(etrgsf*escale*"+str(nonreso_alpha_el)+")"
     elif channel=="mu": 
-        emuscale="(mtrgsf*"+str(nonreso_alpha_mu)+")"
+        emuscale="(mtrgsf*mscale*"+str(nonreso_alpha_mu)+")"
     else: 
-        emuscale="(etrgsf*"+str(nonreso_alpha_el)+"+mtrgsf*"+str(nonreso_alpha_mu)+")"
+        emuscale="(etrgsf*escale*"+str(nonreso_alpha_el)+"+mtrgsf*mscale*"+str(nonreso_alpha_mu)+")"
 
     nonresSamples = [
     #'muonegtrgsf'
-    'muonegtree_light_skim'
+    'muonegtree_light_skim_38'
     ]
     nonresPlotters=[]
     for sample in nonresSamples:
