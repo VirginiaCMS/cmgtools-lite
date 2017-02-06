@@ -10,6 +10,7 @@
 # and directory to copy jobs out
 
 dir=$1
+#out=/datac/heli/XZZ2/80X_20170202_Chunks
 out=/data2/XZZ2/80X_20170202_Chunks
 
 mkdir -p $out

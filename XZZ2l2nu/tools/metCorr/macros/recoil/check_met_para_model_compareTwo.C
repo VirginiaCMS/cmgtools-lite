@@ -1,22 +1,13 @@
 {
 
-std::string indir="recoil_out7";
+std::string indir="recoil_out8";
 
 std::string  name1 =
-//"SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_dtHLT_el"
-//"SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_dtHLT_mu"
-//"SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_el"
-//"SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_mu"
-//"SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_dtHLT_el"
-//"SingleEMU_Run2016B2H_ReReco_36p46_met_para_study_ZSelecLowLPt_el"
-"SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_ZSelecLowLPt_mu"
+"SingleEMU_Run2016Full_ReReco_v2_met_para_study_ZSelecLowLPt_mu"
 ;
 std::string  name2 =
-"SinglePhoton_Run2016B2H_ReReco_36p46_NoRecoil_met_para_study_ZSelecLowLPt_mu"
-//"SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_ZSelecLowLPt_el"
-//"SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib_met_para_study_ZSelecLowLPt_mu"
-//"SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_el"
-//"SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_mu"
+//"DYJetsToLL_M50_MGMLM_BIG_NoRecoil_met_para_study_ZSelecLowLPt_mu"
+"DYJetsToLL_M50_MGMLM_BIG_NoRecoil_met_para_study_ZSelecLowLPt_RhoWt_mu"
 ;
 
 std::string name_file1 = indir+"/"+name1+".root";

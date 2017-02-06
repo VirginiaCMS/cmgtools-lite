@@ -1,8 +1,8 @@
 #!/bin/sh
 
 #inputs
-inputdir=/home/heli/XZZ/80X_20170124_light
-outputdir=/home/heli/XZZ/80X_20170124_light_Skim
+inputdir=/home/heli/XZZ/80X_20170202_light
+outputdir=/home/heli/XZZ/80X_20170202_light_Skim
 config=config/parameters_light
 
 mkdir -p ${outputdir}
@@ -34,21 +34,19 @@ njob="0"
 #for infile in $inputdir/SingleEMU_Run2016B2G_ReReco_27fbinv/vvTreeProducer/tree.root ; 
 #for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep -v Single | grep -v DYJets | grep -v Bulk); 
 #for infile in $inputdir/BulkGravToZZToZlepZinv_narrow_1000/vvTreeProducer/tree.root ;
-#for infile in $inputdir/*/vvTreeProducer/tree.root ;
 #for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep -v Single | grep -v DY); 
+#for infile in $inputdir/*/vvTreeProducer/tree.root ;
 #for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep Single ); 
-for infile in $inputdir/DY*JetsToLL_M50_*/vvTreeProducer/tree.root ;
+for infile in $inputdir/DY?JetsToLL_M50_*/vvTreeProducer/tree.root ;
 do
   echo "+++ skimming $infile +++"
   outfile="${outputdir}/${infile/$inputdir\//}"
 
   # options for outputs
-  #outfile="${outfile/\/vvTreeProducer\/tree/_ResBosRefit_NoRecoil}"
   #outfile="${outfile/\/vvTreeProducer\/tree/_NoRecoil}"
-  #outfile="${outfile/\/vvTreeProducer\/tree/_ResBosRefit_Rc36p46}"
-  #outfile="${outfile/\/vvTreeProducer\/tree/_Rc36p46DtReCalib}"
   #outfile="${outfile/\/vvTreeProducer\/tree/_DtReCalib}"
   outfile="${outfile/\/vvTreeProducer\/tree/}"
+  #outfile="${outfile/\/vvTreeProducer\/tree/_RcRhoWt}"
   #outfile="${outfile/\/vvTreeProducer\/tree/_test}"
 
   inSkimFile=${infile/vvTreeProducer\/tree.root/skimAnalyzerCount\/SkimReport.txt}

@@ -288,6 +288,7 @@ void readConfigFile()
   }
 
   _doElecPtRecalibSimpleData = parm.GetBool("doElecPtRecalibSimpleData", kFALSE);
+  _doElecPtRecalibSimpleDataPogRecipe = parm.GetBool("doElecPtRecalibSimpleDataPogRecipe", kFALSE);
   _ElecPtRecalibSimpleDataScale = parm.GetDouble("ElecPtRecalibSimpleDataScale", 1.0);
   _doMuonPtRecalibSimpleData = parm.GetBool("doMuonPtRecalibSimpleData", kFALSE);
   _MuonPtRecalibSimpleDataScale = parm.GetDouble("MuonPtRecalibSimpleDataScale", 1.0);
@@ -514,6 +515,7 @@ bool  prepareTrees()
     _tree_in->SetBranchAddress("llnunu_l1_l1_charge", &_llnunu_l1_l1_charge);
     _tree_in->SetBranchAddress("llnunu_l1_l1_ptErr", &_llnunu_l1_l1_ptErr);
     _tree_in->SetBranchAddress("llnunu_l1_l1_eSCeta", &_llnunu_l1_l1_eSCeta);
+    _tree_in->SetBranchAddress("llnunu_l1_l1_eSeedXtal", &_llnunu_l1_l1_eSeedXtal);
     _tree_in->SetBranchAddress("llnunu_l1_l1_trigerob_HLTbit", &_llnunu_l1_l1_trigerob_HLTbit);
 
     _tree_in->SetBranchAddress("llnunu_l1_l2_pt", &_llnunu_l1_l2_pt);
@@ -525,6 +527,7 @@ bool  prepareTrees()
     _tree_in->SetBranchAddress("llnunu_l1_l2_charge", &_llnunu_l1_l2_charge);
     _tree_in->SetBranchAddress("llnunu_l1_l2_ptErr", &_llnunu_l1_l2_ptErr);
     _tree_in->SetBranchAddress("llnunu_l1_l2_eSCeta", &_llnunu_l1_l2_eSCeta);
+    _tree_in->SetBranchAddress("llnunu_l1_l2_eSeedXtal", &_llnunu_l1_l2_eSeedXtal);
     _tree_in->SetBranchAddress("llnunu_l1_l2_trigerob_HLTbit", &_llnunu_l1_l2_trigerob_HLTbit);
 
   }
@@ -1253,10 +1256,27 @@ void doMTUncMu(){
 void doElecPtRecalibSimpleData()
 {
   if ((abs(_llnunu_l1_l1_pdgId)==11||abs(_llnunu_l1_l2_pdgId)==11) && _isData ) {
+   
     
-    if (abs(_llnunu_l1_l1_pdgId)==11) _llnunu_l1_l1_pt = Float_t(_llnunu_l1_l1_pt*_ElecPtRecalibSimpleDataScale);
-    if (abs(_llnunu_l1_l2_pdgId)==11) _llnunu_l1_l2_pt = Float_t(_llnunu_l1_l2_pt*_ElecPtRecalibSimpleDataScale);
-
+    if (_doElecPtRecalibSimpleDataPogRecipe) { 
+      // pog recipe will correct energy according to seeding xtal energies.
+      if (abs(_llnunu_l1_l1_pdgId)==11) {
+        _ElecPtRecalibSimpleDataScale = 1.0; // reset to be 1.0
+        if (_llnunu_l1_l1_eSeedXtal>200 && _llnunu_l1_l1_eSeedXtal<=300) _ElecPtRecalibSimpleDataScale = 1.0199;
+        else if (_llnunu_l1_l1_eSeedXtal>300 && _llnunu_l1_l1_eSeedXtal<=400) _ElecPtRecalibSimpleDataScale = 1.052;
+        else if (_llnunu_l1_l1_eSeedXtal>400 && _llnunu_l1_l1_eSeedXtal<=500) _ElecPtRecalibSimpleDataScale = 1.015;
+        _llnunu_l1_l1_pt = Float_t(_llnunu_l1_l1_pt*_ElecPtRecalibSimpleDataScale);
+      }
+      if (abs(_llnunu_l1_l2_pdgId)==11) {
+        _ElecPtRecalibSimpleDataScale = 1.0; // reset to be 1.0
+        if (_llnunu_l1_l2_eSeedXtal>200 && _llnunu_l1_l2_eSeedXtal<=300) _ElecPtRecalibSimpleDataScale = 1.0199;
+        else if (_llnunu_l1_l2_eSeedXtal>300 && _llnunu_l1_l2_eSeedXtal<=400) _ElecPtRecalibSimpleDataScale = 1.052;
+        else if (_llnunu_l1_l2_eSeedXtal>400 && _llnunu_l1_l2_eSeedXtal<=500) _ElecPtRecalibSimpleDataScale = 1.015;
+        _llnunu_l1_l2_pt = Float_t(_llnunu_l1_l2_pt*_ElecPtRecalibSimpleDataScale);
+      }
+    }
+    else {
+    }
     TLorentzVector l1v, l2v;
     l1v.SetPtEtaPhiM(_llnunu_l1_l1_pt, _llnunu_l1_l1_eta, _llnunu_l1_l1_phi, _llnunu_l1_l1_mass);
     l2v.SetPtEtaPhiM(_llnunu_l1_l2_pt, _llnunu_l1_l2_eta, _llnunu_l1_l2_phi, _llnunu_l1_l2_mass);
@@ -1562,6 +1582,13 @@ void prepareRecoil()
       _file_mc_sigma[1] = new TFile(_RecoilInputFileNameMCLO_mu.c_str());
       _file_mc_sigma[2] = new TFile(_RecoilInputFileNameMCLO_el.c_str());
     }
+
+    // zpt profile, mean zpt in each zpt bin
+    _p_dt_zpt[0] = (TProfile*)_file_dt_sigma[0]->Get("p_zpt");
+    _p_dt_zpt[1] = (TProfile*)_file_dt_sigma[1]->Get("p_zpt");
+    _p_dt_zpt[2] = (TProfile*)_file_dt_sigma[2]->Get("p_zpt");
+
+    //
     _h_dt_met_para_shift[0] = (TH1D*)_file_dt_sigma[0]->Get("h_met_para_vs_zpt_mean");
     _h_mc_met_para_shift[0] = (TH1D*)_file_mc_sigma[0]->Get("h_met_para_vs_zpt_mean");
     _h_met_para_shift_dtmc[0] = (TH1D*)_h_dt_met_para_shift[0]->Clone("h_met_para_shift_dtmc_all");
@@ -1666,6 +1693,38 @@ void prepareRecoil()
     _gr_ratio_met_perp_sigma_dtmc[4] = new TGraphErrors(_h_ratio_met_perp_sigma_dtmc[4]);
     _gr_ratio_met_perp_sigma_dtmc[5] = new TGraphErrors(_h_ratio_met_perp_sigma_dtmc[5]);
 
+
+    // reset the x-axis bin centers to the mean zpt in each zpt bin
+    for (int ihist=0; ihist<3; ihist++){
+      double xx,yy;
+      for (int ibin=0; ibin<_p_dt_zpt[ihist]->GetNbinsX(); ibin++){
+
+        // _gr_dt_met_para_shift
+        _gr_dt_met_para_shift[3+ihist]->GetPoint(ibin, xx, yy);
+        xx = _p_dt_zpt[ihist]->GetBinContent(ibin+1);
+        _gr_dt_met_para_shift[3+ihist]->SetPoint(ibin, xx, yy);
+
+        // _gr_mc_met_para_shift
+        _gr_mc_met_para_shift[3+ihist]->GetPoint(ibin, xx, yy);
+        xx = _p_dt_zpt[ihist]->GetBinContent(ibin+1);
+        _gr_mc_met_para_shift[3+ihist]->SetPoint(ibin, xx, yy);
+
+        // _gr_met_para_shift_dtmc
+        _gr_met_para_shift_dtmc[3+ihist]->GetPoint(ibin, xx, yy);
+        xx = _p_dt_zpt[ihist]->GetBinContent(ibin+1);
+        _gr_met_para_shift_dtmc[3+ihist]->SetPoint(ibin, xx, yy);
+
+        // _gr_ratio_met_para_sigma_dtmc
+        _gr_ratio_met_para_sigma_dtmc[3+ihist]->GetPoint(ibin, xx, yy);
+        xx = _p_dt_zpt[ihist]->GetBinContent(ibin+1);
+        _gr_ratio_met_para_sigma_dtmc[3+ihist]->SetPoint(ibin, xx, yy);
+
+        // _gr_ratio_met_perp_sigma_dtmc
+        _gr_ratio_met_perp_sigma_dtmc[3+ihist]->GetPoint(ibin, xx, yy);
+        xx = _p_dt_zpt[ihist]->GetBinContent(ibin+1);
+        _gr_ratio_met_perp_sigma_dtmc[3+ihist]->SetPoint(ibin, xx, yy);
+      }
+    }
 
   }
   

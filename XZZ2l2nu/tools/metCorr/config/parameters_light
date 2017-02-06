@@ -111,6 +111,10 @@ doElecPtRecalibSimpleData: true
 ElecPtRecalibSimpleDataScale: 1.00341
 #ElecPtRecalibSimpleDataScale: 1.00971
 
+doElecPtRecalibSimpleDataPogRecipe: true
+# if above pog recipe is true, will correct electron energy according to seeding xtal energies
+
+
 doMuonPtRecalibSimpleData: false
 MuonPtRecalibSimpleDataScale: 0.999744
 
@@ -199,9 +203,9 @@ doRecoilUseSmooth: true
 doRecoilUseSmoothGraph: true
 
 # Input files
-RecoilInputFileNameData_all: data/recoil/SingleEMU_Run2016Full_ReReco_v1_met_para_study_ZSelecLowLPt.root
-RecoilInputFileNameData_mu:  data/recoil/SingleEMU_Run2016Full_ReReco_v1_met_para_study_ZSelecLowLPt_mu.root
-RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016Full_ReReco_v1_met_para_study_ZSelecLowLPt_el.root
+RecoilInputFileNameData_all: data/recoil/SingleEMU_Run2016Full_ReReco_v2_DtReCalib_met_para_study_ZSelecLowLPt.root
+RecoilInputFileNameData_mu:  data/recoil/SingleEMU_Run2016Full_ReReco_v2_DtReCalib_met_para_study_ZSelecLowLPt_mu.root
+RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016Full_ReReco_v2_DtReCalib_met_para_study_ZSelecLowLPt_el.root
 
 
 # NLO mc
@@ -210,14 +214,19 @@ RecoilInputFileNameMC_mu:  data/recoil/DYJetsToLL_M50_BIG_NoRecoil_met_para_stud
 RecoilInputFileNameMC_el:  data/recoil/DYJetsToLL_M50_BIG_NoRecoil_met_para_study_ZSelecLowLPt_el.root
 
 # LO mc
-RecoilInputFileNameMCLO_all: data/recoil/DYJetsToLL_M50_MGMLM_BIG_met_para_study_ZSelecLowLPt.root
-RecoilInputFileNameMCLO_mu:  data/recoil/DYJetsToLL_M50_MGMLM_BIG_met_para_study_ZSelecLowLPt_mu.root
-RecoilInputFileNameMCLO_el:  data/recoil/DYJetsToLL_M50_MGMLM_BIG_met_para_study_ZSelecLowLPt_el.root
+RecoilInputFileNameMCLO_all: data/recoil/DYJetsToLL_M50_MGMLM_BIG_NoRecoil_met_para_study_ZSelecLowLPt.root
+RecoilInputFileNameMCLO_mu:  data/recoil/DYJetsToLL_M50_MGMLM_BIG_NoRecoil_met_para_study_ZSelecLowLPt_mu.root
+RecoilInputFileNameMCLO_el:  data/recoil/DYJetsToLL_M50_MGMLM_BIG_NoRecoil_met_para_study_ZSelecLowLPt_el.root
+
+# LO mc RhoWt
+#RecoilInputFileNameMCLO_all: data/recoil/DYJetsToLL_M50_MGMLM_BIG_NoRecoil_met_para_study_ZSelecLowLPt_RhoWt.root
+#RecoilInputFileNameMCLO_mu:  data/recoil/DYJetsToLL_M50_MGMLM_BIG_NoRecoil_met_para_study_ZSelecLowLPt_RhoWt_mu.root
+#RecoilInputFileNameMCLO_el:  data/recoil/DYJetsToLL_M50_MGMLM_BIG_NoRecoil_met_para_study_ZSelecLowLPt_RhoWt_el.root
 
 # photon data
-RecoilInputFileNameGJets_all: data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_ZSelecLowLPt.root 
-RecoilInputFileNameGJets_mu:  data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_mu.root
-RecoilInputFileNameGJets_el:  data/recoil/SinglePhoton_Run2016B2H_ReReco_36p46_ResBos_NoRecoil_met_para_study_ZSelecLowLPt_el.root
+RecoilInputFileNameGJets_all: data/recoil/SinglePhoton_Run2016Full_ReReco_v2_NoRecoil_met_para_study_ZSelecLowLPt.root 
+RecoilInputFileNameGJets_mu:  data/recoil/SinglePhoton_Run2016Full_ReReco_v2_NoRecoil_met_para_study_ZSelecLowLPt_mu.root
+RecoilInputFileNameGJets_el:  data/recoil/SinglePhoton_Run2016Full_ReReco_v2_NoRecoil_met_para_study_ZSelecLowLPt_el.root
 
 
 

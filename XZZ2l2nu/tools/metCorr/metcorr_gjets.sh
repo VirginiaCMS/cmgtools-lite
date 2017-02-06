@@ -1,8 +1,8 @@
 #!/bin/sh
 
 #inputs
-inputdir=/home/heli/XZZ/80X_20170124_GJets_light
-outputdir=/home/heli/XZZ/80X_20170124_GJets_light_Skim
+inputdir=/home/heli/XZZ/80X_20170202_GJets_light
+outputdir=/home/heli/XZZ/80X_20170202_GJets_light_Skim
 config=config/parameters_light_gjets
 
 mkdir -p ${outputdir}
@@ -28,15 +28,13 @@ njob="0"
 #for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep -v SinglePhoton | grep -v GJet_Pt_ ); 
 #for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep  SinglePhoton_Run2016Full ); 
 #for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep -v  SinglePhoton_Run2016Full ); 
-for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep  -v Single ); 
+#for infile in $(ls $inputdir/*/vvTreeProducer/tree.root  ); 
+for infile in $(ls $inputdir/*/vvTreeProducer/tree.root | grep   Single ); 
 do
   echo "+++ skimming $infile +++"
   outfile="${outputdir}/${infile/$inputdir\//}"
 
   # options for outputs
-  #outfile="${outfile/\/vvTreeProducer\/tree/_ResBos_Rc36p46ReCalibwHLT}"
-  #outfile="${outfile/\/vvTreeProducer\/tree/_ResBos_Rc36p46wHLT}"
-  #outfile="${outfile/\/vvTreeProducer\/tree/_Rc36p46ReCalib}"
   outfile="${outfile/\/vvTreeProducer\/tree/}"
   #outfile="${outfile/\/vvTreeProducer\/tree/_NoRecoil}"
   #outfile="${outfile/\/vvTreeProducer\/tree/_test}"

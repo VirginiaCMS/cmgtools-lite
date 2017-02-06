@@ -1,6 +1,7 @@
 #!/bin/sh
 
-tag="SinglePhoton_Run2016C_23Sep2016"
+tag=$1
+#tag="SinglePhoton_Run2016C_23Sep2016"
 
 njob="0"
 for dir in $tag*; 

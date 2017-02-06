@@ -17,7 +17,7 @@ from CMGTools.XZZ2l2nu.samples.triggers_13TeV_Spring16 import *
 # backgrounds
 backgroundSamples = [
 #DYJetsToLL_M50,
-#DYJetsToLL_M50_Ext,
+DYJetsToLL_M50_Ext,
 #DYJetsToLL_M50_MGMLM,
 DYJetsToLL_M50_MGMLM_Ext1,
 WJetsToLNu,
@@ -92,7 +92,7 @@ BulkGravToZZToZlepZhad_narrow_4500,
 ]
 
 # MC samples
-otherMcSamples = BulkGravToZZToZlepZhad  
+otherMcSamples = BulkGravToZZToZlepZhad + ggHZZ2L2Nu 
 mcSamples = signalSamples + backgroundSamples + extraBackgroundMC + GJetsMC
 #mcSamples = backgroundSamples
 

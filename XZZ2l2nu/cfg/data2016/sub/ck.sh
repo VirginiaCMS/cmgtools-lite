@@ -1,8 +1,12 @@
 #!/bin/sh
 
-#dds="dt2_el dt2_mu dt_ph_b dt_ph_c dt_ph_d dt_ph_e dt_ph_f dt_ph_g dt_ph_h dt_b2h_el  dt_b2h_el_d dt_b2h_el_e dt_b2h_el_f dt_b2h_el_g dt_b2h_el_h  dt_b2h_mu  dt_b2h_mu_e dt_b2h_mu_f dt_b2h_mu_g dt_b2h_mu_h"
-dds="dt2_el dt2_mu"
-for nn in `seq 1 1 100`;
+dds="dt_elb dt_eld dt_ele dt_elf dt_elg dt_elh dt_mub dt_mud dt_muh  "
+#dds="dt_elb dt_elc dt_eld dt_ele dt_elf dt_elg dt_elh "
+#dds="dt_mub dt_muc dt_mud dt_mue dt_muf dt_mug dt_muh "
+#dds="dt_phb dt_phc dt_phd dt_phe dt_phf dt_phg dt_phh"
+#dds="$dds dt_elc dt_mub dt_muc dt_mud dt_mue dt_muf "
+
+for nn in `seq 1 1 1000`;
 do 
   for dd in $dds;
   do

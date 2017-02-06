@@ -2,7 +2,7 @@
 
 dir=$1
 #dir="gjets_left"
-queue="1nd"
+queue="8nh"
 
 # need to check your jobs with the expected n root files and n pck files
 # to verify if the job is finished sucessfully.

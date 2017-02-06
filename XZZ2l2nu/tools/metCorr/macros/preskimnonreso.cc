@@ -158,6 +158,11 @@ int main(int argc, char** argv) {
     tree->SetBranchStatus("genNeu_*",0);
   }
 
+  // add back jets info
+  tree->SetBranchStatus("nlep", 1);
+  tree->SetBranchStatus("njet", 1);
+  tree->SetBranchStatus("nbadmuon", 1);
+
 /*
   // add back jets info
   tree->SetBranchStatus("jet_rawPt",1);
@@ -194,7 +199,7 @@ int main(int argc, char** argv) {
   tree->SetAlias("muselec", "((abs(llnunu_l1_l1_pdgId)==13||abs(llnunu_l1_l2_pdgId)==13)&&abs(llnunu_l1_l1_eta)<2.4&&abs(llnunu_l1_l2_eta)<2.4&&llnunu_l1_l1_pt>20&&llnunu_l1_l2_pt>20&&(llnunu_l1_l1_highPtID>0.99||llnunu_l1_l2_highPtID>0.99))");
   tree->SetAlias("elselec", "((abs(llnunu_l1_l1_pdgId)==11||abs(llnunu_l1_l2_pdgId)==11)&&abs(llnunu_l1_l1_eta)<2.5&&abs(llnunu_l1_l2_eta)<2.5&&llnunu_l1_l1_pt>20&&llnunu_l1_l2_pt>20)");
 
-  tree->SetAlias("metfilter", "(Flag_EcalDeadCellTriggerPrimitiveFilter&&Flag_HBHENoiseIsoFilter&&Flag_goodVertices&&Flag_HBHENoiseFilter&&Flag_globalTightHalo2016Filter&&Flag_eeBadScFilter)");
+  tree->SetAlias("metfilter", "(Flag_EcalDeadCellTriggerPrimitiveFilter&&Flag_HBHENoiseIsoFilter&&Flag_goodVertices&&Flag_HBHENoiseFilter&&Flag_globalTightHalo2016Filter&&Flag_eeBadScFilter&&Flag_BadPFMuonFilter&&Flag_BadChargedCandidateFilter)");
   tree->SetAlias("hlt", "(HLT_MUv2||HLT_ELEv2)");
 
   tree->SetAlias("muv0", "(hlt&&metfilter&&muselec)");
@@ -206,7 +211,8 @@ int main(int argc, char** argv) {
   sprintf(ftmp1_name, "%s_tmp1.root", outputfile.c_str() );
   TFile* ftmp1 = TFile::Open(ftmp1_name, "recreate");
   //TTree* tree_tmp1 = tree->CopyTree("selecv0");
-  TTree* tree_tmp1 = tree->CopyTree("(metfilter&&llnunu_l1_mass>50&&llnunu_l1_mass<180)");
+  //TTree* tree_tmp1 = tree->CopyTree("(metfilter&&llnunu_l1_mass>50&&llnunu_l1_mass<180)");
+  TTree* tree_tmp1 = tree->CopyTree("(llnunu_l1_mass>50&&llnunu_l1_mass<180)");
 
   // remove further useless branches
   tree_tmp1->SetBranchStatus("Flag_*", 0);

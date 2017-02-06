@@ -1,15 +1,13 @@
 {
 
-  std::string option="eb";
+  std::string option="eep";
   std::string tag="_more1";
   std::string foutname="getFileterString_"+option+tag;
 
 
 
-  TFile *_file0 = TFile::Open("/home/heli/XZZ/80X_20161029_light/SinglePhoton_Run2016B2H_ReReco_36p1fbinv/vvTreeProducer/tree.root");
-  //TFile *_file0 = TFile::Open("/home/heli/XZZ/80X_20160927/SinglePhoton_Run2016D_PromptReco_v2/vvTreeProducer/tree.root");
-  //TFile *_file0 = TFile::Open("/home/heli/XZZ/80X_20160927/SinglePhoton_Run2016BCD_PromptReco/vvTreeProducer/tree.root");
-  //gROOT->ProcessLine(".L printFilter.C");
+  TFile *_file0 = TFile::Open("/home/heli/XZZ/80X_20170202_GJets_light_big/SinglePhoton_Run2016Full_ReReco_v2_big/vvTreeProducer/tree.root");
+  gROOT->ProcessLine(".x tdrstyle.C");
   TTree* tree = (TTree*)_file0->Get("tree");
   tree->SetAlias("absDeltaPhi", "fabs(TVector2::Phi_mpi_pi(gjet_l2_phi-gjet_l1_phi))");
   tree->SetAlias("metPara", "gjet_l2_pt*cos(gjet_l2_phi-gjet_l1_phi)");
@@ -25,12 +23,6 @@
   tree->SetAlias("ieta", "gjet_l1_ieta");
   tree->SetAlias("iphi", "gjet_l1_iphi");
 
-  tree->SetAlias("flag3", "((pt>=60&&!(eta>-2.5&&eta<-1.4&&phi>2.4&&phi<3.2)&&!(eta>-2.5&&eta<-1.4&&phi>-0.9&&phi<0.9)&&!(eta>-2.5&&eta<-1.4&&phi>-3.2&&phi<-2.4)&&!(eta>1.4&&eta<2.5&&phi>2.4&&phi<3.2)&&!(eta>1.4&&eta<2.5&&phi>-0.9&&phi<0.9)&&!(eta>1.4&&eta<2.5&&phi>-3.2&&phi<-2.0)&&!(eta>-2.1&&eta<-1.8&&phi>1.2&&phi<1.6)&&!(eta>-2.0&&eta<-1.6&&phi>-2.1&&phi<-1.8)&&!(eta>-0.3&&eta<0.0&&phi>2.5&&phi<3.0)&&!(eta>0.0&&eta<0.3&&phi>2.8&&phi<3.2)&&!(eta>-0.2&&eta<0.3&&phi>0.2&&phi<0.8)&&!(eta>-0.5&&eta<-0.2&&phi>-2.4&&phi<2.0)&&!(eta>2.3&&eta<2.5&&phi>-1.5&&phi<-1.0))||(pt<60&&!(eta>-2.5&&eta<-2.2&&phi>-3.0&&phi<-2.6)&&!(eta>0&&eta<0.3&&phi>-2.4&&phi<-1.4)&&!(eta>-0.2&&eta<0.2&&phi>-3.2&&phi<-2.6)&&!(eta>2.3&&eta<2.5&&phi>-2.6&&phi<-2.0)))");
-
-  //tree->Draw("gjet_l1_iphi:gjet_l1_ieta>>h077(181,-90.5,90.5,360,0.5,360.5)", "HLT_PHOTONIDISO&&metfilter&&fabs(eta)<1.47&&ngjet==1&&ut<150&&metPara<-60&&pt>60", "colz");
-  // ee+ iphi:ieta>>h006(100,0.5,100.5,100,0.5,100.5)
-  //tree->Draw("gjet_l1_iphi:gjet_l1_ieta>>h077(100,0.5,100.5,100,0.5,100.5)", "HLT_PHOTONIDISO&&metfilter&&eta>1.562&&ngjet==1&&flag3&&ut<150&&metPara<-60&&pt>60", "colz");
-  //tree->Draw("gjet_l1_iphi:gjet_l1_ieta>>h077(100,0.5,100.5,100,0.5,100.5)", "HLT_PHOTONIDISO&&metfilter&&eta<-1.562&&ngjet==1&&flag3&&ut<150&&metPara<-60&&pt>60", "colz");
 
 
   sprintf(name, "%s.root", foutname.c_str());
@@ -40,6 +32,8 @@
 
   sprintf(name, "%s.pdf[", foutname.c_str());
   plots->Print(name);
+
+
 
   // ee+
   if (option=="eep") tree->Draw("gjet_l1_iphi:gjet_l1_ieta>>hist(100,0.5,100.5,100,0.5,100.5)", "eta>1.566&&fabs(uPara)<100", "colz");
@@ -61,9 +55,6 @@
 
   char name[1000];
   std::string selec ;
-  //selec = "HLT_PHOTONIDISO&&metfilter&&fabs(eta)<1.47&&ngjet==1";
-  //selec = "HLT_PHOTONIDISO&&metfilter&&eta>1.562&&ngjet==1&&flag3";
-  //selec = "HLT_PHOTONIDISO&&metfilter&&eta<-1.562&&ngjet==1&&flag3";
   if (option=="eep") selec = "eta>1.566";
   else if (option=="eem") selec = "eta<-1.566";
   else if (option=="eb") selec = "fabs(eta)<1.47";
@@ -97,6 +88,7 @@
     std::string xtal_selec = selec+"&&"+std::string(name);
 
     plots->Clear();
+    plots->SetLogy(1);
     tree->Draw("metPara/pt>>hist1(60,-3,3)", xtal_selec.c_str(), "e");
     TH1D* hist1 = (TH1D*)gDirectory->Get("hist1");
     sprintf(name, "hmetparavpt_%i", i);
@@ -106,6 +98,7 @@
     sprintf(name, "%s.pdf", foutname.c_str());
     plots->Print(name);
     hist1->Write();
+    plots->SetLogy(0);
     plots->Clear();
 
 
@@ -136,10 +129,12 @@
   h_nflg1->SetLineColor(4);
 
   plots->Clear();
+  plots->SetLogy(1);
   h_flg1->Draw();
   h_nflg1->Draw("same");
   sprintf(name, "%s.pdf", foutname.c_str());
   plots->Print(name);
+  plots->SetLogy(0);
   plots->Clear();
 
   h_flg1->Write();

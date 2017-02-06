@@ -1,8 +1,8 @@
 #!/bin/sh
 
-outdir=mc_phzjet
-config=run_xzz2l2nu_80x_cfg_photon_mc.py
-#config=run_xzz2l2nu_80x_cfg_loose_mc.py
+outdir=mc_zjnlo
+#config=run_xzz2l2nu_80x_cfg_photon_mc.py
+config=run_xzz2l2nu_80x_cfg_loose_mc.py
 otherfiles=" pogRecipes.py "
 
 heppy_batch.py -o ${outdir} ${config}  -b 'bsub -q sssss < ./batchScript.sh' -n

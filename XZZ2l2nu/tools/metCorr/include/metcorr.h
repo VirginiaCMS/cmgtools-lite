@@ -166,6 +166,7 @@ KalmanMuonCalibrator* _muCalib;
 
 // electron simple recalib
 bool _doElecPtRecalibSimpleData = false;
+bool _doElecPtRecalibSimpleDataPogRecipe = false;
 // elec escale
 double _ElecPtRecalibSimpleDataScale = 1.0;
 
@@ -325,6 +326,7 @@ TH1D* _h_mc_met_para_sigma[10];
 TH1D* _h_mc_met_perp_sigma[10];
 TH1D* _h_ratio_met_para_sigma_dtmc[10];
 TH1D* _h_ratio_met_perp_sigma_dtmc[10];
+TProfile* _p_dt_zpt[10];
 TGraphErrors* _gr_dt_met_para_shift[10];
 TGraphErrors* _gr_mc_met_para_shift[10];
 TGraphErrors* _gr_met_para_shift_dtmc[10];
@@ -607,6 +609,7 @@ Float_t _llnunu_l1_l2_pt, _llnunu_l1_l2_eta, _llnunu_l1_l2_phi;
 Float_t _llnunu_l1_l2_rapidity, _llnunu_l1_l2_mass, _llnunu_l1_l2_ptErr;
 Int_t   _llnunu_l1_l2_pdgId, _llnunu_l1_l2_charge;
 Float_t _llnunu_l1_l1_eSCeta, _llnunu_l1_l2_eSCeta;
+Float_t _llnunu_l1_l1_eSeedXtal, _llnunu_l1_l2_eSeedXtal;
 Float_t _llnunu_l1_l1_highPtID, _llnunu_l1_l2_highPtID;
 Int_t   _llnunu_l1_l1_trigerob_HLTbit, _llnunu_l1_l2_trigerob_HLTbit;
 

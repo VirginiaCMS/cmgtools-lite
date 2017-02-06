@@ -82,18 +82,22 @@ if test==1:
     #selectedComponents = [RSGravToZZToZZinv_narrow_800]
     #selectedComponents = [WJetsToLNu]
     #selectedComponents = [ZZTo2L2Nu]
-    #selectedComponents = [DYJetsToLL_M50_reHLT]
+    selectedComponents = [DYJetsToLL_M50_Ext]
     #selectedComponents = [DYJetsToLL_M50]
     #selectedComponents = [DYJetsToLL_M50_MGMLM_Ext1]
+    #selectedComponents = [GluGluHToZZTo2L2Nu_M200]
+#    selectedComponents = ggHZZ2L2Nu
+
+
     #selectedComponents = [DY1JetsToLL_M50_MGMLM]
-    #selectedComponents = [DY1JetsToLL_M50_MGMLM, DY2JetsToLL_M50_MGMLM, DY3JetsToLL_M50_MGMLM, DY4JetsToLL_M50_MGMLM, DYBJetsToLL_M50_MGMLM]
+    #selectedComponents = [DY1JetsToLL_M50_MGMLM, DY2JetsToLL_M50_MGMLM, DY3JetsToLL_M50_MGMLM, DY4JetsToLL_M50_MGMLM]
     #selectedComponents = [BulkGravToZZToZlepZinv_narrow_1000] 
     #selectedComponents = signalSamples
     #selectedComponents = signalSamples+backgroundSamples[4:]
     #selectedComponents = backgroundSamples[1:4]
     #selectedComponents = [TTTo2L2Nu]
     #selectedComponents = [ZZTo2L2Nu]
-    selectedComponents = SingleTop
+#    selectedComponents = SingleTop
 #    selectedComponents = [WJetsToLNu, TTTo2L2Nu_noSC, TTTo2L2Nu_forTTH, ZZTo4L, ZZTo2L2Q, WWTo2L2Nu, WWToLNuQQ, WWToLNuQQ_Ext1, WZTo1L1Nu2Q, WZTo2L2Q,
 #                          WZTo3LNu,TTZToLLNuNu,TTWJetsToLNu_ext1,TTWJetsToLNu_ext2,ggZZTo2e2nu,ggZZTo2mu2nu]
     #selectedComponents = [BulkGravToZZ_narrow_800]

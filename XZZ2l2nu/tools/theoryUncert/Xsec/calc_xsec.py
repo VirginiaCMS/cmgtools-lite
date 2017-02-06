@@ -39,7 +39,9 @@ process.MessageLogger.cerr.FwkReport.reportEvery = 10000
 
 process.source = cms.Source(
     "PoolSource",
-    fileNames = inputDY4Jets_LO,
+    fileNames = inputggZZ2e2nu,
+    #fileNames = inputZZTo2L2Nu,
+    #fileNames = inputDY4Jets_LO,
     #fileNames  = cms.untracked.vstring(options.inputFiles),
     #fileNames  = inputDYJets,
     #fileNames  = inputDYJetsPtZ100,

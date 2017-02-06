@@ -6,11 +6,11 @@
 g++ preskim.cc -o preskim.exe `root-config --cflags` `root-config --libs`
 
 #inputs
-indir=/data2/XZZ2/80X_20170124
-outdir=/home/heli/XZZ/80X_20170124_light
-samples="DYJetsToLL*"
+indir=/data2/XZZ2/80X_20170202
+outdir=/home/heli/XZZ/80X_20170202_light
+#samples="DYJetsToLL*"
 #samples="DY?JetsToLL*"
-#samples="*"
+samples="*"
 #samples="SingleEMU_Run2016B2H_ReReco_36p1fbinv"
 #samples="SingleEMU_Run2016H_PromptReco_new"
 #samples="Single*_Run2016B_23Sep2016_v2_resub"

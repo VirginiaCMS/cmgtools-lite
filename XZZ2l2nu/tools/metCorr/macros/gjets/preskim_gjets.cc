@@ -151,14 +151,14 @@ int main(int argc, char** argv) {
 
   std::string selec;
 
-  if (biggerTree) {
-    selec = "HLT_PHOTONIDISO&&metfilter&&ngjet==1";
-    if (!isData) selec = "metfilter&&ngjet==1";
-  }
-  else {
-    selec = "HLT_PHOTONIDISO&&metfilter&&ngjet==1&&Max$(jet_pt[]*jet_chargedEmEnergyFraction[])<10&&Max$(jet_pt[]*jet_muonEnergyFraction[])<10&&flag3&&filter1";
-    if (!isData) selec = "metfilter&&ngjet==1&&Max$(jet_pt[]*jet_chargedEmEnergyFraction[])<10&&Max$(jet_pt[]*jet_muonEnergyFraction[])<10&&flag3&&filter1"; 
-  }
+//  if (biggerTree) {
+//    selec = "HLT_PHOTONIDISO&&metfilter&&ngjet==1";
+//    if (!isData) selec = "metfilter&&ngjet==1";
+//  }
+//  else {
+    selec = "HLT_PHOTONIDISO&&metfilter&&ngjet==1&&Max$(jet_pt[]*jet_chargedEmEnergyFraction[])<10&&Max$(jet_pt[]*jet_muonEnergyFraction[])<10&&flag3&&filter1&&nlep==0";
+    if (!isData) selec = "metfilter&&ngjet==1&&Max$(jet_pt[]*jet_chargedEmEnergyFraction[])<10&&Max$(jet_pt[]*jet_muonEnergyFraction[])<10&&flag3&&filter1&&nlep==0"; 
+//  }
  
 
   std::cout << "tree:  " << tree->GetEntries() << " Entries" <<  std::endl;

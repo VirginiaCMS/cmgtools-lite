@@ -14,7 +14,8 @@ dir=$1
 #dir=dt_b2h_mu_c
 #dir=dt_b2h_mu
 #dir=gjetsdt_resub
-out=/data2/XZZ2/80X_20170122_Chunks
+out=/data2/XZZ2/80X_20170202_Chunks
+#out=/datac/heli/XZZ2/80X_20170202_Chunks
 
 mkdir -p $out
 

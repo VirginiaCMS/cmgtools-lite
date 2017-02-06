@@ -182,10 +182,10 @@ if test==1:
     #selectedComponents = [TTTo2L2Nu]
     #selectedComponents = [BulkGravToZZ_narrow_800]
     #selectedComponents = [BulkGravToZZToZlepZhad_narrow_800]
-    #selectedComponents = GJetsMC= WJetsToLNuHT + ZJetsToNuNuHT + SingleTop + ZNuNuGJets + ttgjets + wgjets
+    selectedComponents = WJetsToLNuHT + ZJetsToNuNuHT + SingleTop + ZNuNuGJets + ttgjets + wgjets + GJetsHT + QCDPtEMEnriched
     #selectedComponents = GJet_Pt_EMEnriched + GJetsHT
     #selectedComponents = QCDPtEMEnriched + QCDPt + QCDHT
-    selectedComponents = [DYJetsToLL_M50_MGMLM_Ext1]
+    #selectedComponents = [DYJetsToLL_M50_MGMLM_Ext1]
     for c in selectedComponents:
 #        c.files = c.files[:2]
         #c.splitFactor = (len(c.files)/10 if len(.files)>10 else 1)

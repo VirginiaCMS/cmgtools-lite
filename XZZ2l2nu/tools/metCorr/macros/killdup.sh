@@ -19,8 +19,8 @@ g++ killdup.cc -o killdup.exe `root-config --cflags` `root-config --libs`
 #infile=/home/heli/XZZ/80X_20161029_light/SingleEMU_Run2016B2H_ReReco_36p46/vvTreeProducer/tree.root
 #infile=/home/heli/XZZ/80X_20161029_GJets_light/SinglePhoton_Run2016B2H_ReReco_36p46/vvTreeProducer/tree.root
 #infile=/home/heli/XZZ/80X_20161029_light/SingleEMU_Run2016B2H_ReReco_36p46v2/vvTreeProducer/tree.root
-#infile=/home/heli/XZZ/80X_20170124_light/SingleEMU_Run2016Full_ReReco_v1/vvTreeProducer/tree.root
-infile=/home/heli/XZZ/80X_20170124_GJets_light/SinglePhoton_Run2016Full_ReReco_v1/vvTreeProducer/tree.root
+infile=/home/heli/XZZ/80X_20170202_light/SingleEMU_Run2016Full_ReReco_v2/vvTreeProducer/tree.root
+#infile=/home/heli/XZZ/80X_20170124_GJets_light/SinglePhoton_Run2016Full_ReReco_v1/vvTreeProducer/tree.root
 outfile=/home/heli/XZZ/tree_killdup.root
 #outfile=/home/heli/XZZ/photon_tree_killdup.root
 
