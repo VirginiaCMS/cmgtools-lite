@@ -9,7 +9,7 @@ ROOT.gROOT.SetBatch()
 if len(sys.argv)!=2:
     sys.exit()
 tag="nonres_{0}_".format(sys.argv[1])
-nonresscale='0.355340419554'
+nonresscale='0.371917507815'
 channel='el'
 LogY=("_log_" in tag)
 Blind=("_blind_" in tag)
@@ -19,15 +19,15 @@ doRhoScale=True
 
 if test: DrawLeptons = False
 
-lepsf="trgsf*isosf*idsf*trksf*1.02139"
+lepsf="trgsf*isosf*idsf*trksf"
 
 if doRhoScale: 
     tag+="RhoWt_"
-    lepsf=lepsf+"*(0.32+0.42*TMath::Erf((rho-4.16)/4.58)+0.31*TMath::Erf((rho+115.00)/29.58))" # b2h rereco 36.1 fb-1
+    lepsf=lepsf+"*(0.366*TMath::Gaus(rho,8.280,5.427)+0.939*TMath::Gaus(rho,18.641,10.001)+0.644*TMath::Gaus(rho,40.041,10.050))" # 2016 rereco/summer16 81.81 fb-1
 
 outdir='plots'
 
-indir='/home/heli/XZZ/80X_20170124_light_Skim/'
+indir='/home/heli/XZZ/80X_20170202_light_Skim/'
 
 lumi=36.814
 sepSig=True
@@ -63,7 +63,7 @@ cuts_zmassin="(llnunu_l1_mass>50&&llnunu_l1_mass<180)"
 
 cuts=''
 if "metzpt30" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>30)&&(llnunu_l2_pt>30)'
-elif "metzptCR" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>40)&&(llnunu_l2_pt>40)'
+elif "metzptCR" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>50)'
 elif "metzpt100" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>100)&&(llnunu_l2_pt>100)'
 elif "zveto" in tag:cuts=cuts_zmass
 elif "full" in tag:cuts=cuts_zmassin
@@ -83,7 +83,7 @@ ROOT.gROOT.ProcessLine('.x tdrstyle.C')
 
 dataPlotters=[]
 dataSamples = [
-    'muonegtree_light_skim_38'
+    'muonegtree_light_skim_38_skim'
 ]
 for sample in dataSamples:
     dataPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))
@@ -107,7 +107,7 @@ for sample in wwSamples:
 WW = MergedPlotter(wwPlotters)
 WW.setFillProperties(1001,ROOT.kOrange)
 
-ttSamples = ['TTTo2L2Nu_noSC','TTWJetsToLNu_BIG']
+ttSamples = ['TTTo2L2Nu_noSC','TTWJetsToLNu_BIG', 'T_tWch', 'T_tch_powheg', 'TBar_tWch', 'TBar_tch_powheg']
 ttPlotters=[]
 for sample in ttSamples:
     ttPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))
@@ -138,7 +138,6 @@ if test:
     Stack.drawStack('llnunu_l1_pt', cuts, str(lumi*1000), 30, 0.0, 1500.0, titlex = "P_{T}(Z)", units = "GeV",output=tag+'zpt_low',outDir=outdir,separateSignal=sepSig)
     Stack.drawStack('llnunu_mt', cuts, str(lumi*1000), 40, 0.0, 2000.0, titlex = "M_{T}", units = "GeV",output=tag+'mt_high3',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)
     Stack.drawStack('llnunu_l2_pt', cuts, str(lumi*1000), 30, 0, 1500, titlex = "MET", units = "GeV",output=tag+'met_low2',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=200)
-
+    Stack.drawStack('llnunu_l1_pt', cuts, str(lumi*1000), 30, 0.0, 200.0, titlex = "P_{T}(Z)", units = "GeV",output=tag+'zpt_low',outDir=outdir,separateSignal=sepSig)
+    Stack.drawStack('llnunu_l2_pt*cos(llnunu_l2_phi-llnunu_l1_phi)', cuts, str(lumi*1000), 50, -500, 500.0, titlex = "MET_{#parallel}", units = "GeV",output=tag+'met_para',outDir=outdir,separateSignal=sepSig)
 Stack.closePSFile()
-
-

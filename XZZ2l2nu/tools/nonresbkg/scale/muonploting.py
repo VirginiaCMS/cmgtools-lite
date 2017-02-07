@@ -16,14 +16,14 @@ doRhoScale=True
 
 if test: DrawLeptons = False
 
-lepsf="trgsf*isosf*idsf*trksf*1.02942"
+lepsf="trgsf*isosf*idsf*trksf"
 
 if doRhoScale: 
-    lepsf=lepsf+"*(0.32+0.42*TMath::Erf((rho-4.16)/4.58)+0.31*TMath::Erf((rho+115.00)/29.58))" # b2h rereco 36.1 fb-1
+    lepsf=lepsf+"*(0.366*TMath::Gaus(rho,8.280,5.427)+0.939*TMath::Gaus(rho,18.641,10.001)+0.644*TMath::Gaus(rho,40.041,10.050))" # 2016 rereco/summer16 81.81 fb-1
 
 outdir='plots'
 
-indir='/home/heli/XZZ/80X_20170124_light_Skim/'
+indir='/home/heli/XZZ/80X_20170202_light_Skim/'
 
 lumi=36.814
 sepSig=True
@@ -81,7 +81,8 @@ for sample in vvSamples:
     vvPlotters[-1].addCorrectionFactor('genWeight','genWeight')
     vvPlotters[-1].addCorrectionFactor(puWeight,'puWeight')
     vvPlotters[-1].addCorrectionFactor(lepsf, 'lepsf')
-    vvPlotters[-1].addCorrectionFactor('xsec','xsec')
+    if sample == 'WZTo3LNu': vvPlotters[-1].addCorrectionFactor('4.4297','xsec') 
+    else: vvPlotters[-1].addCorrectionFactor('xsec','xsec')
     if sample == 'ZZTo2L2Nu' : vvPlotters[-1].addCorrectionFactor("(ZZEwkCorrWeight*ZZQcdCorrWeight)", 'nnlo')
     vvPlotters[-1].setAlias('passMuHLT', '((llnunu_l1_l1_trigerob_HLTbit>>3&1)||(llnunu_l1_l1_trigerob_HLTbit>>4&1)||(llnunu_l1_l2_trigerob_HLTbit>>3&1)||(llnunu_l1_l2_trigerob_HLTbit>>4&1))');
     vvPlotters[-1].setAlias('passElHLT', '((llnunu_l1_l1_trigerob_HLTbit>>1&1)||(llnunu_l1_l2_trigerob_HLTbit>>1&1))');
@@ -91,7 +92,7 @@ VV.setFillProperties(1001,ROOT.kMagenta)
 
 
 nonresPlotters=[]
-nonresSamples = ['muonegtree_light_skim_38']
+nonresSamples = ['muonegtree_light_skim_38_skim']
 for sample in nonresSamples:
     nonresPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))
     nonresPlotters[-1].addCorrectionFactor('mtrgsf', 'mtrgsf')
@@ -110,7 +111,7 @@ for sample in zjetsSamples:
     zjetsPlotters[-1].addCorrectionFactor('xsec','xsec')
     zjetsPlotters[-1].addCorrectionFactor('genWeight','genWeight')
     zjetsPlotters[-1].addCorrectionFactor(puWeight,'puWeight')
-    zjetsPlotters[-1].addCorrectionFactor(lepsf,'lepsf')
+    zjetsPlotters[-1].addCorrectionFactor(lepsf+"*1.02509",'lepsf')
     zjetsPlotters[-1].setAlias('passMuHLT', '((llnunu_l1_l1_trigerob_HLTbit>>3&1)||(llnunu_l1_l1_trigerob_HLTbit>>4&1)||(llnunu_l1_l2_trigerob_HLTbit>>3&1)||(llnunu_l1_l2_trigerob_HLTbit>>4&1))');
     zjetsPlotters[-1].setAlias('passElHLT', '((llnunu_l1_l1_trigerob_HLTbit>>1&1)||(llnunu_l1_l2_trigerob_HLTbit>>1&1))');
     zjetsPlotters[-1].addCorrectionFactor('(passMuHLT||passElHLT)','HLT') 
@@ -119,7 +120,7 @@ ZJets.setFillProperties(1001,ROOT.kGreen+2)
 
 dataPlotters=[]
 dataSamples = [
-'SingleEMU_Run2016Full_ReReco_v1_DtReCalib'
+'SingleEMU_Run2016Full_ReReco_v2_DtReCalib',
 ]
 for sample in dataSamples:
     dataPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))

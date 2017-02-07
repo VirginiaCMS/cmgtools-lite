@@ -1,6 +1,6 @@
 infile='./plots/test_metfilter_el_.root'
-datahist='test_metfilter_el___data_SingleEMU_Run2016Full_ReReco_v1_DtReCalib'
+datahist='test_metfilter_el___data_SingleEMU_Run2016Full_ReReco_v2_DtReCalib'
 mchist=[
 'test_metfilter_el___VVZReso_WZTo2L2Q',
 'test_metfilter_el___ZJets_DYJetsToLL_M50_MGMLM_BIG']
-nonreshist='test_metfilter_el___NONReso_muonegtree_light_skim_38'
+nonreshist='test_metfilter_el___NONReso_muonegtree_light_skim_38_skim'
