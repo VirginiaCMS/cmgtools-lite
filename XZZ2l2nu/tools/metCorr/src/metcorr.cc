@@ -2873,7 +2873,7 @@ void prepareEmuTrgsf()
   _tree_out->Branch("mtrgsf_dn", &_mtrgsf_dn, "mtrgsf_dn/F");
   _file_sf_muoneg = TFile::Open(_EffScaleInputFileName_muoneg_scale.c_str());
   _file_trg_el = TFile::Open(_EffScaleInputFileName_Trg_El.c_str());
-  _h_sf_trg_el_l1=(TH2D*)_file_trg_el->Get("scalefactor");
+  _h_sf_trg_el_l1=(TH2D*)_file_trg_el->Get("efficiency_dt");
   _file_trg_mu = TFile::Open(_EffScaleInputFileName_Trg_Mu.c_str());
   _h_sf_muoneg = (TH1F*)_file_sf_muoneg->Get("meratio");
   _h_eff_trg_mu50tkmu50_dt_1 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_dt_1");
