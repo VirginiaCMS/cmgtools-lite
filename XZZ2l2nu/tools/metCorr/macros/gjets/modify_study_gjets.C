@@ -59,15 +59,27 @@
   h_zpt_ratio_el->SetBinContent(b,h_zpt_ratio_el->GetBinContent(b)*s);
   h_zpt_ratio_el_up->SetBinContent(b,h_zpt_ratio_el_up->GetBinContent(b)*s);
   h_zpt_ratio_el_dn->SetBinContent(b,h_zpt_ratio_el_dn->GetBinContent(b)*s);
+  b=53; s=1.1;
+  h_zpt_ratio_el->SetBinContent(b,h_zpt_ratio_el->GetBinContent(b)*s);
+  h_zpt_ratio_el_up->SetBinContent(b,h_zpt_ratio_el_up->GetBinContent(b)*s);
+  h_zpt_ratio_el_dn->SetBinContent(b,h_zpt_ratio_el_dn->GetBinContent(b)*s);
+  b=54; s=0.95;
+  h_zpt_ratio_el->SetBinContent(b,h_zpt_ratio_el->GetBinContent(b)*s);
+  h_zpt_ratio_el_up->SetBinContent(b,h_zpt_ratio_el_up->GetBinContent(b)*s);
+  h_zpt_ratio_el_dn->SetBinContent(b,h_zpt_ratio_el_dn->GetBinContent(b)*s);
   b=55; s=1.05;
   h_zpt_ratio_el->SetBinContent(b,h_zpt_ratio_el->GetBinContent(b)*s);
   h_zpt_ratio_el_up->SetBinContent(b,h_zpt_ratio_el_up->GetBinContent(b)*s);
   h_zpt_ratio_el_dn->SetBinContent(b,h_zpt_ratio_el_dn->GetBinContent(b)*s);
-  b=58; s=1.10;
+  b=56; s=0.99;
   h_zpt_ratio_el->SetBinContent(b,h_zpt_ratio_el->GetBinContent(b)*s);
   h_zpt_ratio_el_up->SetBinContent(b,h_zpt_ratio_el_up->GetBinContent(b)*s);
   h_zpt_ratio_el_dn->SetBinContent(b,h_zpt_ratio_el_dn->GetBinContent(b)*s);
-  b=59; s=1.00;
+  b=58; s=1.08;
+  h_zpt_ratio_el->SetBinContent(b,h_zpt_ratio_el->GetBinContent(b)*s);
+  h_zpt_ratio_el_up->SetBinContent(b,h_zpt_ratio_el_up->GetBinContent(b)*s);
+  h_zpt_ratio_el_dn->SetBinContent(b,h_zpt_ratio_el_dn->GetBinContent(b)*s);
+  b=59; s=0.99;
   h_zpt_ratio_el->SetBinContent(b,h_zpt_ratio_el->GetBinContent(b)*s);
   h_zpt_ratio_el_up->SetBinContent(b,h_zpt_ratio_el_up->GetBinContent(b)*s);
   h_zpt_ratio_el_dn->SetBinContent(b,h_zpt_ratio_el_dn->GetBinContent(b)*s);
@@ -75,7 +87,7 @@
   h_zpt_ratio_el->SetBinContent(b,h_zpt_ratio_el->GetBinContent(b)*s);
   h_zpt_ratio_el_up->SetBinContent(b,h_zpt_ratio_el_up->GetBinContent(b)*s);
   h_zpt_ratio_el_dn->SetBinContent(b,h_zpt_ratio_el_dn->GetBinContent(b)*s);
-  b=61; s=1.0;
+  b=61; s=1.05;
   h_zpt_ratio_el->SetBinContent(b,h_zpt_ratio_el->GetBinContent(b)*s);
   h_zpt_ratio_el_up->SetBinContent(b,h_zpt_ratio_el_up->GetBinContent(b)*s);
   h_zpt_ratio_el_dn->SetBinContent(b,h_zpt_ratio_el_dn->GetBinContent(b)*s);
@@ -98,19 +110,19 @@
   h_zpt_ratio_mu->SetBinContent(b,h_zpt_ratio_mu->GetBinContent(b)*s);
   h_zpt_ratio_mu_up->SetBinContent(b,h_zpt_ratio_mu_up->GetBinContent(b)*s);
   h_zpt_ratio_mu_dn->SetBinContent(b,h_zpt_ratio_mu_dn->GetBinContent(b)*s);
-  b=58; s=1.07;
+  b=58; s=1.05;
   h_zpt_ratio_mu->SetBinContent(b,h_zpt_ratio_mu->GetBinContent(b)*s);
   h_zpt_ratio_mu_up->SetBinContent(b,h_zpt_ratio_mu_up->GetBinContent(b)*s);
   h_zpt_ratio_mu_dn->SetBinContent(b,h_zpt_ratio_mu_dn->GetBinContent(b)*s);
-  b=59; s=1.01;
+  b=59; s=0.97;
   h_zpt_ratio_mu->SetBinContent(b,h_zpt_ratio_mu->GetBinContent(b)*s);
   h_zpt_ratio_mu_up->SetBinContent(b,h_zpt_ratio_mu_up->GetBinContent(b)*s);
   h_zpt_ratio_mu_dn->SetBinContent(b,h_zpt_ratio_mu_dn->GetBinContent(b)*s);
-  b=60; s=1.0;
+  b=60; s=0.95;
   h_zpt_ratio_mu->SetBinContent(b,h_zpt_ratio_mu->GetBinContent(b)*s);
   h_zpt_ratio_mu_up->SetBinContent(b,h_zpt_ratio_mu_up->GetBinContent(b)*s);
   h_zpt_ratio_mu_dn->SetBinContent(b,h_zpt_ratio_mu_dn->GetBinContent(b)*s);
-  b=61; s=1.12;
+  b=61; s=1.10;
   h_zpt_ratio_mu->SetBinContent(b,h_zpt_ratio_mu->GetBinContent(b)*s);
   h_zpt_ratio_mu_up->SetBinContent(b,h_zpt_ratio_mu_up->GetBinContent(b)*s);
   h_zpt_ratio_mu_dn->SetBinContent(b,h_zpt_ratio_mu_dn->GetBinContent(b)*s);
@@ -142,15 +154,15 @@
     gr_zpt_ratio_mu_dn->SetPointError(i, pr_zpt_1_mu_dn->GetBinError(i+1), sqrt(pow(h_zpt_ratio_mu_dn->GetBinContent(i+1)-h_zpt_ratio_mu->GetBinContent(i+1),2)+pow(h_zpt_ratio_mu->GetBinError(i+1),2)));
   }
 
-  gr_zpt_ratio_el->Draw("apl");
-  gr_zpt_ratio_el_up->Draw("pl same");
-  gr_zpt_ratio_el_dn->Draw("pl same");
-  h_zpt_ratio_el_old->Draw("same");
+//  gr_zpt_ratio_el->Draw("apl");
+//  gr_zpt_ratio_el_up->Draw("pl same");
+//  gr_zpt_ratio_el_dn->Draw("pl same");
+//  h_zpt_ratio_el_old->Draw("same");
 
-//  gr_zpt_ratio_mu->Draw("apl");
-//  gr_zpt_ratio_mu_up->Draw("pl same");
-//  gr_zpt_ratio_mu_dn->Draw("pl same");
-//  h_zpt_ratio_mu_old->Draw("same");
+  gr_zpt_ratio_mu->Draw("apl");
+  gr_zpt_ratio_mu_up->Draw("pl same");
+  gr_zpt_ratio_mu_dn->Draw("pl same");
+  h_zpt_ratio_mu_old->Draw("same");
 
 
   file->cd();

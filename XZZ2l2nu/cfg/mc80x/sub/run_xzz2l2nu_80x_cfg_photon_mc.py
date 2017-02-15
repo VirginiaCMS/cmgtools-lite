@@ -182,7 +182,8 @@ if test==1:
     #selectedComponents = [TTTo2L2Nu]
     #selectedComponents = [BulkGravToZZ_narrow_800]
     #selectedComponents = [BulkGravToZZToZlepZhad_narrow_800]
-    selectedComponents = WJetsToLNuHT + ZJetsToNuNuHT + SingleTop + ZNuNuGJets + ttgjets + wgjets + GJetsHT + QCDPtEMEnriched
+    #selectedComponents = WJetsToLNuHT + ZJetsToNuNuHT + SingleTop + ZNuNuGJets + ttgjets + wgjets + GJetsHT + QCDPtEMEnriched
+    selectedComponents = [DYJetsToLL_M50_Ext]
     #selectedComponents = GJet_Pt_EMEnriched + GJetsHT
     #selectedComponents = QCDPtEMEnriched + QCDPt + QCDHT
     #selectedComponents = [DYJetsToLL_M50_MGMLM_Ext1]
