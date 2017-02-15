@@ -212,7 +212,8 @@ int main(int argc, char** argv) {
   TFile* ftmp1 = TFile::Open(ftmp1_name, "recreate");
   //TTree* tree_tmp1 = tree->CopyTree("selecv0");
   //TTree* tree_tmp1 = tree->CopyTree("(metfilter&&llnunu_l1_mass>50&&llnunu_l1_mass<180)");
-  TTree* tree_tmp1 = tree->CopyTree("(llnunu_l1_mass>50&&llnunu_l1_mass<180)");
+  //TTree* tree_tmp1 = tree->CopyTree("(llnunu_l1_mass>50&&llnunu_l1_mass<180)");
+  TTree* tree_tmp1 = tree->CopyTree("(metfilter)");
 
   // remove further useless branches
   tree_tmp1->SetBranchStatus("Flag_*", 0);

@@ -113,8 +113,8 @@ int main(int argc, char** argv) {
   tree->SetAlias("phi", "gjet_l1_phi");
   tree->SetAlias("pt", "gjet_l1_pt");
   //if (isData) 
-  //tree->SetAlias("metfilter", "(Flag_EcalDeadCellTriggerPrimitiveFilter&&Flag_HBHENoiseIsoFilter&&Flag_goodVertices&&Flag_HBHENoiseFilter&&Flag_globalTightHalo2016Filter&&Flag_eeBadScFilter&&Flag_BadPFMuonFilter&&Flag_BadChargedCandidateFilter)");
-  tree->SetAlias("metfilter", "(Flag_EcalDeadCellTriggerPrimitiveFilter&&Flag_HBHENoiseIsoFilter&&Flag_goodVertices&&Flag_HBHENoiseFilter&&Flag_globalTightHalo2016Filter&&Flag_eeBadScFilter&&Flag_BadPFMuonFilter&&Flag_BadChargedCandidateFilter&&Flag_CSCTightHalo2015Filter)");
+  tree->SetAlias("metfilter", "(Flag_EcalDeadCellTriggerPrimitiveFilter&&Flag_HBHENoiseIsoFilter&&Flag_goodVertices&&Flag_HBHENoiseFilter&&Flag_globalTightHalo2016Filter&&Flag_eeBadScFilter&&Flag_BadPFMuonFilter&&Flag_BadChargedCandidateFilter)");
+  //tree->SetAlias("metfilter", "(Flag_EcalDeadCellTriggerPrimitiveFilter&&Flag_HBHENoiseIsoFilter&&Flag_goodVertices&&Flag_HBHENoiseFilter&&Flag_globalTightHalo2016Filter&&Flag_eeBadScFilter&&Flag_BadPFMuonFilter&&Flag_BadChargedCandidateFilter&&Flag_CSCTightHalo2015Filter)");
   //else tree->SetAlias("metfilter", "(Flag_EcalDeadCellTriggerPrimitiveFilter&&Flag_HBHENoiseIsoFilter&&Flag_goodVertices&&Flag_HBHENoiseFilter&&Flag_CSCTightHalo2015Filter)");
 
   tree->SetAlias("ieta", "gjet_l1_ieta");
@@ -128,6 +128,8 @@ int main(int argc, char** argv) {
   //tree->SetAlias("flg1eb", "(fabs(eta)<1.47&&!((ieta==56&&iphi==67)||(ieta==-24&&iphi==119)||(ieta==72&&iphi==67)||(ieta==79&&iphi==67)||(ieta==-51&&iphi==196)||(ieta==-21&&iphi==308)||(ieta==1&&iphi==81)||(ieta==49&&iphi==6)||(ieta==58&&iphi==74)||(ieta==-31&&iphi==163)))";
   //tree->SetAlias("flg1eb", "(fabs(eta)<1.47&&!((ieta==56&&iphi==67)||(ieta==79&&iphi==67)||(ieta==-51&&iphi==196)||(ieta==72&&iphi==67)||(ieta==58&&iphi==74)||(ieta==-24&&iphi==119)||(ieta==-21&&iphi==308)||(ieta==49&&iphi==6)||(ieta==1&&iphi==81)||(ieta==5&&iphi==180)||(ieta==-31&&iphi==163)||(ieta==5&&iphi==305)||(ieta==14&&iphi==321)||(ieta==-2&&iphi==244)||(ieta==-7&&iphi==39)||(ieta==-18&&iphi==189)||(ieta==-12&&iphi==196)||(ieta==6&&iphi==140)||(ieta==-27&&iphi==41)||(ieta==-5&&iphi==183)||(ieta==13&&iphi==218)||(ieta==-4&&iphi==125)||(ieta==-10&&iphi==163)||(ieta==-4&&iphi==229)||(ieta==-11&&iphi==163)||(ieta==-16&&iphi==170)||(ieta==-84&&iphi==168)||(ieta==5&&iphi==307)||(ieta==-10&&iphi==245)||(ieta==8&&iphi==329)||(ieta==-25&&iphi==109)||(ieta==-4&&iphi==183)||(ieta==-11&&iphi==28)||(ieta==26&&iphi==262)||(ieta==4&&iphi==245)||(ieta==3&&iphi==69)||(ieta==3&&iphi==186)||(ieta==-3&&iphi==187)||(ieta==6&&iphi==228)||(ieta==-24&&iphi==176)||(ieta==-3&&iphi==229)||(ieta==2&&iphi==246)||(ieta==-32&&iphi==146)||(ieta==-11&&iphi==182)||(ieta==2&&iphi==237)||(ieta==-4&&iphi==144)||(ieta==-11&&iphi==183)||(ieta==7&&iphi==214)||(ieta==1&&iphi==93)||(ieta==23&&iphi==147)))");
   tree->SetAlias("flg1eb", "(fabs(eta)<1.47&&!((ieta==56&&iphi==67)||(ieta==-51&&iphi==196)||(ieta==79&&iphi==67)||(ieta==72&&iphi==67)||(ieta==58&&iphi==74)||(ieta==-24&&iphi==119)||(ieta==49&&iphi==6)||(ieta==-21&&iphi==308)||(ieta==1&&iphi==81)||(ieta==-31&&iphi==163)||(ieta==5&&iphi==180)||(ieta==14&&iphi==321)||(ieta==5&&iphi==305)||(ieta==6&&iphi==140)||(ieta==-18&&iphi==189)||(ieta==-2&&iphi==244)||(ieta==-12&&iphi==196)||(ieta==-7&&iphi==39)||(ieta==-10&&iphi==163)||(ieta==-4&&iphi==229)||(ieta==-27&&iphi==41)||(ieta==-11&&iphi==163)||(ieta==-16&&iphi==170)||(ieta==-5&&iphi==183)||(ieta==13&&iphi==218)||(ieta==-4&&iphi==125)||(ieta==-4&&iphi==183)||(ieta==-84&&iphi==168)||(ieta==5&&iphi==307)||(ieta==-10&&iphi==245)||(ieta==26&&iphi==262)||(ieta==8&&iphi==329)||(ieta==4&&iphi==245)||(ieta==-25&&iphi==109)||(ieta==-11&&iphi==28)||(ieta==2&&iphi==237)||(ieta==-3&&iphi==187)||(ieta==-4&&iphi==144)||(ieta==3&&iphi==186)||(ieta==-3&&iphi==229)||(ieta==2&&iphi==246)||(ieta==-4&&iphi==57)||(ieta==-32&&iphi==146)||(ieta==-11&&iphi==182)||(ieta==5&&iphi==24)||(ieta==-19&&iphi==185)||(ieta==7&&iphi==214)||(ieta==-4&&iphi==53)||(ieta==2&&iphi==66)||(ieta==23&&iphi==147)))");
+
+
 
   // EE+ flag
   //tree->SetAlias("flg1eep", "(eta>1.566&&!((ieta==55&&iphi==27)||(ieta==62&&iphi==30)||(ieta==36&&iphi==64)||(ieta==43&&iphi==31)||(ieta==46&&iphi==31)||(ieta==42&&iphi==68)||(ieta==63&&iphi==31)||(ieta==48&&iphi==33)||(ieta==61&&iphi==35)||(ieta==61&&iphi==31)||(ieta==43&&iphi==32)||(ieta==46&&iphi==33)||(ieta==62&&iphi==35)||(ieta==38&&iphi==65)||(ieta==41&&iphi==68)||(ieta==40&&iphi==69)||(ieta==43&&iphi==70)||(ieta==44&&iphi==70)||(ieta==55&&iphi==70)||(ieta==52&&iphi==17)||(ieta==48&&iphi==21)||(ieta==48&&iphi==27)||(ieta==56&&iphi==29)||(ieta==65&&iphi==29)||(ieta==61&&iphi==30)||(ieta==37&&iphi==68)||(ieta==43&&iphi==69)||(ieta==49&&iphi==71)||(ieta==48&&iphi==74)))");
@@ -173,6 +175,7 @@ int main(int argc, char** argv) {
   tree_tmp1->SetBranchStatus("Flag_*",0);
   tree_tmp1->SetBranchStatus("Flag_hasBadMuon", 1);
   tree_tmp1->SetBranchStatus("Flag_CSCTightHalo2015Filter", 1);
+  tree_tmp1->SetBranchStatus("Flag_CSCTightHaloFilter", 1);
   tree_tmp1->SetBranchStatus("HLT_*",0);
   tree_tmp1->SetBranchStatus("jet_*",0);
   tree_tmp1->SetBranchStatus("photon_*",0);

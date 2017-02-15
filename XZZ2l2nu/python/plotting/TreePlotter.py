@@ -31,7 +31,7 @@ class TreePlotter(PlotterBase):
         self.smooth=True
 
     def drawTH1(self,name,var,cuts,lumi,bins,min,max,titlex = "",units = "",drawStyle = "HIST"):
-        name +='_'+self.name
+        #name +='_'+self.name
         h = ROOT.TH1D(name,name,bins,min,max)
         h.Sumw2()
         h.SetLineStyle(self.linestyle)

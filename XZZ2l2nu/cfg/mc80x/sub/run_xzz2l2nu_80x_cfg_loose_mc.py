@@ -83,10 +83,14 @@ if test==1:
     #selectedComponents = [WJetsToLNu]
     #selectedComponents = [ZZTo2L2Nu]
     selectedComponents = [DYJetsToLL_M50_Ext]
+#    selectedComponents = Graviton2PBToZZTo2L2Nu+Graviton2PBqqbarToZZTo2L2Nu+VBF_HToZZTo2L2Nu
     #selectedComponents = [DYJetsToLL_M50]
     #selectedComponents = [DYJetsToLL_M50_MGMLM_Ext1]
-    #selectedComponents = [GluGluHToZZTo2L2Nu_M200]
+#    selectedComponents = [GluGluHToZZTo2L2Nu_M200]
 #    selectedComponents = ggHZZ2L2Nu
+#    selectedComponents = WJetsToLNuHT
+#    selectedComponents = QCDPtEMEnriched
+#    selectedComponents = QCDPtMuEnriched
 
 
     #selectedComponents = [DY1JetsToLL_M50_MGMLM]

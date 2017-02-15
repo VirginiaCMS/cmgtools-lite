@@ -4,6 +4,7 @@
   std::string tag="_more1";
   std::string foutname="getFileterString_"+option+tag;
 
+  Int_t n_loop=70;
 
 
   TFile *_file0 = TFile::Open("/home/heli/XZZ/80X_20170202_GJets_light_big/SinglePhoton_Run2016Full_ReReco_v2_big/vvTreeProducer/tree.root");
@@ -61,7 +62,6 @@
   else std::cout << "wrong option do nothing" << std::endl;
 
   float utcut=0.5;
-  Int_t n_loop=100;
 
   Int_t cx;   Int_t cy;   Int_t bc;
   Int_t bx;   Int_t by; Int_t bz;

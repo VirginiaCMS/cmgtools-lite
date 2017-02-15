@@ -7,7 +7,8 @@ std::string  name1 =
 ;
 std::string  name2 =
 //"DYJetsToLL_M50_MGMLM_BIG_NoRecoil_met_para_study_ZSelecLowLPt_mu"
-"DYJetsToLL_M50_MGMLM_BIG_NoRecoil_met_para_study_ZSelecLowLPt_RhoWt_mu"
+//"DYJetsToLL_M50_MGMLM_BIG_NoRecoil_met_para_study_ZSelecLowLPt_RhoWt_mu"
+"SinglePhoton_Run2016Full_ReReco_v2_NoRecoil_met_para_study_ZSelecLowLPt_mu"
 ;
 
 std::string name_file1 = indir+"/"+name1+".root";

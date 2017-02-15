@@ -1,6 +1,6 @@
 #!/bin/sh
 
-outdir=mc_zjnlo
+outdir=mc_dynlo2
 #config=run_xzz2l2nu_80x_cfg_photon_mc.py
 config=run_xzz2l2nu_80x_cfg_loose_mc.py
 otherfiles=" pogRecipes.py "
@@ -11,7 +11,7 @@ do cp $otherfiles ${dd}/;
 done
 
 cd $outdir
-heppy_check.py * -b "bsub -q 1nd"
+#heppy_check.py * -b "bsub -q 1nd"
 
 cd ../
 

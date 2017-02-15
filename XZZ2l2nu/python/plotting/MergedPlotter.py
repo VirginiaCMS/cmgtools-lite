@@ -25,7 +25,7 @@ class MergedPlotter(PlotterBase):
             if h is None:
                 h=plotter.drawTH1(name,var,cuts,lumi,bins,min,max,titlex,units,drawStyle)
             else:
-                h.Add(plotter.drawTH1(name,var,cuts,lumi,bins,min,max,titlex,units,drawStyle))
+                h.Add(plotter.drawTH1(name+'_'+plotter.name,var,cuts,lumi,bins,min,max,titlex,units,drawStyle))
         h.SetLineColor(self.linecolor)
         h.SetLineWidth(self.linewidth)
         h.SetFillStyle(self.fillstyle)
@@ -41,7 +41,7 @@ class MergedPlotter(PlotterBase):
             if h is None:
                 h=plotter.drawTH2(name,var,cuts,lumi,binsx,minx,maxx,binsy,miny,maxy,titlex,unitsx,titley,unitsy,drawStyle)
             else:
-                h.Add(plotter.drawTH2(name,var,cuts,lumi,binsx,minx,maxx,binsy,miny,maxy,titlex,unitsx,titley,unitsy,drawStyle))
+                h.Add(plotter.drawTH2(name+'_'+plotter.name,var,cuts,lumi,binsx,minx,maxx,binsy,miny,maxy,titlex,unitsx,titley,unitsy,drawStyle))
 
 #        h.SetLineStyle(self.linestyle)
 #        h.SetLineColor(self.linecolor)

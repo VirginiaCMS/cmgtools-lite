@@ -153,7 +153,7 @@ class StackPlotter(object):
 
         self.fout = ROOT.TFile.Open(self.outFileName+'.root', 'recreate')
         c1 = ROOT.TCanvas(self.outTag, self.outTag, 800, 1040);
-        c1.Print(self.outFileName+'.ps[')
+        #c1.Print(self.outFileName+'.ps[')
         c1.Print(self.outFileName+'.pdf[')
 
     def setPaveText(self, paveText):
@@ -165,7 +165,7 @@ class StackPlotter(object):
 
     def closePSFile(self):
         c1 = ROOT.TCanvas(self.outTag, self.outTag);
-        c1.Print(self.outFileName+'.ps]')
+        #c1.Print(self.outFileName+'.ps]')
         c1.Print(self.outFileName+'.pdf]')
         #ROOT.gROOT.ProcessLine('.! ps2pdf '+self.outFileName+'.ps '+self.outFileName+'.pdf')
        
@@ -481,7 +481,7 @@ class StackPlotter(object):
 
         #c1.Print(outDir+'/'+self.outputTag+'_'+output+'.eps')
         #os.system('epstopdf '+outDir+'/'+output+'.eps')
-        c1.Print(self.outFileName+'.ps')
+        #c1.Print(self.outFileName+'.ps')
         c1.Print(self.outFileName+'.pdf')
 
         self.fout.cd()
@@ -574,7 +574,7 @@ class StackPlotter(object):
 
         #canvas.Print(output)
         #os.system('epstopdf '+output)
-        canvas.Print(self.outFileName+'.ps')
+        #canvas.Print(self.outFileName+'.ps')
         canvas.Print(self.outFileName+'.pdf')
         return canvas
 
@@ -771,7 +771,7 @@ class StackPlotter(object):
         c1.Update()
         #c1.Print(outDir+'/'+output+'.eps')
         #os.system('epstopdf '+outDir+'/'+output+'.eps')
-        c1.Print(self.outFileName+'.ps')
+        #c1.Print(self.outFileName+'.ps')
         c1.Print(self.outFileName+'.pdf')
        
         self.fout.cd()
@@ -950,7 +950,7 @@ class StackPlotter(object):
         c1.Update()
         #c1.Print(outDir+'/'+output+'.eps')
         #os.system('epstopdf '+outDir+'/'+output+'.eps')
-        c1.Print(self.outFileName+'.ps')
+        #c1.Print(self.outFileName+'.ps')
         c1.Print(self.outFileName+'.pdf')
        
         self.fout.cd()
@@ -1113,7 +1113,7 @@ class StackPlotter(object):
         c1.Update()
         #c1.Print(outDir+'/'+output+'.eps')
         #os.system('epstopdf '+outDir+'/'+output+'.eps')
-        c1.Print(self.outFileName+'.ps')
+        #c1.Print(self.outFileName+'.ps')
         c1.Print(self.outFileName+'.pdf')
        
         self.fout.cd()

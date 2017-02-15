@@ -2,12 +2,23 @@
 
   gROOT->ProcessLine(".x tdrstyle.C");
 
-  std::string outtag="get_rho_weight_36p46_psW";
-  TFile* file1 = TFile::Open("/home/heli/XZZ/80X_20161029_light_Skim/SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib.root");
-  TFile* file2 = TFile::Open("/home/heli/XZZ/80X_20161029_GJets_light_Skim/SinglePhoton_Run2016B2H_ReReco_36p46_Rc36p46ReCalib.root");
+  std::string outtag="get_rho_weight_fullv2";
+  TFile* file1 = TFile::Open("/home/heli/XZZ/80X_20170202_light_Skim/SingleEMU_Run2016Full_ReReco_v2_DtReCalib.root");
+  TFile* file2 = TFile::Open("/home/heli/XZZ/80X_20170202_GJets_light_Skim/SinglePhoton_Run2016Full_ReReco_v2_NoRecoil.root");
 
+  std::string lumiTag;
+  TPaveText* lumipt;
 
-  
+  lumiTag = "CMS 13 TeV 2016 L=35.87 fb^{-1}";
+
+  lumipt = new TPaveText(0.2,0.8,0.8,0.88,"brNDC");
+  lumipt->SetBorderSize(0);
+  lumipt->SetTextAlign(12);
+  lumipt->SetFillStyle(0);
+  lumipt->SetTextFont(42);
+  lumipt->SetTextSize(0.03);
+  lumipt->AddText(0.15,0.3, lumiTag.c_str());
+ 
   char name[1000];
   sprintf(name, "%s.root", outtag.c_str());
   TFile* fout = TFile::Open(name, "recreate");
@@ -101,9 +112,14 @@
   h_zpt_sb_wps->Draw();
   h_zpt_sb_nops->Draw("same");
   lg_zpt_ps->Draw();
+  lumipt->Draw();
   plots->SetLogy(1);
   sprintf(name, "%s.pdf", outtag.c_str());
   plots->Print(name);
+
+  plots->SetLogy(0);
+  plots->Print(name);
+
   plots->SetLogy(0);
   plots->Clear();
 
@@ -119,6 +135,8 @@
     h1->SetMarkerColor(2);
     h2->SetLineColor(4);
     h2->SetMarkerColor(4);
+    h1->GetXaxis()->SetTitle("#rho");
+    h2->GetXaxis()->SetTitle("#rho");
     TLegend* lg1 = new TLegend(0.6,0.7, 0.8,0.8);
     sprintf(name, "tmp_lg1_%i", i);
     lg1->AddEntry(h1, "di-lepton data", "apl");
@@ -126,9 +144,13 @@
     lg1->AddEntry(h2, hlt_lab.at(i).c_str() , "");
 
     plots->Clear();
-    h1->Draw();
-    h2->Draw("same");
+    plots->SetLogy(1);
+    h2->Draw();
+    h1->Draw("same");
+    lumipt->Draw();
     sprintf(name, "%s.pdf", outtag.c_str());
+    plots->Print(name);
+    plots->SetLogy(0);
     plots->Print(name);
     plots->Clear();
 

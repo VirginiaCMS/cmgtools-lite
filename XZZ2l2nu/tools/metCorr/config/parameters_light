@@ -94,7 +94,7 @@ doGJetsSkimAddPhiWeight: true
 GJetsSkimInputFileName: data/gjets/study_gjets_data_b2h36p22fbinv_v5resbos_norm_modify.root
 
 GJetsSkimPhiWeightInputFileName: data/gjets/gjet_photon_phi_weight.root
-GJetsSkimRhoWeightInputFileName: data/gjets/get_rho_weight_36p22_psWt.root
+GJetsSkimRhoWeightInputFileName: data/gjets/get_rho_weight_fullv2.root
 
 
 
@@ -194,7 +194,7 @@ DyZPtWeightInputFileName: data/zptweight/dyjets_zpt_weight_lo_nlo_genAccV2.root
 #====================================================================
 
 # default use histogram
-doRecoil: true
+doRecoil: false
 
 # use smoothed hist
 doRecoilUseSmooth: true
@@ -209,9 +209,9 @@ RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016Full_ReReco_v2_DtReCal
 
 
 # NLO mc
-RecoilInputFileNameMC_all: data/recoil/DYJetsToLL_M50_BIG_NoRecoil_met_para_study_ZSelecLowLPt.root
-RecoilInputFileNameMC_mu:  data/recoil/DYJetsToLL_M50_BIG_NoRecoil_met_para_study_ZSelecLowLPt_mu.root
-RecoilInputFileNameMC_el:  data/recoil/DYJetsToLL_M50_BIG_NoRecoil_met_para_study_ZSelecLowLPt_el.root
+RecoilInputFileNameMC_all: data/recoil/DYJetsToLL_M50_Ext_NoRecoil_met_para_study_ZSelecLowLPt.root
+RecoilInputFileNameMC_mu:  data/recoil/DYJetsToLL_M50_Ext_NoRecoil_met_para_study_ZSelecLowLPt_mu.root
+RecoilInputFileNameMC_el:  data/recoil/DYJetsToLL_M50_Ext_NoRecoil_met_para_study_ZSelecLowLPt_el.root
 
 # LO mc
 RecoilInputFileNameMCLO_all: data/recoil/DYJetsToLL_M50_MGMLM_BIG_NoRecoil_met_para_study_ZSelecLowLPt.root

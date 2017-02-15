@@ -196,7 +196,7 @@ class CMSDataset( BaseDataset ):
                                                   i*limit,
                                                   ((i+1)*limit)-1)
                 self.files.extend(DBSFiles)
-            if len(self.files) != num_files:
+            if len(self.files) < num_files:
                 raise RuntimeError, "ERROR: mismatching number of files between dataset summary (%d) and dataset query for files(%d)\n" % (num_files, len(self.files))
             return
 
@@ -229,7 +229,7 @@ class CMSDataset( BaseDataset ):
             return
 
         self.files = self.buildListOfFilesDBS(pattern)
-        if len(self.files) != num_files:
+        if len(self.files) < num_files:
             raise RuntimeError, "ERROR: mismatching number of files between dataset summary (%d) and dataset query for files(%d)\n" % (num_files, len(self.files))
             
     @staticmethod

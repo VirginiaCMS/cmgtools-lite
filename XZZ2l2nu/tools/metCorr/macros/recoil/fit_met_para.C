@@ -2,7 +2,7 @@
 
 std::string channel = "all";
 bool doMC = false;
-bool doGJets = false;
+bool doGJets = true;
 bool useZSelecLowLPt = true;
 bool useEffSf = false;
 bool mcTrgSf = false;
@@ -16,21 +16,27 @@ bool mcUseRhoWt = false;
 // 3.) for MC : doMC=false, doGJets=false, useZSelecLowLPt=true, useEffSf=false
 // 4.) for GJets: doGJets=true, doMC=false, useZSelecLowLPt=true, useEffSf=false
 
-std::string inputdir = "/home/heli/XZZ/80X_20170202_light_Skim";
+std::string inputdir = 
+"/home/heli/XZZ/80X_20170202_light_Skim"
+//"/datac/heli/XZZ2/80X_20161029_light_Skim"
+;
 std::string filename;
 
 std::string outputdir = "./recoil_out8";
 std::vector< std::string > channels = {"all", "mu", "el"};
 std::vector< std::string > mcfiles = {
-    "DYJetsToLL_M50_MGMLM_BIG_NoRecoil", 
+  //  "DYJetsToLL_M50_MGMLM_BIG_NoRecoil", 
+    "DYJetsToLL_M50_Ext_NoRecoil"
  };
 
 std::vector< std::string > dtfiles = {
     "SingleEMU_Run2016Full_ReReco_v2_DtReCalib"
+//   "SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib"
  };
 
 std::vector< std::string > gjfiles = {
     "SinglePhoton_Run2016Full_ReReco_v2_NoRecoil"
+//    "SinglePhoton_Run2016Full_ReReco_v2_halo15_NoRecoil"
  };
 
 
@@ -125,7 +131,8 @@ void do_fit_met_para(std::string& infilename, std::string& chan) {
   cuts_lepaccept+="||(abs(llnunu_l1_l1_pdgId)==11&&abs(llnunu_l1_l2_pdgId)==11&&llnunu_l1_l1_pt>115&&abs(llnunu_l1_l1_eta)<2.5&&llnunu_l1_l2_pt>35&&abs(llnunu_l1_l2_eta)<2.5))";
   std::string cuts_lepaccept_lowlpt="((abs(llnunu_l1_l1_pdgId)==13&&abs(llnunu_l1_l2_pdgId)==13&&llnunu_l1_l1_pt>20&&abs(llnunu_l1_l1_eta)<2.4&&llnunu_l1_l2_pt>20&&abs(llnunu_l1_l2_eta)<2.4&&(llnunu_l1_l1_highPtID==1||llnunu_l1_l2_highPtID==1))";
   cuts_lepaccept_lowlpt+="||(abs(llnunu_l1_l1_pdgId)==11&&abs(llnunu_l1_l2_pdgId)==11&&llnunu_l1_l1_pt>20&&abs(llnunu_l1_l1_eta)<2.5&&llnunu_l1_l2_pt>20&&abs(llnunu_l1_l2_eta)<2.5))";
-  std::string cuts_zmass="(llnunu_l1_mass>70&&llnunu_l1_mass<110)";
+  //std::string cuts_zmass="(llnunu_l1_mass>70&&llnunu_l1_mass<110)";
+  std::string cuts_zmass="(llnunu_l1_mass>70&&llnunu_l1_mass<110&&nbadmuon==0)"; // add bad muon filter
   //std::string cuts_loose_z="("+metfilter+"&&"+cuts_lepaccept+"&&"+cuts_zmass+")";
   //std::string cuts_loose_z_lowlpt="("+metfilter+"&&"+cuts_lepaccept_lowlpt+"&&"+cuts_zmass+")";
   // metfilter pre-applied already for full dataset
@@ -147,7 +154,7 @@ void do_fit_met_para(std::string& infilename, std::string& chan) {
 
 
   // add weight
-  std::string weight_selec = std::string("*(genWeight*ZPtWeight*puWeightsummer16/SumWeights*xsec*36814)");
+  std::string weight_selec = std::string("*(genWeight*ZPtWeight*puWeightsummer16/SumWeights*xsec*35867)");
   // rho weight
   std::string rhoweight_selec = std::string("*(0.366*TMath::Gaus(rho,8.280,5.427)+0.939*TMath::Gaus(rho,18.641,10.001)+0.644*TMath::Gaus(rho,40.041,10.050))"); // rereco/summer16 38.81fb-1
 
@@ -190,7 +197,7 @@ void do_fit_met_para(std::string& infilename, std::string& chan) {
 
 
   // lumiTag for plotting
-  lumiTag = "CMS 13 TeV 2016 L=36.81 fb^{-1}";
+  lumiTag = "CMS 13 TeV 2016 L=35.87 fb^{-1}";
   if (doMC) lumiTag = "CMS 13 TeV Simulation for 2016 Data";
 
   lumipt = new TPaveText(0.2,0.9,0.8,0.98,"brNDC");

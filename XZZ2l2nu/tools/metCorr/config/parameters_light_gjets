@@ -88,10 +88,10 @@ PUWeightHistName: puweight_dtmc
 #====================================================================
 doGJetsSkim: true
 doGJetsSkimAddPhiWeight: false
-GJetsSkimInputFileName: data/gjets/study_gjets_data_36p46_norm_npucut_modify.root
+GJetsSkimInputFileName: data/gjets/study_gjets_data_fullv2_modify.root
 
 GJetsSkimPhiWeightInputFileName: data/gjets/gjet_photon_phi_weight.root
-GJetsSkimRhoWeightInputFileName: data/gjets/get_rho_weight_36p22_psWt.root
+GJetsSkimRhoWeightInputFileName: data/gjets/get_rho_weight_fullv2.root
 
 
 
@@ -199,9 +199,12 @@ doRecoilUseSmooth: true
 doRecoilUseSmoothGraph: true
 
 # Input files
-RecoilInputFileNameData_all: data/recoil/SingleEMU_Run2016Full_ReReco_v2_met_para_study_ZSelecLowLPt.root
-RecoilInputFileNameData_mu:  data/recoil/SingleEMU_Run2016Full_ReReco_v2_met_para_study_ZSelecLowLPt_mu.root
-RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016Full_ReReco_v2_met_para_study_ZSelecLowLPt_el.root
+#RecoilInputFileNameData_all: data/recoil/SingleEMU_Run2016Full_ReReco_v1_met_para_study_ZSelecLowLPt.root
+#RecoilInputFileNameData_mu:  data/recoil/SingleEMU_Run2016Full_ReReco_v1_met_para_study_ZSelecLowLPt_mu.root
+#RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016Full_ReReco_v1_met_para_study_ZSelecLowLPt_el.root
+RecoilInputFileNameData_all: data/recoil/SingleEMU_Run2016Full_ReReco_v2_DtReCalib_met_para_study_ZSelecLowLPt.root
+RecoilInputFileNameData_mu:  data/recoil/SingleEMU_Run2016Full_ReReco_v2_DtReCalib_met_para_study_ZSelecLowLPt_mu.root
+RecoilInputFileNameData_el:  data/recoil/SingleEMU_Run2016Full_ReReco_v2_DtReCalib_met_para_study_ZSelecLowLPt_el.root
 
 
 # NLO mc

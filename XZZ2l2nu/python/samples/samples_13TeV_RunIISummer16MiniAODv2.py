@@ -434,9 +434,9 @@ QCD_Pt30to50_EMEnriched   = kreator.makeMCComponent("QCD_Pt30to50_EMEnriched"  ,
 QCD_Pt30to50_EMEnriched_ext   = kreator.makeMCComponent("QCD_Pt30to50_EMEnriched_ext"  ,
 "/QCD_Pt-30to50_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM",
 "CMS", ".*root", 136000000*0.073)
-#QCD_Pt50to80_EMEnriched   = kreator.makeMCComponent("QCD_Pt50to80_EMEnriched", 
-#"/QCD_Pt-50to80_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", # in production
-#"CMS", ".*root", 19800000*0.146)
+QCD_Pt50to80_EMEnriched   = kreator.makeMCComponent("QCD_Pt50to80_EMEnriched", 
+"/QCD_Pt-50to80_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM", # in production
+"CMS", ".*root", 19800000*0.146)
 QCD_Pt50to80_EMEnriched_ext   = kreator.makeMCComponent("QCD_Pt50to80_EMEnriched_ext", 
 "/QCD_Pt-50to80_EMEnriched_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM",
 "CMS", ".*root", 19800000*0.146)
@@ -461,13 +461,122 @@ QCDPtEMEnriched = [
 QCD_Pt20to30_EMEnriched,
 QCD_Pt30to50_EMEnriched,
 QCD_Pt30to50_EMEnriched_ext,
-#QCD_Pt50to80_EMEnriched,
+QCD_Pt50to80_EMEnriched,
 QCD_Pt50to80_EMEnriched_ext,
 QCD_Pt80to120_EMEnriched,
 QCD_Pt80to120_EMEnriched_ext,
 QCD_Pt120to170_EMEnriched,
 QCD_Pt170to300_EMEnriched,
 QCD_Pt300toInf_EMEnriched
+]
+
+
+QCD_Pt15to20_MuEnrichedPt5 = kreator.makeMCComponent("QCD_Pt15to20_MuEnrichedPt5",
+"/QCD_Pt-15to20_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root",1273190000*0.003, useAAA=False)
+QCD_Pt20to30_MuEnrichedPt5 = kreator.makeMCComponent("QCD_Pt20to30_MuEnrichedPt5",
+"/QCD_Pt-20to30_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root",558528000*0.0053, useAAA=False)
+QCD_Pt30to50_MuEnrichedPt5 = kreator.makeMCComponent("QCD_Pt30to50_MuEnrichedPt5",
+"/QCD_Pt-30to50_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root", 139803000* 0.01182 , useAAA=False)
+QCD_Pt50to80_MuEnrichedPt5 = kreator.makeMCComponent("QCD_Pt50to80_MuEnrichedPt5",
+"/QCD_Pt-50to80_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root", 19222500* 0.02276 , useAAA=False)
+QCD_Pt80to120_MuEnrichedPt5 = kreator.makeMCComponent("QCD_Pt80to120_MuEnrichedPt5",
+"/QCD_Pt-80to120_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root",2758420*0.03844 , useAAA=False)
+QCD_Pt80to120_MuEnrichedPt5_ext1 = kreator.makeMCComponent("QCD_Pt80to120_MuEnrichedPt5_ext1",
+"/QCD_Pt-80to120_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v3/MINIAODSIM",
+"CMS", ".*root",2758420*0.03844, useAAA=False)
+QCD_Pt120to170_MuEnrichedPt5 = kreator.makeMCComponent("QCD_Pt120to170_MuEnrichedPt5",
+"/QCD_Pt-120to170_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root",469797*0.05362 , useAAA=False)
+QCD_Pt120to170_MuEnrichedPt5_backup = kreator.makeMCComponent("QCD_Pt120to170_MuEnrichedPt5_backup",
+"/QCD_Pt-120to170_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_backup_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root",469797*0.05362, useAAA=False)
+QCD_Pt170to300_MuEnrichedPt5 = kreator.makeMCComponent("QCD_Pt170to300_MuEnrichedPt5",
+"/QCD_Pt-170to300_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root",117989*0.07335, useAAA=False)
+QCD_Pt170to300_MuEnrichedPt5_ext1 = kreator.makeMCComponent("QCD_Pt170to300_MuEnrichedPt5_ext1",
+"/QCD_Pt-170to300_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM",
+"CMS", ".*root",117989*0.07335, useAAA=False)
+QCD_Pt170to300_MuEnrichedPt5_backup = kreator.makeMCComponent("QCD_Pt170to300_MuEnrichedPt5_backup",
+"/QCD_Pt-170to300_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_backup_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root",117989*0.07335, useAAA=False)
+QCD_Pt300to470_MuEnrichedPt5 = kreator.makeMCComponent("QCD_Pt300to470_MuEnrichedPt5",
+"/QCD_Pt-300to470_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root", 7820.25*0.10196, useAAA=False)
+QCD_Pt300to470_MuEnrichedPt5_ext1 = kreator.makeMCComponent("QCD_Pt300to470_MuEnrichedPt5_ext1",
+"/QCD_Pt-300to470_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM",
+"CMS", ".*root",7820.25*0.10196, useAAA=False)
+QCD_Pt300to470_MuEnrichedPt5_ext2 = kreator.makeMCComponent("QCD_Pt300to470_MuEnrichedPt5_ext2",
+"/QCD_Pt-300to470_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/MINIAODSIM",
+"CMS", ".*root",7820.25*0.10196, useAAA=False)
+QCD_Pt470to600_MuEnrichedPt5 = kreator.makeMCComponent("QCD_Pt470to600_MuEnrichedPt5",
+"/QCD_Pt-470to600_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root", 645.528*0.12242, useAAA=False)
+QCD_Pt470to600_MuEnrichedPt5_ext1 = kreator.makeMCComponent("QCD_Pt470to600_MuEnrichedPt5_ext1",
+"/QCD_Pt-470to600_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM",
+"CMS", ".*root",645.528*0.12242, useAAA=False)
+QCD_Pt470to600_MuEnrichedPt5_ext2 = kreator.makeMCComponent("QCD_Pt470to600_MuEnrichedPt5_ext2",
+"/QCD_Pt-470to600_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/MINIAODSIM",
+"CMS", ".*root",645.528*0.12242, useAAA=False)
+QCD_Pt600to800_MuEnrichedPt5 = kreator.makeMCComponent("QCD_Pt600to800_MuEnrichedPt5",
+"/QCD_Pt-600to800_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root",187.109*0.13412, useAAA=False)
+QCD_Pt600to800_MuEnrichedPt5_ext1 = kreator.makeMCComponent("QCD_Pt600to800_MuEnrichedPt5_ext1",
+"/QCD_Pt-600to800_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM",
+"CMS", ".*root",187.109*0.13412, useAAA=False)
+QCD_Pt600to800_MuEnrichedPt5_backup = kreator.makeMCComponent("QCD_Pt600to800_MuEnrichedPt5_backup",
+"/QCD_Pt-600to800_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_backup_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root",187.109*0.13412, useAAA=False)
+QCD_Pt800to1000_MuEnrichedPt5 = kreator.makeMCComponent("QCD_Pt800to1000_MuEnrichedPt5",
+"/QCD_Pt-800to1000_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root",32.3486*0.14552, useAAA=False)
+QCD_Pt800to1000_MuEnrichedPt5_ext1 = kreator.makeMCComponent("QCD_Pt800to1000_MuEnrichedPt5_ext1",
+"/QCD_Pt-800to1000_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/MINIAODSIM",
+"CMS", ".*root", 32.3486*0.14552, useAAA=False)
+QCD_Pt800to1000_MuEnrichedPt5_ext2 = kreator.makeMCComponent("QCD_Pt800to1000_MuEnrichedPt5_ext2",
+"/QCD_Pt-800to1000_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext2-v1/MINIAODSIM",
+"CMS", ".*root", 32.3486*0.14552, useAAA=False)
+QCD_Pt1000toInf_MuEnrichedPt5 = kreator.makeMCComponent("QCD_Pt1000toInf_MuEnrichedPt5",
+"/QCD_Pt-1000toInf_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root",10.4305*0.15544, useAAA=False)
+QCD_Pt1000toInf_MuEnrichedPt5_ext1 = kreator.makeMCComponent("QCD_Pt1000toInf_MuEnrichedPt5_ext1",
+"/QCD_Pt-1000toInf_MuEnrichedPt5_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v3/MINIAODSIM",
+"CMS", ".*root",10.4305*0.15544, useAAA=False)
+QCD_Pt20toInf_MuEnrichedPt15 = kreator.makeMCComponent("QCD_Pt20toInf_MuEnrichedPt15",
+"/QCD_Pt-20toInf_MuEnrichedPt15_TuneCUETP8M1_13TeV_pythia8/RunIISummer16MiniAODv2-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/MINIAODSIM",
+"CMS", ".*root",720648000*0.00042, useAAA=False)
+
+QCDPtMuEnriched=[
+QCD_Pt15to20_MuEnrichedPt5,
+QCD_Pt20to30_MuEnrichedPt5,
+QCD_Pt30to50_MuEnrichedPt5,
+QCD_Pt50to80_MuEnrichedPt5,
+QCD_Pt80to120_MuEnrichedPt5,
+QCD_Pt80to120_MuEnrichedPt5_ext1,
+QCD_Pt120to170_MuEnrichedPt5,
+QCD_Pt120to170_MuEnrichedPt5_backup,
+QCD_Pt170to300_MuEnrichedPt5,
+QCD_Pt170to300_MuEnrichedPt5_ext1,
+QCD_Pt170to300_MuEnrichedPt5_backup,
+QCD_Pt300to470_MuEnrichedPt5,
+QCD_Pt300to470_MuEnrichedPt5_ext1,
+QCD_Pt300to470_MuEnrichedPt5_ext2,
+QCD_Pt470to600_MuEnrichedPt5,
+QCD_Pt470to600_MuEnrichedPt5_ext1,
+QCD_Pt470to600_MuEnrichedPt5_ext2,
+QCD_Pt600to800_MuEnrichedPt5,
+QCD_Pt600to800_MuEnrichedPt5_ext1,
+QCD_Pt600to800_MuEnrichedPt5_backup,
+QCD_Pt800to1000_MuEnrichedPt5,
+QCD_Pt800to1000_MuEnrichedPt5_ext1,
+QCD_Pt800to1000_MuEnrichedPt5_ext2,
+QCD_Pt1000toInf_MuEnrichedPt5,
+QCD_Pt1000toInf_MuEnrichedPt5_ext1,
+QCD_Pt20toInf_MuEnrichedPt15,
 ]
 
 #TToLeptons_tch_powheg = kreator.makeMCComponent("TToLeptons_tch_powheg", 
