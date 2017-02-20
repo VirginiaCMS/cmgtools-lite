@@ -19,7 +19,7 @@ doRhoScale=True
 
 if test: DrawLeptons = False
 
-lepsf="trgsf*isosf*idsf"
+lepsf="trgsf*isosf*idsf*1.16067370494"
 
 if doRhoScale: 
     tag+="RhoWt_"
@@ -76,7 +76,7 @@ cuts_met200="(llnunu_l2_pt>200)"
 #cuts_loose_zll_met200="("+cuts_lepaccept+"&&"+cuts_zmass+"&&"+cuts_zpt100+"&&"+cuts_met200+")"
 cuts=''
 if "metzpt30" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>30)&&(llnunu_l2_pt>30)'
-elif "metzptCR" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>70)&&(llnunu_l2_pt>70)'
+elif "metzptCR" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>70)'
 elif "metzpt100" in tag:cuts=cuts_zmass+'&&(llnunu_l1_pt>100)&&(llnunu_l2_pt>100)'
 elif "zveto" in tag:cuts=cuts_zmass
 elif "full" in tag:cuts=cuts_zmassin
@@ -145,11 +145,10 @@ WJets = MergedPlotter(wjetsPlotters)
 WJets.setFillProperties(1001,ROOT.kBlue-6)
 
 zjetsPlotters=[]
-zjetsSamples = ['DYJetsToLL_M50_BIG_ResBos_Rc36p22']
+zjetsSamples = ['DYJetsToLL_M50_BIG_Rc36p46DtReCalib']
 for sample in zjetsSamples:
     zjetsPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))
     zjetsPlotters[-1].addCorrectionFactor('1./SumWeights','norm')
-    zjetsPlotters[-1].addCorrectionFactor('(1.16158)','norm')
     if ZJetsZPtWeight: zjetsPlotters[-1].addCorrectionFactor('ZPtWeight','ZPtWeight')
     #zjetsPlotters[-1].addCorrectionFactor('PhiStarWeight','PhiStarWeight')
     #zjetsPlotters[-1].addCorrectionFactor('xsec','xsec')
@@ -181,7 +180,7 @@ TT.setFillProperties(1001,ROOT.kAzure-9)
 
 dataPlotters=[]
 dataSamples = [
-'SingleEMU_Run2016B2H_ReReco_36p46',
+'SingleEMU_Run2016B2H_ReReco_36p46_DtReCalib',
 ]
 for sample in dataSamples:
     dataPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))

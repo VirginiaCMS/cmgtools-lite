@@ -119,8 +119,8 @@ multtrg = cfg.Analyzer(
         'HLT_Ele22_eta2p1_WP75_Gsf',
         'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ',
         'HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ',
-        'HLT_IsoMu20',
-        'HLT_IsoTkMu20',
+        'HLT_IsoMu24',
+        'HLT_IsoTkMu24',
         'HLT_IsoMu27',
         ],
     photonjet=False

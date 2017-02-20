@@ -196,16 +196,16 @@ int main(int argc, char** argv) {
     tree->SetBranchStatus("HLT_ELEv2", 1);
   }
   // alias
-  tree->SetAlias("muselec", "((abs(llnunu_l1_l1_pdgId)==13||abs(llnunu_l1_l2_pdgId)==13)&&abs(llnunu_l1_l1_eta)<2.4&&abs(llnunu_l1_l2_eta)<2.4&&llnunu_l1_l1_pt>20&&llnunu_l1_l2_pt>20&&(llnunu_l1_l1_highPtID>0.99||llnunu_l1_l2_highPtID>0.99))");
-  tree->SetAlias("elselec", "((abs(llnunu_l1_l1_pdgId)==11||abs(llnunu_l1_l2_pdgId)==11)&&abs(llnunu_l1_l1_eta)<2.5&&abs(llnunu_l1_l2_eta)<2.5&&llnunu_l1_l1_pt>20&&llnunu_l1_l2_pt>20)");
+  //tree->SetAlias("muselec", "((abs(llnunu_l1_l1_pdgId)==13||abs(llnunu_l1_l2_pdgId)==13)&&abs(llnunu_l1_l1_eta)<2.4&&abs(llnunu_l1_l2_eta)<2.4&&llnunu_l1_l1_pt>20&&llnunu_l1_l2_pt>20&&(llnunu_l1_l1_highPtID>0.99||llnunu_l1_l2_highPtID>0.99))");
+  //tree->SetAlias("elselec", "((abs(llnunu_l1_l1_pdgId)==11||abs(llnunu_l1_l2_pdgId)==11)&&abs(llnunu_l1_l1_eta)<2.5&&abs(llnunu_l1_l2_eta)<2.5&&llnunu_l1_l1_pt>20&&llnunu_l1_l2_pt>20)");
 
-  tree->SetAlias("metfilter", "(Flag_EcalDeadCellTriggerPrimitiveFilter&&Flag_HBHENoiseIsoFilter&&Flag_goodVertices&&Flag_HBHENoiseFilter&&Flag_globalTightHalo2016Filter&&Flag_eeBadScFilter&&Flag_BadPFMuonFilter&&Flag_BadChargedCandidateFilter)");
-  tree->SetAlias("hlt", "(HLT_MUv2||HLT_ELEv2)");
+  tree->SetAlias("metfilter", "(Flag_EcalDeadCellTriggerPrimitiveFilter&&Flag_HBHENoiseIsoFilter&&Flag_goodVertices&&Flag_HBHENoiseFilter&&Flag_globalTightHalo2016Filter&&Flag_eeBadScFilter&&Flag_BadPFMuonFilter&&Flag_BadChargedCandidateFilter&&Flag_noBadMuons)");
+  //tree->SetAlias("hlt", "(HLT_MUv2||HLT_ELEv2)");
 
-  tree->SetAlias("muv0", "(hlt&&metfilter&&muselec)");
-  tree->SetAlias("elv0", "(hlt&&metfilter&&elselec)");
+  //tree->SetAlias("muv0", "(metfilter&&muselec)");
+  //tree->SetAlias("elv0", "(metfilter&&elselec)");
   //tree->SetAlias("selecv0", "(hlt&&metfilter&&(muselec||elselec))");
-  tree->SetAlias("selecv0", "(metfilter&&(muselec||elselec))");
+  //tree->SetAlias("selecv0", "(metfilter&&(muselec||elselec))");
 
   char ftmp1_name[1000];
   sprintf(ftmp1_name, "%s_tmp1.root", outputfile.c_str() );
