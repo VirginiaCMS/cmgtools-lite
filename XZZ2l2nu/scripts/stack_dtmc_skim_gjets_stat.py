@@ -34,10 +34,10 @@ cutChain=options.cutChain
 channel=options.channel
 LogY=options.LogY
 test=options.test
-DrawLeptons=True
+DrawLeptons=False
 doRhoScale=False
 doGMCEtaScale=True
-doGMCPhPtScale=False
+doGMCPhPtScale=True
 dyGJets=options.dyGJets
 muoneg=options.muoneg
 doSys=options.doSys
@@ -51,17 +51,17 @@ mc_scale='(1)'
 zjets_scale='(1)'
 
 if channel=='mu': 
-    zjets_scale='(1.02509)'
+    zjets_scale='(1.03741)'
 elif channel=='el': 
-    zjets_scale='(0.981151)'
+    zjets_scale='(1.03741)'
 else: 
-    zjets_scale='(1.02509)'
+    zjets_scale='(1.03741)'
 
 nonreso_alpha_el=1.0
 nonreso_alpha_mu=1.0
 
 nonreso_alpha_el=0.346341188158
-nonreso_alpha_mu=0.687122143356 
+nonreso_alpha_mu=0.696656700696
 
 if doRhoScale:
     tag+="RhoWt_"
@@ -71,16 +71,17 @@ if doRhoScale:
 
 if doGMCEtaScale:
     tag+="GMCEtaWt_"
-    g_scale=g_scale+"*(0.87*TMath::Gaus(llnunu_l1_eta,0.65,0.56)+0.87*TMath::Gaus(llnunu_l1_eta,-0.65,0.56)+0.65*TMath::Gaus(llnunu_l1_eta,1.90,0.25)+0.65*TMath::Gaus(llnunu_l1_eta,-1.90,0.25))"
+    g_scale=g_scale+"*(1.05*TMath::Gaus(llnunu_l1_eta,0.7,0.63)+1.05*TMath::Gaus(llnunu_l1_eta,-0.7,0.63)+0.94*TMath::Gaus(llnunu_l1_eta,2.02,0.34)+0.94*TMath::Gaus(llnunu_l1_eta,-2.02,0.34))"
 
 if doGMCPhPtScale:
     tag+="GMCPhPtWt_"
-    g_scale=g_scale+"*((-1.06624+0.0580113*pow(llnunu_l1_pt,1)-5.09328e-4*pow(llnunu_l1_pt,2)+2.28513e-6*pow(llnunu_l1_pt,3)-6.03131e-9*pow(llnunu_l1_pt,4)+9.84946e-12*pow(llnunu_l1_pt,5)-1.00558e-14*pow(llnunu_l1_pt,6)+6.244e-18*pow(llnunu_l1_pt,7)-2.15543e-21*pow(llnunu_l1_pt,8)+3.17021e-25*pow(llnunu_l1_pt,9))*(llnunu_l1_pt<=1000)+(0.688060)*(llnunu_l1_pt>1000))"
+    g_scale=g_scale+"*((-0.371771+0.0193019*pow(llnunu_l1_pt,1)-0.000119102*pow(llnunu_l1_pt,2)+3.90785e-07*pow(llnunu_l1_pt,3)-7.29192e-10*pow(llnunu_l1_pt,4)+7.7063e-13*pow(llnunu_l1_pt,5)-4.27744e-16*pow(llnunu_l1_pt,6)+9.61926e-20*pow(llnunu_l1_pt,7))*(llnunu_l1_pt<=900)+(0.723945)*(llnunu_l1_pt>900))"
+
 
 outdir='plots'
 
 indir='/home/heli/XZZ/80X_20170202_light_Skim/'
-lumi=36.81
+lumi=35.87
 sepSig=True
 doRatio=True
 Blind=options.Blind
@@ -339,28 +340,29 @@ else:
 # if use GJets to describe ZJets
 if dyGJets : 
     # parameters for GJets
-    el_gjet_scale=1.10003
-    mu_gjet_scale=1.13122 
-    gdataLumi=36.46*1000
-    gdataYield=3451449849.011390686 
+    el_gjet_scale=1.0
+    mu_gjet_scale=1.0
+    gdataLumi=35.867*1000
+    gdataYield = 3402037584.2277574539
     gdataFidXsec=gdataYield/gdataLumi
-    zjetsFidXsecAll = 151.06068438939382759
-    zjetsFidXsecEl =  1.8318217140038339785*el_gjet_scale
-    zjetsFidXsecMu =  149.22886267539001892*mu_gjet_scale
-    zjetsFidXsecAll_up = 151.85715853322426483
-    zjetsFidXsecAll_dn = 150.26421019455997907
-    zjetsFidXsecEl_up = 1.8728979304188486665*el_gjet_scale
-    zjetsFidXsecEl_dn = 1.7907454975888201787*el_gjet_scale
-    zjetsFidXsecMu_up = 149.98426060280544903*mu_gjet_scale
-    zjetsFidXsecMu_dn = 148.47346469697114912*mu_gjet_scale
-    zjetsFidXsecLowLptAll = 807.42655018368884612
-    zjetsFidXsecLowLptEl = 229.77648821257676559
-    zjetsFidXsecLowLptMu = 577.65006197098625762
+    zjetsFidXsecAll = 72.31330890818101409
+    zjetsFidXsecEl =  1.8368830484768923217
+    zjetsFidXsecMu =  70.413868731825942859
+    zjetsFidXsecAll_up = 73.317313237038433726
+    zjetsFidXsecAll_dn = 71.318806854104892068
+    zjetsFidXsecEl_up = 1.9004022884222013801
+    zjetsFidXsecEl_dn = 1.7743842806529528389
+    zjetsFidXsecMu_up = 71.35227312468455807
+    zjetsFidXsecMu_dn = 69.483913323296292219
+    zjetsFidXsecLowLptAll = 1119.9216265291902346
+    zjetsFidXsecLowLptEl = 459.14012486577632899
+    zjetsFidXsecLowLptMu = 660.78150166340503802
 
     # for GJets photon bkg subtraction
 
     phymetSamples = [
     'G_DYJetsToLL_M50_MGMLM_Ext1',
+    #'G_DYJetsToLL_M50_Ext',
     'G_TBar_tWch',
     'G_TBar_tch_powheg',
     'G_TGJets_BIG', 
@@ -466,7 +468,7 @@ if dyGJets :
 else: 
     ### MC ZJets
     mczjetsSamples = [
-    'DYJetsToLL_M50_MGMLM_BIG',
+    'DYJetsToLL_M50_Ext',
 #    'DYJetsToLL_M50_MGMLM_BIG_NoRecoil',
     ]
 
