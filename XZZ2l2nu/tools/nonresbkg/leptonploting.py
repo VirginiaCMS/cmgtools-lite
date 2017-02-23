@@ -8,9 +8,14 @@ from CMGTools.XZZ2l2nu.plotting.StackPlotter import StackPlotter
 ROOT.gROOT.SetBatch()
 if len(sys.argv)!=2:
     sys.exit()
-tag="test1_{0}_".format(sys.argv[1])
-nonresscale='0.385788373483'
-channel='el'
+tag="test_{0}_".format(sys.argv[1])
+enonresscale='0.397075177316'
+mnonresscale='0.704939528419'
+if "_el_" in tag:channel='el'
+elif "_mu_" in tag:channel='mu'
+else: 
+    print "no lepton channel specified"
+    sys.exit()
 LogY=("_log_" in tag)
 Blind=("_blind_" in tag)
 test=True
@@ -29,7 +34,7 @@ outdir='plots'
 
 indir='/home/heli/XZZ/80X_20170202_light_Skim/'
 
-lumi=36.814
+lumi=35.87
 sepSig=True
 doRatio=True
 FakeData=False
@@ -41,7 +46,7 @@ ZJetsZPtWeight=True
 k=1 # signal scale
 
 elChannel='((abs(llnunu_l1_l1_pdgId)==11||abs(llnunu_l1_l2_pdgId)==11)&&llnunu_l1_l1_pt>120&&abs(llnunu_l1_l1_eta)<2.5&&llnunu_l1_l2_pt>35&&abs(llnunu_l1_l2_eta)<2.5)'
-muChannel='((abs(llnunu_l1_l1_pdgId)==13||abs(llnunu_l1_l2_pdgId)==13)&&llnunu_l1_l1_pt>55&&abs(llnunu_l1_l1_eta)<2.4&&llnunu_l1_l2_pt>20&&abs(llnunu_l1_l2_eta)<2.4&&(llnunu_l1_l1_highPtID>0.99||llnunu_l1_l2_highPtID>0.99))'
+muChannel='((abs(llnunu_l1_l1_pdgId)==13||abs(llnunu_l1_l2_pdgId)==13)&&llnunu_l1_l1_pt>60&&abs(llnunu_l1_l1_eta)<2.4&&llnunu_l1_l2_pt>20&&abs(llnunu_l1_l2_eta)<2.4&&(llnunu_l1_l1_highPtID>0.99||llnunu_l1_l2_highPtID>0.99))'
 
 if not os.path.exists(outdir): os.system('mkdir '+outdir)
 
@@ -51,8 +56,6 @@ tag = tag+puWeight+'_'
 if UseMETFilter: tag = tag+'metfilter_'
 
 if not Blind: tag = tag+'unblind_'
-
-tag = tag+channel+'_'
 
 paveText="#sqrt{s} = 13 TeV 2016 L = "+"{:.3}".format(float(lumi))+" fb^{-1}"
 
@@ -102,18 +105,30 @@ VV = MergedPlotter(vvPlotters)
 VV.setFillProperties(1001,ROOT.kMagenta)
 
 nonresPlotters=[]
-nonresSamples = ['muonegtree_light_skim_38_skim']
+nonresSamples = ['muoneg_light_skim','DYJetsToLL_emupair']
 for sample in nonresSamples:
     nonresPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))
-    nonresPlotters[-1].addCorrectionFactor('etrgsf', 'etrgsf')
-    nonresPlotters[-1].addCorrectionFactor(nonresscale, 'norm')
-    nonresPlotters[-1].addCorrectionFactor('escale', 'escale')
-    nonresPlotters[-1].addCorrectionFactor('1./({0}*1000)'.format(lumi), 'lumi')
+    if channel=='el':
+        nonresPlotters[-1].addCorrectionFactor('etrgsf', 'etrgsf')
+        nonresPlotters[-1].addCorrectionFactor(enonresscale, 'norm')
+        nonresPlotters[-1].addCorrectionFactor('escale', 'escale')
+    if channel=='mu':
+        nonresPlotters[-1].addCorrectionFactor('mtrgsf', 'mtrgsf')
+        nonresPlotters[-1].addCorrectionFactor(mnonresscale, 'norm')
+        nonresPlotters[-1].addCorrectionFactor('mscale', 'mscale')
+    if sample is not nonresSamples[0]:
+        nonresPlotters[-1].addCorrectionFactor('(-1./SumWeights)','norm')
+        nonresPlotters[-1].addCorrectionFactor('xsec','xsec')
+        nonresPlotters[-1].addCorrectionFactor('genWeight','genWeight')
+        nonresPlotters[-1].addCorrectionFactor(puWeight,'puWeight')
+        if 'DYJetsToLL' in sample:nonresPlotters[-1].addCorrectionFactor('ZPtWeight','ZPtWeight')
+    else:
+        nonresPlotters[-1].addCorrectionFactor('1./({0}*1000)'.format(lumi), 'lumi')
 NONRES = MergedPlotter(nonresPlotters)
 NONRES.setFillProperties(1001,ROOT.kOrange)
 
 zjetsPlotters=[]
-zjetsSamples = ['DYJetsToLL_M50_MGMLM_BIG',]
+zjetsSamples = ['DYJetsToLL_M50_Ext',]
 for sample in zjetsSamples:
     zjetsPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))
     zjetsPlotters[-1].addCorrectionFactor('1./SumWeights','norm')
@@ -121,7 +136,10 @@ for sample in zjetsSamples:
     zjetsPlotters[-1].addCorrectionFactor('xsec','xsec')
     zjetsPlotters[-1].addCorrectionFactor('genWeight','genWeight')
     zjetsPlotters[-1].addCorrectionFactor(puWeight,'puWeight')
-    zjetsPlotters[-1].addCorrectionFactor(lepsf+"*0.981151",'lepsf')
+    if channel=='el':
+        zjetsPlotters[-1].addCorrectionFactor(lepsf+"*1.03737",'lepsf')
+    if channel=='mu':
+        zjetsPlotters[-1].addCorrectionFactor(lepsf+"*1.03741",'lepsf')
     zjetsPlotters[-1].setAlias('passMuHLT', '((llnunu_l1_l1_trigerob_HLTbit>>3&1)||(llnunu_l1_l1_trigerob_HLTbit>>4&1)||(llnunu_l1_l2_trigerob_HLTbit>>3&1)||(llnunu_l1_l2_trigerob_HLTbit>>4&1))');
     zjetsPlotters[-1].setAlias('passElHLT', '((llnunu_l1_l1_trigerob_HLTbit>>1&1)||(llnunu_l1_l2_trigerob_HLTbit>>1&1))');
     zjetsPlotters[-1].addCorrectionFactor('(passMuHLT||passElHLT)','HLT') 
@@ -130,7 +148,7 @@ ZJets.setFillProperties(1001,ROOT.kGreen+2)
 
 dataPlotters=[]
 dataSamples = [
-'SingleEMU_Run2016Full_ReReco_v2_DtReCalib'
+'SingleEMU_Run2016Full_03Feb2017_v0',
 ]
 for sample in dataSamples:
     dataPlotters.append(TreePlotter(sample, indir+'/'+sample+'.root','tree'))
@@ -145,7 +163,7 @@ Stack = StackPlotter(outTag=tag, outDir=outdir)
 Stack.setPaveText(paveText)
 Stack.addPlotter(Data, "data_obs", "Data", "data")
 #Stack.addPlotter(WJets, "WJets","W+Jets", "background")
-#-Stack.addPlotter(NONRES, "NONReso","non reson.", "background")
+Stack.addPlotter(NONRES, "NONReso","non reson.", "background")
 Stack.addPlotter(VV, "VVZReso","ZZ WZ reson.", "background")
 #Stack.addPlotter(ggZZ, "ggZZ","ggZZ", "background")
 Stack.addPlotter(ZJets, "ZJets","ZJets", "background")
