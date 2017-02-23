@@ -2931,8 +2931,6 @@ void prepareEmuTrgsf()
   _h_sf_muoneg = (TH1F*)_file_sf_muoneg->Get("meratio");
   _h_eff_trg_mu50tkmu50_dt_1 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_dt_1");
   _h_eff_trg_mu50tkmu50_dt_2 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_dt_2");
-  _h_eff_trg_mu50tkmu50_dt_1->Scale(.01);
-  _h_eff_trg_mu50tkmu50_dt_2->Scale(.01);
   _h_eff_trg_mu50tkmu50_dt_3 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_dt_3");
   _h_eff_trg_mu50tkmu50_dt_4 = (TH2*)_file_trg_mu->Get("h_eff_trg_mu50tkmu50_dt_4");
 }
