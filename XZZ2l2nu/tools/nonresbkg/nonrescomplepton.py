@@ -165,10 +165,10 @@ Stack.doRatio(doRatio)
 tag+='_'
 print cuts
 if test: 
-    Stack.drawStack('llnunu_l1_l1_pt', cuts, str(lumi*1000), 100, 50, 250, titlex = "Pt_{l1}", units = "GeV",output=tag+'pt_l1',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=200)
-    Stack.drawStack('llnunu_l1_l2_pt', cuts, str(lumi*1000), 100, 20, 220, titlex = "Pt_{l2}", units = "GeV",output=tag+'pt_l2',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=200)
-    Stack.drawStack('llnunu_l1_eta', cuts, str(lumi*1000), 25, -2.5, 2.5, titlex = "eta", units = "",output=tag+'zeta_low',outDir=outdir,separateSignal=sepSig)
-    Stack.drawStack('llnunu_l1_phi', cuts, str(lumi*1000), 25, -3.14, 3.14, titlex = "phi", units = "",output=tag+'zphi_low',outDir=outdir,separateSignal=sepSig)
+#    Stack.drawStack('llnunu_l1_l1_pt', cuts, str(lumi*1000), 100, 50, 250, titlex = "Pt_{l1}", units = "GeV",output=tag+'pt_l1',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=200)
+#    Stack.drawStack('llnunu_l1_l2_pt', cuts, str(lumi*1000), 100, 20, 220, titlex = "Pt_{l2}", units = "GeV",output=tag+'pt_l2',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=200)
+#    Stack.drawStack('llnunu_l1_eta', cuts, str(lumi*1000), 25, -2.5, 2.5, titlex = "eta", units = "",output=tag+'zeta_low',outDir=outdir,separateSignal=sepSig)
+#    Stack.drawStack('llnunu_l1_phi', cuts, str(lumi*1000), 25, -3.14, 3.14, titlex = "phi", units = "",output=tag+'zphi_low',outDir=outdir,separateSignal=sepSig)
     Stack.drawStack('llnunu_l1_mass', cuts, str(lumi*1000), 65, 50, 180, titlex = "M(Z)", units = "GeV",output=tag+'zmass',outDir=outdir,separateSignal=sepSig)
     Stack.drawStack('llnunu_l1_pt', cuts, str(lumi*1000), 100, 0.0, 500.0, titlex = "P_{T}(Z)", units = "GeV",output=tag+'zpt_low',outDir=outdir,separateSignal=sepSig)
     Stack.drawStack('llnunu_mt', cuts, str(lumi*1000), 40, 0.0, 2000.0, titlex = "M_{T}", units = "GeV",output=tag+'mt_high3',outDir=outdir,separateSignal=sepSig,blinding=Blind,blindingCut=300)

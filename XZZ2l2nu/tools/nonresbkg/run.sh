@@ -1,6 +1,6 @@
 #! /bin/bash
 runtag(){
-tags='metzptCR_el metzptCR_mu'
+tags='metzptCR_el_log metzptCR_mu_log'
 #tags=zveto
 
 
